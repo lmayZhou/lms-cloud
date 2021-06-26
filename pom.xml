@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.lmaye</groupId>
+    <artifactId>lms-cloud</artifactId>
+    <version>1.0.1</version>
+    <name>lms-cloud</name>
+    <packaging>pom</packaging>
+    <description>LMS Cloud</description>
+
+    <!-- properties -->
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-boot.version>2.5.0</spring-boot.version>
+        <spring-cloud.version>2020.0.3</spring-cloud.version>
+        <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+        <spring-security-oauth2.version>2.3.6.RELEASE</spring-security-oauth2.version>
+    </properties>
+
+    <!-- Dependency Management -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Boot -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Spring Security Oauth2 稳定版本 -->
+            <dependency>
+                <groupId>org.springframework.security.oauth</groupId>
+                <artifactId>spring-security-oauth2</artifactId>
+                <version>${pring-security-oauth2.version}</version>
+            </dependency>
+            <!-- Spring Cloud 版本系列 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- Spring Cloud Alibaba -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- licenses信息 -->
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <!-- scm信息 -->
+    <scm>
+        <url>https://www.lmaye.com</url>
+        <connection>scm:git:https://gitee.com/lmay/lms-cloud.git</connection>
+        <developerConnection>scm:git:https://gitee.com/lmay/lms-cloud.git</developerConnection>
+    </scm>
+
+    <!-- 发布者信息 -->
+    <developers>
+        <developer>
+            <name>lmay Zhou</name>
+            <email>lmaye@lmaye.com</email>
+            <organization>LmayE</organization>
+            <organizationUrl>https://www.lmaye.com</organizationUrl>
+        </developer>
+    </developers>
+</project>

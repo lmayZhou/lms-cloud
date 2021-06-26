@@ -6,6 +6,14 @@
 #### 软件架构
 软件架构说明
 
+版本依赖关系:
+
+| 框架                   | 版本          |
+| ---------------------- | :------------ |
+| Spring Cloud           | 2020.0.3      |
+| Spring Cloud Alibaba   | 2021.1        |
+| Spring Boot            | 2.5.0         |
+| Spring Security OAuth2 | 2.3.6.RELEASE |
 
 #### 安装教程
 
