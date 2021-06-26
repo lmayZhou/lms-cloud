@@ -23,7 +23,19 @@
 
 #### 使用说明
 
-1.  xxxx
+```bash
+mvn clean deploy -P release
+```
+
+1.  版本发布报错 gpg: signing failed: Inappropriate ioctl for device
+
+    原因是 GPG 在当前终端无法弹出密码输入页面。
+
+```bash
+# 执行
+export GPG_TTY=$(tty)
+```
+
 2.  xxxx
 3.  xxxx
 
