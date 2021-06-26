@@ -27,7 +27,7 @@ import java.util.Locale;
  * @email lmay@lmaye.com
  */
 @RestControllerAdvice
-@ConditionalOnProperty(value = "i18n.enabled", prefix = "web", havingValue = "true")
+@ConditionalOnProperty(value = "i18n.enabled", prefix = "web", matchIfMissing = true)
 public class I18nMessageAdvice implements ResponseBodyAdvice<Object> {
     /**
      * Message Source
@@ -58,6 +58,7 @@ public class I18nMessageAdvice implements ResponseBodyAdvice<Object> {
      * @return Object
      */
     @Override
+    @SuppressWarnings("unchecked")
     public Object beforeBodyWrite(Object body, MethodParameter methodParam, MediaType mediaType,
                                   Class<? extends HttpMessageConverter<?>> clazz, ServerHttpRequest request,
                                   ServerHttpResponse response) {

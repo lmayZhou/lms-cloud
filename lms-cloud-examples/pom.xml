@@ -2,20 +2,40 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.5.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-    <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud-examples</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <name>lms-cloud-examples</name>
-    <description>Demo project for Spring Boot</description>
+    <packaging>pom</packaging>
+    <description>LMS Cloud Examples</description>
+
+    <!-- lookup parent from repository -->
+    <parent>
+        <groupId>com.lmaye</groupId>
+        <artifactId>lms-cloud</artifactId>
+        <version>1.0.1</version>
+    </parent>
+
+    <!-- properties -->
     <properties>
         <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <docker.plugin.version>0.32.0</docker.plugin.version>
+        <docker.host>http://192.168.0.100:2375</docker.host>
+        <docker.registry>192.168.0.100</docker.registry>
+        <docker.namespace>pig4cloud</docker.namespace>
+        <docker.username>username</docker.username>
+        <docker.password>password</docker.password>
     </properties>
+
+    <!-- modules -->
+    <modules>
+        <!-- Swagger Example -->
+        <module>lms-cloud-example-swagger2</module>
+        <module>lms-cloud-example-swagger3</module>
+    </modules>
+
+    <!-- dependencies -->
     <dependencies>
         <!-- lombok -->
         <dependency>
@@ -37,9 +57,10 @@
             <version>3.0.0</version>
         </dependency>
 
+        <!-- LMS Cloud Web Starter -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.lmaye</groupId>
+            <artifactId>lms-cloud-starter-web</artifactId>
         </dependency>
 
         <dependency>
@@ -49,13 +70,97 @@
         </dependency>
     </dependencies>
 
+    <!-- build -->
     <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
+        <finalName>${project.name}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <configuration>
+                        <finalName>${project.build.finalName}</finalName>
+                        <layers>
+                            <enabled>true</enabled>
+                        </layers>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${docker.plugin.version}</version>
+                    <configuration>
+                        <!-- Docker Remote Api-->
+                        <dockerHost>${docker.host}</dockerHost>
+                        <!-- Docker 镜像私服-->
+                        <registry>${docker.registry}</registry>
+                        <!-- 认证信息-->
+                        <authConfig>
+                            <push>
+                                <username>${docker.username}</username>
+                                <password>${docker.password}</password>
+                            </push>
+                        </authConfig>
+                        <images>
+                            <image>
+                                <!-- 镜像名称： 172.17.0.111/library/pig-gateway:2.6.3-->
+                                <name>${docker.registry}/${docker.namespace}/${project.name}:${project.version}</name>
+                                <build>
+                                    <dockerFile>${project.basedir}/Dockerfile</dockerFile>
+                                </build>
+                            </image>
+                        </images>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
+    <!-- profiles -->
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>dev</profiles.active>
+            </properties>
+
+            <activation>
+                <!-- 默认环境 -->
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+
+        <profile>
+            <id>test</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>test</profiles.active>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <!-- 环境标识，需要与配置文件的名称相对应 -->
+                <profiles.active>prod</profiles.active>
+            </properties>
+        </profile>
+    </profiles>
 </project>

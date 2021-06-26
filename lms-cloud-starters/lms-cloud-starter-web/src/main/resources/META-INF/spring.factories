@@ -1,2 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.lmaye.cloud.starter.web.WebAutoConfiguration
+  com.lmaye.cloud.starter.web.WebAutoConfiguration,\
+  com.lmaye.cloud.starter.web.utils.SpringUtils,\
+  com.lmaye.cloud.starter.web.config.I18nMessageAdvice,\
+  com.lmaye.cloud.starter.web.config.GlobalExceptionAdvice

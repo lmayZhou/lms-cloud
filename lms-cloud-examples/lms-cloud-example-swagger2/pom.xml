@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>lms-cloud-example-swagger2</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    <name>lms-cloud-example-swagger2</name>
+    <description>Swagger2 Example project for Spring Boot</description>
+
+    <!-- lookup parent from repository -->
+    <parent>
+        <groupId>com.lmaye</groupId>
+        <artifactId>lms-cloud-examples</artifactId>
+        <version>1.0.1</version>
+    </parent>
+
+    <!-- dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>com.lmaye</groupId>
+            <artifactId>lms-cloud-starter-swagger</artifactId>
+        </dependency>
+    </dependencies>
+
+    <!-- build -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+            </plugin>
+
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker.plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

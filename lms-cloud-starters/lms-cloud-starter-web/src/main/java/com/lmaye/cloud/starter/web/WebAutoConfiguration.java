@@ -23,7 +23,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 @ConditionalOnClass(DispatcherServlet.class)
-//@AutoConfigureAfter(I18nMessageAdvice.class)
 @EnableConfigurationProperties(WebProperties.class)
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
 public class WebAutoConfiguration implements WebMvcConfigurer {

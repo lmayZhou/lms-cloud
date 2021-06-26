@@ -1,0 +1,34 @@
+server:
+  port: 8080
+
+web:
+  # I18n 国际化
+  i18n:
+    # 是否启用
+    enabled: true
+    # 自定义请求路径参数( ?locale=en-US ), 默认使用请求头参数( Accept-Language )
+    localeName: locale
+    # local分隔符, 与 localeName 组合使用
+    localeDelimiter: "-"
+
+# Swagger 配置
+swagger:
+  enabled: true
+  title: Microservice 加解密服务-在线接口文档
+  description: Microservice 加解密服务-在线接口文档
+  version: 1.0.1
+  termsOfServiceUrl: https://www.lmaye.com
+  basePackage: com.lmaye.cloud.example.swagger2
+  basePath: /**
+  excludePath: /error
+  contact:
+    email: lmay@lmaye.com
+    name: lmay Zhou
+    url: https://www.lmaye.com
+  globalOperationParameters:
+    - description: 凭证
+      modelType: string
+      modelFormat:
+      name: Authorization
+      parameterType: header
+      required: false

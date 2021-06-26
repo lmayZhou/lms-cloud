@@ -131,13 +131,6 @@
                 <version>${swagger-annotations.version}</version>
             </dependency>
 
-            <!-- LMS Cloud Core -->
-            <dependency>
-                <groupId>com.lmaye</groupId>
-                <artifactId>lms-cloud-core</artifactId>
-                <version>${lms-cloud.version}</version>
-            </dependency>
-
             <!-- Swagger-UI 3 -->
             <dependency>
                 <groupId>io.springfox</groupId>
@@ -156,6 +149,27 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+
+            <!-- LMS Cloud Core -->
+            <dependency>
+                <groupId>com.lmaye</groupId>
+                <artifactId>lms-cloud-core</artifactId>
+                <version>${lms-cloud.version}</version>
+            </dependency>
+
+            <!-- LMS Cloud Web Starter -->
+            <dependency>
+                <groupId>com.lmaye</groupId>
+                <artifactId>lms-cloud-starter-web</artifactId>
+                <version>${lms-cloud.version}</version>
+            </dependency>
+
+            <!-- LMS Cloud Swagger Starter -->
+            <dependency>
+                <groupId>com.lmaye</groupId>
+                <artifactId>lms-cloud-starter-swagger</artifactId>
+                <version>${lms-cloud.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

@@ -62,7 +62,6 @@ public class SwaggerAutoConfiguration implements BeanFactoryAware {
 
     /**
      * swagger3 动态产生Docket无效
-     * TODO registerSingleton("defaultDocket", docket); 动态注册Bean存在问题
      *
      * @param swaggerProperties SwaggerProperties
      * @return List<Docket>
