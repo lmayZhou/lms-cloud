@@ -31,8 +31,7 @@
     <!-- modules -->
     <modules>
         <!-- Swagger Example -->
-        <module>lms-cloud-example-swagger2</module>
-        <module>lms-cloud-example-swagger3</module>
+        <module>lms-cloud-example-swagger</module>
     </modules>
 
     <!-- dependencies -->
@@ -42,12 +41,6 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>io.swagger.core.v3</groupId>
-            <artifactId>swagger-annotations</artifactId>
-            <version>2.1.9</version>
         </dependency>
 
         <!-- swagger-ui 3 -->

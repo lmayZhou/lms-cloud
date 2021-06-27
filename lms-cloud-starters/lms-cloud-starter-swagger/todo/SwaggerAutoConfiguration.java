@@ -1,6 +1,10 @@
 package com.lmaye.cloud.starter.swagger;
 
 import com.lmaye.cloud.starter.swagger.constants.AuthType;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.BeanFactoryAware;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -20,10 +24,7 @@ import springfox.documentation.swagger.web.ApiKeyVehicle;
 import springfox.documentation.swagger.web.UiConfiguration;
 import springfox.documentation.swagger.web.UiConfigurationBuilder;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -43,16 +44,15 @@ import java.util.stream.Collectors;
 @EnableOpenApi
 @ConditionalOnProperty(value = "enabled", prefix = "swagger", matchIfMissing = true)
 @EnableConfigurationProperties(SwaggerProperties.class)
-public class SwaggerAutoConfiguration {
+public class SwaggerAutoConfiguration implements BeanFactoryAware {
     /**
-     * 界面配置
-     *
-     * @param properties SwaggerProperties
-     * @return UiConfiguration
+     * Bean Factory
      */
+    private BeanFactory beanFactory;
+
     @Bean
-    UiConfiguration uiConfiguration(SwaggerProperties properties) {
-        SwaggerProperties.UiConfig config = properties.getUiConfig();
+    public UiConfiguration uiConfiguration(SwaggerProperties swaggerProperties) {
+        SwaggerProperties.UiConfig config = swaggerProperties.getUiConfig();
         return UiConfigurationBuilder.builder()
                 .deepLinking(config.getDeepLinking())
                 .defaultModelExpandDepth(config.getDefaultModelExpandDepth())
@@ -69,7 +69,9 @@ public class SwaggerAutoConfiguration {
     }
 
     /**
-     * swagger3 创建API文档
+     * swagger3 动态产生Docket无效
+     *
+     * TODO registerSingleton("defaultDocket", docket); 动态注册Bean存在问题
      *
      * @param properties SwaggerProperties
      * @return List<Docket>
@@ -77,29 +79,79 @@ public class SwaggerAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     @ConditionalOnBean(UiConfiguration.class)
-    Docket api(SwaggerProperties properties) {
-        List<String> basePath = properties.getBasePath();
-        if (CollectionUtils.isEmpty(basePath)) {
-            // base-path处理, 当没有配置任何path的时候，解析
-            basePath.add("/**");
+    public List<Docket> createRestApi(SwaggerProperties properties) {
+        ConfigurableBeanFactory configurableBeanFactory = (ConfigurableBeanFactory) beanFactory;
+        List<Docket> docketList = new LinkedList<>();
+        Map<String, SwaggerProperties.DocketInfo> docketInfoMap = properties.getDocket();
+        if (docketInfoMap.isEmpty()) {
+            // 没有分组
+            List<String> basePath = properties.getBasePath();
+            if (CollectionUtils.isEmpty(basePath)) {
+                // base-path处理, 当没有配置任何path的时候，解析
+                basePath.add("/**");
+            }
+            ApiSelectorBuilder builder = new Docket(DocumentationType.OAS_30).host(properties.getHost())
+                    .apiInfo(apiInfo(properties)).securityContexts(Collections.singletonList(securityContext(properties)))
+                    .globalRequestParameters(globalRequestParameters(properties.getGlobalRequestParameters()))
+                    .select().apis(RequestHandlerSelectors.basePackage(properties.getBasePackage()));
+            basePath.forEach(path -> builder.paths(PathSelectors.ant(path)));
+            // exclude-path处理
+            properties.getExcludePath().forEach(path -> builder.paths(PathSelectors.ant(path).negate()));
+            Docket docket = builder.build().securitySchemes(Collections.singletonList(securityScheme(properties)));
+            // 全局响应消息
+            if (!properties.getApplyDefaultResponse()) {
+                buildGlobalResponse(properties, docket);
+            }
+            // ignoredParameterTypes
+            Class<?>[] array = new Class[properties.getIgnoredParameterTypes().size()];
+            Class<?>[] ignoredParameterTypes = properties.getIgnoredParameterTypes().toArray(array);
+            docket.ignoredParameterTypes(ignoredParameterTypes);
+            configurableBeanFactory.registerSingleton("defaultDocket", docket);
+            docketList.add(docket);
+            return docketList;
         }
-        ApiSelectorBuilder builder = new Docket(DocumentationType.OAS_30).host(properties.getHost())
-                .apiInfo(apiInfo(properties)).securityContexts(Collections.singletonList(securityContext(properties)))
-                .globalRequestParameters(globalRequestParameters(properties.getGlobalRequestParameters()))
-                .select().apis(RequestHandlerSelectors.basePackage(properties.getBasePackage()));
-        basePath.forEach(path -> builder.paths(PathSelectors.ant(path)));
-        // exclude-path处理
-        properties.getExcludePath().forEach(path -> builder.paths(PathSelectors.ant(path).negate()));
-        Docket docket = builder.build().securitySchemes(Collections.singletonList(securityScheme(properties)));
-        // 全局响应消息
-        if (!properties.getApplyDefaultResponse()) {
-            buildGlobalResponse(properties, docket);
+        // 分组创建
+        for (String groupName : docketInfoMap.keySet()) {
+            SwaggerProperties.DocketInfo docketInfo = docketInfoMap.get(groupName);
+            SwaggerProperties.Contact dContact = docketInfo.getContact();
+            SwaggerProperties.Contact sContact = properties.getContact();
+            ApiInfo apiInfo = new ApiInfoBuilder()
+                    .title(docketInfo.getTitle().isEmpty() ? properties.getTitle() : docketInfo.getTitle())
+                    .description(docketInfo.getDescription().isEmpty() ? properties.getDescription() : docketInfo.getDescription())
+                    .version(docketInfo.getVersion().isEmpty() ? properties.getVersion() : docketInfo.getVersion())
+                    .license(docketInfo.getLicense().isEmpty() ? properties.getLicense() : docketInfo.getLicense())
+                    .licenseUrl(docketInfo.getLicenseUrl().isEmpty() ? properties.getLicenseUrl() : docketInfo.getLicenseUrl())
+                    .contact(new Contact(dContact.getName().isEmpty() ? sContact.getName() : dContact.getName(),
+                            dContact.getUrl().isEmpty() ? sContact.getUrl() : dContact.getUrl(),
+                            dContact.getEmail().isEmpty() ? sContact.getEmail() : dContact.getEmail()))
+                    .termsOfServiceUrl(docketInfo.getTermsOfServiceUrl().isEmpty() ? properties.getTermsOfServiceUrl() : docketInfo.getTermsOfServiceUrl())
+                    .build();
+            List<String> basePath = docketInfo.getBasePath();
+            if (CollectionUtils.isEmpty(basePath)) {
+                // base-path处理, 当没有配置任何path的时候，解析
+                basePath.add("/**");
+            }
+            ApiSelectorBuilder builder = new Docket(DocumentationType.OAS_30).host(properties.getHost()).apiInfo(apiInfo)
+                    .securityContexts(Collections.singletonList(securityContext(properties)))
+                    .globalRequestParameters(assemblyGlobalRequestParameters(properties.getGlobalRequestParameters(),
+                            docketInfo.getGlobalRequestParameters())).groupName(groupName).select()
+                    .apis(RequestHandlerSelectors.basePackage(docketInfo.getBasePackage()));
+            basePath.forEach(path -> builder.paths(PathSelectors.ant(path)));
+            // exclude-path处理
+            docketInfo.getExcludePath().forEach(path -> builder.paths(PathSelectors.ant(path).negate()));
+            Docket docket = builder.build().securitySchemes(Collections.singletonList(securityScheme(properties)));
+            // 全局响应消息
+            if (!properties.getApplyDefaultResponse()) {
+                buildGlobalResponse(properties, docket);
+            }
+            // ignoredParameterTypes
+            Class<?>[] array = new Class[docketInfo.getIgnoredParameterTypes().size()];
+            Class<?>[] ignoredParameterTypes = docketInfo.getIgnoredParameterTypes().toArray(array);
+            docket.ignoredParameterTypes(ignoredParameterTypes);
+            configurableBeanFactory.registerSingleton(groupName, docket);
+            docketList.add(docket);
         }
-        // ignoredParameterTypes
-        Class<?>[] array = new Class[properties.getIgnoredParameterTypes().size()];
-        Class<?>[] ignoredParameterTypes = properties.getIgnoredParameterTypes().toArray(array);
-        docket.ignoredParameterTypes(ignoredParameterTypes);
-        return docket;
+        return docketList;
     }
 
     /**
@@ -173,11 +225,37 @@ public class SwaggerAutoConfiguration {
     }
 
     /**
+     * 局部参数按照name覆盖局部参数
+     *
+     * @param globalParameters List<SwaggerProperties.GlobalOperationParameter>
+     * @param docketInfoParameters List<SwaggerProperties.GlobalOperationParameter>
+     * @return List<RequestParameter>
+     */
+    private List<RequestParameter> assemblyGlobalRequestParameters(List<SwaggerProperties.GlobalRequestParameters> globalParameters,
+            List<SwaggerProperties.GlobalRequestParameters> docketInfoParameters) {
+        if (Objects.isNull(docketInfoParameters) || docketInfoParameters.isEmpty()) {
+            return globalRequestParameters(globalParameters);
+        }
+        Set<String> docketNames = docketInfoParameters.stream()
+                .map(SwaggerProperties.GlobalRequestParameters::getName).collect(Collectors.toSet());
+        List<SwaggerProperties.GlobalRequestParameters> resultParameters = new ArrayList<>();
+        if (Objects.nonNull(globalParameters)) {
+            for (SwaggerProperties.GlobalRequestParameters parameter : globalParameters) {
+                if (!docketNames.contains(parameter.getName())) {
+                    resultParameters.add(parameter);
+                }
+            }
+        }
+        resultParameters.addAll(docketInfoParameters);
+        return globalRequestParameters(resultParameters);
+    }
+
+    /**
      * 设置全局响应消息
      * - 支持 POST,GET,PUT,PATCH,DELETE,HEAD,OPTIONS,TRACE
      *
      * @param properties SwaggerProperties
-     * @param docket     swagger docket builder
+     * @param docket  swagger docket builder
      */
     private void buildGlobalResponse(SwaggerProperties properties, Docket docket) {
         SwaggerProperties.GlobalResponse globalResponse = properties.getGlobalResponse();
@@ -204,11 +282,16 @@ public class SwaggerAutoConfiguration {
     /**
      * 获取返回消息体列表
      *
-     * @param globalResponseBodies 全局Code消息返回集合
+     * @param globalResponseBodyList 全局Code消息返回集合
      * @return List<Response>
      */
-    private List<Response> getResponseList(List<SwaggerProperties.GlobalResponseBody> globalResponseBodies) {
-        return globalResponseBodies.stream().map(it -> new ResponseBuilder().code(it.getCode())
+    private List<Response> getResponseList(List<SwaggerProperties.GlobalResponseBody> globalResponseBodyList) {
+        return globalResponseBodyList.stream().map(it -> new ResponseBuilder().code(it.getCode())
                 .description(it.getMessage()).build()).collect(Collectors.toList());
+    }
+
+    @Override
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
     }
 }

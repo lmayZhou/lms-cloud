@@ -97,7 +97,7 @@ public class SwaggerProperties {
     /**
      * 全局参数配置
      **/
-    private List<GlobalOperationParameter> globalOperationParameters;
+    private List<GlobalRequestParameters> globalRequestParameters;
 
     /**
      * 页面功能配置
@@ -107,12 +107,12 @@ public class SwaggerProperties {
     /**
      * 是否使用默认预定义的响应消息 ，默认 true
      **/
-    private Boolean applyDefaultResponseMessages = true;
+    private Boolean applyDefaultResponse = true;
 
     /**
      * 全局响应消息
      **/
-    private GlobalResponseMessage globalResponseMessage;
+    private GlobalResponse globalResponse;
 
     /**
      * 全局统一鉴权配置
@@ -121,7 +121,7 @@ public class SwaggerProperties {
 
     @Data
     @NoArgsConstructor
-    public static class GlobalOperationParameter {
+    public static class GlobalRequestParameters {
         /**
          * 参数名
          **/
@@ -209,7 +209,7 @@ public class SwaggerProperties {
          **/
         private List<String> excludePath = new ArrayList<>();
 
-        private List<GlobalOperationParameter> globalOperationParameters;
+        private List<GlobalRequestParameters> globalRequestParameters;
 
         /**
          * 忽略的参数类型
@@ -238,52 +238,52 @@ public class SwaggerProperties {
 
     @Data
     @NoArgsConstructor
-    public static class GlobalResponseMessage {
+    public static class GlobalResponse {
         /**
          * POST 响应消息体
          **/
-        List<GlobalResponseMessageBody> post = new ArrayList<>();
+        List<GlobalResponseBody> post = new ArrayList<>();
 
         /**
          * GET 响应消息体
          **/
-        List<GlobalResponseMessageBody> get = new ArrayList<>();
+        List<GlobalResponseBody> get = new ArrayList<>();
 
         /**
          * PUT 响应消息体
          **/
-        List<GlobalResponseMessageBody> put = new ArrayList<>();
+        List<GlobalResponseBody> put = new ArrayList<>();
 
         /**
          * PATCH 响应消息体
          **/
-        List<GlobalResponseMessageBody> patch = new ArrayList<>();
+        List<GlobalResponseBody> patch = new ArrayList<>();
 
         /**
          * DELETE 响应消息体
          **/
-        List<GlobalResponseMessageBody> delete = new ArrayList<>();
+        List<GlobalResponseBody> delete = new ArrayList<>();
 
         /**
          * HEAD 响应消息体
          **/
-        List<GlobalResponseMessageBody> head = new ArrayList<>();
+        List<GlobalResponseBody> head = new ArrayList<>();
 
         /**
          * OPTIONS 响应消息体
          **/
-        List<GlobalResponseMessageBody> options = new ArrayList<>();
+        List<GlobalResponseBody> options = new ArrayList<>();
 
         /**
          * TRACE 响应消息体
          **/
-        List<GlobalResponseMessageBody> trace = new ArrayList<>();
+        List<GlobalResponseBody> trace = new ArrayList<>();
 
     }
 
     @Data
     @NoArgsConstructor
-    public static class GlobalResponseMessageBody {
+    public static class GlobalResponseBody {
         /**
          * 响应码
          **/
