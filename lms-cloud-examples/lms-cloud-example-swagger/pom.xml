@@ -27,6 +27,12 @@
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-boot-starter</artifactId>
         </dependency>
+
+        <!-- LMS Cloud OAuth2 Resource Starter -->
+        <dependency>
+            <groupId>com.lmaye</groupId>
+            <artifactId>lms-cloud-starter-oauth2-resource</artifactId>
+        </dependency>
     </dependencies>
 
     <!-- build -->

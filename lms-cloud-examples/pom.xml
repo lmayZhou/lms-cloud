@@ -23,7 +23,7 @@
         <docker.plugin.version>0.32.0</docker.plugin.version>
         <docker.host>http://192.168.0.100:2375</docker.host>
         <docker.registry>192.168.0.100</docker.registry>
-        <docker.namespace>pig4cloud</docker.namespace>
+        <docker.namespace>lms-cloud</docker.namespace>
         <docker.username>username</docker.username>
         <docker.password>password</docker.password>
     </properties>
@@ -32,6 +32,8 @@
     <modules>
         <!-- Swagger Example -->
         <module>lms-cloud-example-swagger</module>
+        <!-- ElasticSearch Example -->
+        <module>lms-cloud-example-elasticsearch</module>
     </modules>
 
     <!-- dependencies -->

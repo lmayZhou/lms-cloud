@@ -29,6 +29,14 @@
         <module>lms-cloud-starter-web</module>
         <!-- LMS Cloud Swagger Starter -->
         <module>lms-cloud-starter-swagger</module>
+        <!-- LMS Cloud OAuth2 Resource Starter -->
+        <module>lms-cloud-starter-oauth2-resource</module>
+        <!-- LMS Cloud MinIO Starter -->
+        <module>lms-cloud-starter-minio</module>
+        <!-- LMS Cloud MyBatis Starter -->
+        <module>lms-cloud-starter-mybatis</module>
+        <!-- LMS Cloud ElasticSearch Starter -->
+        <module>lms-cloud-starter-elasticsearch</module>
     </modules>
 
     <!-- dependencies -->
@@ -38,6 +46,12 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Spring Boot Configuration Processor -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
         </dependency>
     </dependencies>
 </project>

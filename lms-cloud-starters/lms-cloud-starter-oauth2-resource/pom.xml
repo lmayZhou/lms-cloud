@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>lms-cloud-starter-oauth2-resource</artifactId>
+    <version>1.0.1</version>
+    <name>lms-cloud-starter-oauth2-resource</name>
+    <packaging>jar</packaging>
+    <description>LMS Cloud OAuth2 Resource Starter project for Spring Boot</description>
+
+    <!-- lookup parent from repository -->
+    <parent>
+        <groupId>com.lmaye</groupId>
+        <artifactId>lms-cloud-starters</artifactId>
+        <version>1.0.1</version>
+    </parent>
+
+    <!-- dependencies -->
+    <dependencies>
+        <dependency>
+            <groupId>com.lmaye</groupId>
+            <artifactId>lms-cloud-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.lmaye</groupId>
+            <artifactId>lms-cloud-starter-web</artifactId>
+        </dependency>
+        <!-- Spring Security OAuth2 -->
+        <dependency>
+            <groupId>org.springframework.security.oauth.boot</groupId>
+            <artifactId>spring-security-oauth2-autoconfigure</artifactId>
+        </dependency>
+    </dependencies>
+</project>
