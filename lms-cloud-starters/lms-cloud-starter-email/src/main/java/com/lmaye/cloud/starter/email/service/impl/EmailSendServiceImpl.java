@@ -7,6 +7,7 @@ import com.lmaye.cloud.starter.email.EmailAutoConfiguration;
 import com.lmaye.cloud.starter.email.entity.DynamicEmail;
 import com.lmaye.cloud.starter.email.entity.Email;
 import com.lmaye.cloud.starter.email.service.EmailSendService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -28,21 +29,18 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
+@AllArgsConstructor
 public class EmailSendServiceImpl implements EmailSendService {
     /**
      * Email Auto Configuration
      */
     @Autowired
-    private EmailAutoConfiguration emailAutoConfiguration;
+    private final EmailAutoConfiguration emailAutoConfiguration;
 
     /**
      * Java Mail Sender
      */
     private final JavaMailSender javaMailSender;
-
-    public EmailSendServiceImpl(JavaMailSender javaMailSender) {
-        this.javaMailSender = javaMailSender;
-    }
 
     /**
      * 发送邮件

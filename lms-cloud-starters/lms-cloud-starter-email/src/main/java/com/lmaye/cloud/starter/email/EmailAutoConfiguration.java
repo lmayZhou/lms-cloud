@@ -2,7 +2,6 @@ package com.lmaye.cloud.starter.email;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +21,6 @@ import java.util.*;
 @Slf4j
 @Configuration
 @EnableConfigurationProperties(EmailProperties.class)
-@ConditionalOnProperty(value = "enabled", prefix = "email", matchIfMissing = true)
 public class EmailAutoConfiguration {
     /**
      * Email Properties
@@ -42,7 +40,12 @@ public class EmailAutoConfiguration {
      */
     @PostConstruct
     public void buildMailSender() {
-        List<EmailProperties> configs = emailProperties().getConfigs();
+        EmailProperties properties = emailProperties();
+        if(!properties.getEnabled()) {
+            log.error("------------ DDisable dynamic mail sending ------------");
+            return;
+        }
+        List<EmailProperties> configs = properties.getConfigs();
         log.info("------------ init Mail Sender ------------");
         configs.forEach(it -> {
             // 邮件发送者
