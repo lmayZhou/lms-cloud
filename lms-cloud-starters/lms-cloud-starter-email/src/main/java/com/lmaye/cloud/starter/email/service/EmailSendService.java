@@ -1,6 +1,5 @@
 package com.lmaye.cloud.starter.email.service;
 
-import com.lmaye.cloud.starter.email.entity.DynamicEmail;
 import com.lmaye.cloud.starter.email.entity.Email;
 
 /**
@@ -28,5 +27,5 @@ public interface EmailSendService {
      * @param entity 邮件参数
      * @return Boolean
      */
-    Boolean dynamicSendMail(DynamicEmail entity);
+    Boolean dynamicSendMail(Email entity);
 }

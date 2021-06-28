@@ -3,7 +3,6 @@ package com.lmaye.cloud.example.email.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,12 +18,18 @@ import java.io.Serializable;
  * @email lmay@lmaye.com
  */
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(value = "EmailDTO", description = "邮件信息")
 public class EmailDTO implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 邮件发送者
+     * - 未指定: 随机或默认邮箱账号
+     */
+    @ApiModelProperty("邮件发送者(未指定: 随机或默认邮箱账号)")
+    private String mailSender;
 
     /**
      * 发件人名称

@@ -4,7 +4,6 @@ import com.lmaye.cloud.core.context.ResultCode;
 import com.lmaye.cloud.core.exception.HandleException;
 import com.lmaye.cloud.core.utils.GsonUtils;
 import com.lmaye.cloud.starter.email.EmailAutoConfiguration;
-import com.lmaye.cloud.starter.email.entity.DynamicEmail;
 import com.lmaye.cloud.starter.email.entity.Email;
 import com.lmaye.cloud.starter.email.service.EmailSendService;
 import lombok.AllArgsConstructor;
@@ -71,7 +70,7 @@ public class EmailSendServiceImpl implements EmailSendService {
      * @return Boolean
      */
     @Override
-    public Boolean dynamicSendMail(DynamicEmail entity) {
+    public Boolean dynamicSendMail(Email entity) {
         try {
             log.debug("邮件发送数据: {}", GsonUtils.toJson(entity));
             JavaMailSenderImpl mailSender = emailAutoConfiguration.getMailSender(entity.getMailSender());

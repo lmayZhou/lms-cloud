@@ -1,7 +1,8 @@
-package com.lmaye.cloud.starter.email.entity;
+package com.lmaye.cloud.example.email.vo;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -15,48 +16,55 @@ import java.io.Serializable;
  * @email lmay@lmaye.com
  */
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Email implements Serializable {
+@ApiModel(value = "EmailVO", description = "邮件信息")
+public class EmailVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
      * 邮件发送者
      * - 未指定: 随机或默认邮箱账号
      */
+    @ApiModelProperty("邮件发送者(未指定: 随机或默认邮箱账号)")
     private String mailSender;
 
     /**
      * 发件人名称
      * - 未指定: 默认邮箱账号名称
      */
+    @ApiModelProperty("发件人名称(未指定: 默认邮箱账号名称)")
     private String senderName;
 
     /**
      * 邮件接收人
      */
+    @ApiModelProperty("邮件接收人")
     private String[] recipient;
 
     /**
      * 抄送
      */
+    @ApiModelProperty("邮件接收人")
     private String[] cc;
 
     /**
      * 密送
      */
+    @ApiModelProperty("邮件接收人")
     private String[] bcc;
 
     /**
      * 邮件主题
      */
+    @ApiModelProperty("邮件接收人")
     private String subject;
 
     /**
      * 发送邮件格式为 HTML
      */
-    private Boolean html = false;
+    @ApiModelProperty("邮件接收人")
+    private Boolean html;
 
     /**
      * 邮件内容
@@ -68,5 +76,6 @@ public class Email implements Serializable {
      *     FreeMarkerTemplateUtils.processTemplateIntoString(configuration.getTemplate("ResetPassword.ftl"), GsonUtils.fromJson(data, Map.class))
      * </pre>
      */
+    @ApiModelProperty("邮件内容")
     private String content;
 }
