@@ -1,0 +1,88 @@
+server:
+  port: 8082
+
+web:
+  # I18n 国际化
+  i18n:
+    # 是否启用
+    enabled: true
+    # 自定义请求路径参数( ?locale=en-US ), 默认使用请求头参数( Accept-Language )
+    localeName: locale
+    # local分隔符, 与 localeName 组合使用
+    localeDelimiter: "-"
+
+# OAuth2 权限认证
+security:
+  oauth2:
+    resource:
+      ignore-uris:
+        - /doc.html
+        - /v3/api-docs
+        - /swagger-ui/**
+        - /swagger-resources/configuration/ui
+        - /swagger-resources
+        - /swagger-resources/configuration/security
+        - /course/coursebase/**
+        - /webjars/**
+        - /api/**/v3/api-docs
+
+# Swagger 配置
+swagger:
+  enabled: true
+  title: Email 测试-在线接口文档
+  description: Email 测试-在线接口文档
+  version: 1.0.1
+  termsOfServiceUrl: https://www.lmaye.com
+  basePackage: com.lmaye.cloud
+  basePath: /**
+  excludePath: /error
+  contact:
+    email: lmay@lmaye.com
+    name: lmay Zhou
+    url: https://www.lmaye.com
+  globalRequestParameters:
+    - description: 凭证
+      modelType: string
+      modelFormat:
+      name: Authorization
+      parameterType: header
+      required: false
+
+spring:
+  # Email
+  mail:
+    host: smtp.163.com
+    protocol: smtp
+    username: lmay@163.com
+    password: 123456
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+# Email 多配置
+email:
+  enabled: false
+  host: smtp.gmail.com
+  port: 465
+  username: survey@gmail.com
+  password: 123456
+  protocol: smtp
+  default-encoding: UTF-8
+  configs:
+    - host: smtp.163.com
+      port: 465
+      username: lmay@163.com
+      password: 123456
+      protocol: smtp
+      default-encoding: UTF-8
+    - host: smtp.gmail.com
+      port: 465
+      username: survey@gmail.com
+      password: 123456
+      protocol: smtp
+      default-encoding: UTF-8

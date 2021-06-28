@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.lmaye.cloud.starter.email.EmailAutoConfiguration,\
+  com.lmaye.cloud.starter.email.service.impl.EmailSendServiceImpl

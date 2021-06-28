@@ -37,6 +37,8 @@
         <module>lms-cloud-starter-mybatis</module>
         <!-- LMS Cloud ElasticSearch Starter -->
         <module>lms-cloud-starter-elasticsearch</module>
+        <!-- LMS Cloud Email Starter -->
+        <module>lms-cloud-starter-email</module>
     </modules>
 
     <!-- dependencies -->

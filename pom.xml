@@ -243,6 +243,13 @@
                 <artifactId>lms-cloud-starter-elasticsearch</artifactId>
                 <version>${lms-cloud.version}</version>
             </dependency>
+
+            <!-- LMS Cloud Email Starter -->
+            <dependency>
+                <groupId>com.lmaye</groupId>
+                <artifactId>lms-cloud-starter-email</artifactId>
+                <version>${lms-cloud.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

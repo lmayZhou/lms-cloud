@@ -34,6 +34,8 @@
         <module>lms-cloud-example-swagger</module>
         <!-- ElasticSearch Example -->
         <module>lms-cloud-example-elasticsearch</module>
+        <!-- Email Example -->
+        <module>lms-cloud-example-email</module>
     </modules>
 
     <!-- dependencies -->
