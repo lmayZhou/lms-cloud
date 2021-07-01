@@ -10,7 +10,6 @@ import java.io.Serializable;
  *
  * @author lmay.Zhou
  * @date 2021/6/10 22:58
- * @qq 379839355
  * @email lmay@lmaye.com
  * @since JDK1.8
  */
