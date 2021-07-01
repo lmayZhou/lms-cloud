@@ -26,26 +26,34 @@ public interface IAppService<T, ID extends Serializable> {
      * @return the saved entity will never be {@literal null}.
      * @throws ServiceException operate exception
      */
-    <S extends T> S insertOrUpdate(S entity) throws ServiceException;
+    <S extends T> Optional<S> insert(S entity) throws ServiceException;
+
+    /**
+     * 更新数据
+     *
+     * @param entity must not be {@literal null}.
+     * @return he saved entity will never be {@literal null}.
+     * @throws ServiceException operate exception
+     */
+    <S extends T> Optional<S> update(S entity) throws ServiceException;
 
     /**
      * Saves all given entities.
      *
      * @param entities must not be {@literal null}.
      * @return the saved entities will never be {@literal null}.
-     * @throws IllegalArgumentException in case the given entity is {@literal null}.
-     * @throws ServiceException         operate exception
+     * @throws ServiceException operate exception
      */
-    <S extends T> Iterable<S> saveAll(Iterable<S> entities) throws ServiceException;
+    List<T> saveAll(List<T> entities) throws ServiceException;
 
     /**
      * Deletes the entity with the given id.
      *
      * @param id must not be {@literal null}.
-     * @throws IllegalArgumentException in case the given {@code id} is {@literal null}
-     * @throws ServiceException         operate exception
+     * @return boolean
+     * @throws ServiceException operate exception
      */
-    void deleteById(ID id) throws ServiceException;
+    boolean deleteById(ID id) throws ServiceException;
 
     /**
      * Retrieves an entity by its id.

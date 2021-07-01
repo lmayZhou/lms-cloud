@@ -1,13 +1,7 @@
 package com.lmaye.cloud.starter.mybatis.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.enums.SqlMethod;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.metadata.TableInfo;
-import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
-import com.baomidou.mybatisplus.core.toolkit.Assert;
-import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lmaye.cloud.core.constants.YesOrNo;
@@ -21,11 +15,11 @@ import com.lmaye.cloud.starter.web.query.ListQuery;
 import com.lmaye.cloud.starter.web.query.PageQuery;
 import com.lmaye.cloud.starter.web.query.Query;
 import com.lmaye.cloud.starter.web.query.Sort;
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -39,7 +33,6 @@ import java.util.Optional;
  */
 public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends Serializable> extends ServiceImpl<M, T>
         implements IMyBatisService<T, ID> {
-    private static final int BATCH_SIZE = 1000;
 
     @Override
     public M getBaseMapper() {
@@ -47,23 +40,24 @@ public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends S
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public <S extends T> S insertOrUpdate(S entity) throws ServiceException {
+    public <S extends T> Optional<S> insert(S entity) throws ServiceException {
         try {
-            if (!Objects.isNull(entity)) {
-                Class<?> clazz = entity.getClass();
-                TableInfo tableInfo = TableInfoHelper.getTableInfo(clazz);
-                Assert.notNull(tableInfo, "error: can not execute. because can not find cache of TableInfo for entity!");
-                String keyProperty = tableInfo.getKeyProperty();
-                Assert.notNull(keyProperty, "error: can not execute. because can not find column for id from entity!");
-                Object idVal = ReflectionKit.getFieldValue(entity, keyProperty);
-                if (StringUtils.checkValNull(idVal) || Objects.isNull(getById((Serializable) idVal))) {
-                    save(entity);
-                } else {
-                    updateById(entity);
-                }
+            if (save(entity)) {
+                return Optional.of(entity);
             }
-            return entity;
+            return Optional.empty();
+        } catch (Exception e) {
+            throw new ServiceException(ResultCode.FAILURE, e);
+        }
+    }
+
+    @Override
+    public <S extends T> Optional<S> update(S entity) throws ServiceException {
+        try {
+            if (updateById(entity)) {
+                return Optional.of(entity);
+            }
+            return Optional.empty();
         } catch (Exception e) {
             throw new ServiceException(ResultCode.FAILURE, e);
         }
@@ -71,30 +65,21 @@ public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends S
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public <S extends T> Iterable<S> saveAll(Iterable<S> entities) throws ServiceException {
+    public List<T> saveAll(List<T> entities) throws ServiceException {
         try {
-            String sqlStatement = sqlStatement(SqlMethod.INSERT_ONE);
-            try (SqlSession session = sqlSessionBatch()) {
-                int i = 0;
-                for (T entity : entities) {
-                    session.insert(sqlStatement, entity);
-                    if (i >= 1 && i % BATCH_SIZE == 0) {
-                        session.flushStatements();
-                    }
-                    i++;
-                }
-                session.flushStatements();
+            if (saveBatch(entities)) {
+                return entities;
             }
-            return entities;
+            return new ArrayList<>();
         } catch (Exception e) {
             throw new ServiceException(ResultCode.FAILURE, e);
         }
     }
 
     @Override
-    public void deleteById(ID id) throws ServiceException {
+    public boolean deleteById(ID id) throws ServiceException {
         try {
-            removeById(id);
+            return removeById(id);
         } catch (Exception e) {
             throw new ServiceException(ResultCode.FAILURE, e);
         }
@@ -136,8 +121,7 @@ public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends S
                 }
                 return super.list();
             }
-            QueryWrapper<T> queryWrapper = getQueryWrapper(query.getQuery(), query.getSort());
-            return super.list(queryWrapper);
+            return super.list(getQueryWrapper(query.getQuery(), query.getSort()));
         } catch (Exception e) {
             throw new ServiceException(ResultCode.FAILURE, e);
         }
