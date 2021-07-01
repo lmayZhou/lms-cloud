@@ -36,7 +36,12 @@ mvn clean deploy -P release
 export GPG_TTY=$(tty)
 ```
 
-2.  xxxx
+2.  国际化
+
+```text
+Accept-Language=en-US
+```
+
 3.  xxxx
 
 #### 参与贡献
