@@ -139,6 +139,10 @@ chore：构建过程或辅助工具的变动
 ### 相关文章
 #### 『 Spring Boot 2.x 快速教程 』
 - [Spring Boot 整合 WebSocket](https://www.lmaye.com/2018/12/06/20181206163745/)
+- [Spring Boot Sharding-JDBC 读写分离分表分库](https://www.lmaye.com/2021/01/29/20210129000510/)
+
+#### 『 Gradle 快速教程 』
+- [Gradle 多项目构建](https://www.lmaye.com/2021/01/29/20210129145644/)
 
 #### 『 Centos 7 快速教程 』
 - [Centos 7 静态IP设置](https://www.lmaye.com/2017/12/22/20180809103359/)
