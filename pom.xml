@@ -36,6 +36,7 @@
         <guava.version>30.0-jre</guava.version>
         <minio.version>8.2.2</minio.version>
         <mybatis-plus.version>3.4.3.1</mybatis-plus.version>
+        <redisson.version>3.15.6</redisson.version>
     </properties>
 
     <!-- modules -->

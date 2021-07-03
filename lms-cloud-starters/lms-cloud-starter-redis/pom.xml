@@ -2,11 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud-starter-redis</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${lms-cloud.version}</version>
     <name>lms-cloud-starter-redis</name>
-    <description>Demo project for Spring Boot</description>
+    <description>LMS Cloud Redis Starter project for Spring Boot</description>
 
     <!-- lookup parent from repository -->
     <parent>
@@ -17,10 +16,20 @@
 
     <!-- dependencies -->
     <dependencies>
+        <!-- Redisson -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>${redisson.version}</version>
+        </dependency>
+
+        <!-- Spring Boot Redis -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+
+
     </dependencies>
 
     <!-- licenses信息 -->
