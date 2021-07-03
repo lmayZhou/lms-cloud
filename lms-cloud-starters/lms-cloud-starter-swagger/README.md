@@ -1,9 +1,9 @@
-# lms-cloud
+# lms-cloud-starter-swagger
 
 #### 介绍
 ​		基于 Spring Boot 自定义快速依赖集合，可快速集成于项目中，从而避免重复编写！如有更好的方案和idea，欢迎互相交流！如您觉得该项目对您有所帮助，欢迎点击右上方的Star标记，给予支持！！！谢谢 ~ ~
 
-​		通过自定义Spring Boot Starter(自动化配置)的特性，来实现快速的将各个自动配置服务快速引入我们的Spring Boot应用服务中。
+​		通过自定义Spring Boot Starter(自动化配置)的特性，来实现快速的将各个自动配置服务快速引入我们的Spring Boot应用服务中。lms-cloud-starter-swagger是为了简化原生使用代码的方式整合生成API文档，而是直接通过配置文件实现整合。
 
 #### 软件架构
 
@@ -80,7 +80,7 @@
    <!-- LMS Cloud Core -->
    <dependency>
        <groupId>com.lmaye</groupId>
-       <artifactId>lms-cloud-core</artifactId>
+       <artifactId>lms-cloud-starter-swagger</artifactId>
        <version>1.0.1</version>
    </dependency>
    ```
@@ -89,10 +89,10 @@
 
    ```groovy
    // api或compile 引用的包对于其他module是可见的
-   api 'com.lmaye:lms-cloud-core:1.0.1'
-   compile 'com.lmaye:lms-cloud-core:1.0.1'
+   api 'com.lmaye:lms-cloud-starter-swagger:1.0.1'
+   compile 'com.lmaye:lms-cloud-starter-swagger:1.0.1'
    // implementation 引用的包对于其他module是不可见的
-   implementation 'com.lmaye:lms-cloud-core:1.0.1'
+   implementation 'com.lmaye:lms-cloud-starter-swagger:1.0.1'
    ```
 
 #### 使用说明
@@ -110,6 +110,57 @@ mvn clean deploy -P release
 ```bash
 # 执行
 export GPG_TTY=$(tty)
+```
+
+##### 参数配置
+
+```yaml
+# Swagger 配置
+swagger:
+  enabled: true
+  title: XXX 服务API-在线接口文档
+  description: Starter for swagger 2.x
+  version: 1.0.1
+  termsOfServiceUrl: https://www.lmaye.com
+  basePackage: com.lmaye.cloud
+  basePath: /**
+  excludePath: /error
+  contact:
+    email: lmay@lmaye.com
+    name: lmay Zhou
+    url: https://www.lmaye.com
+  globalRequestParameters:
+    - description: 凭证
+      modelType: string
+      modelFormat:
+      name: Authorization
+      parameterType: header
+      required: false
+```
+
+##### 配置说明
+
+```properties
+- swagger.enabled																		是否启用swagger，默认：true
+- swagger.title																			标题
+- swagger.description																描述
+- swagger.version																		版本
+- swagger.license																		许可证
+- swagger.licenseUrl																许可证URL
+- swagger.termsOfServiceUrl													服务条款URL
+- swagger.contact.name															维护人名称
+- swagger.contact.url																维护人URL
+- swagger.contact.email															维护人email
+- swagger.base-package															swagger扫描的基础包，默认：全扫描
+- swagger.base-path																	需要处理的基础URL规则，默认：/**
+- swagger.exclude-path															需要排除的URL规则，默认：空
+- swagger.host																			文档的host信息，默认：空
+- swagger.globalRequestParameters[0].name						参数名
+- swagger.globalRequestParameters[0].description		描述信息
+- swagger.globalRequestParameters[0].modelType			指定参数类型 string/integer/number(具体参考 ScalarType)
+- swagger.globalRequestParameters[0].modelFormat		指定参数类型格式 string、integer[int32/int64](具体参考 ScalarType)
+- swagger.globalRequestParameters[0].parameterType	指定参数存放位置 可选header,query,path,body.form
+- swagger.globalRequestParameters[0].required				指定参数是否必传 true,false
 ```
 
 ##### git 规范
