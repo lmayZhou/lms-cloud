@@ -19,51 +19,51 @@
 ##### 项目结构
 
 ```text
-├── lms-cloud																		根目录
-│   ├── lms-cloud-common												公共资源
-│   │   ├── lms-cloud-core											Core 应用核心依赖包
+├── lms-cloud										根目录
+│   ├── lms-cloud-common							公共资源
+│   │   ├── lms-cloud-core							Core 应用核心依赖包
 │   │   │   ├── src
 │   │   │   └── pom.xml
 │   │   ├── ...
 │   │   └── pom.xml
-│   ├── lms-cloud-examples											测试示例
+│   ├── lms-cloud-examples							测试示例
 │   │   ├── lms-cloud-example-elasticsearch			ES 搜索引擎测试
 │   │   │   ├── src
 │   │   │   └── pom.xml
-│   │   ├── lms-cloud-example-email							Emial 邮件测试
+│   │   ├── lms-cloud-example-email					Email 邮件测试
 │   │   │   ├── src
 │   │   │   └── pom.xml
 │   │   ├── ...
 │   │   └── pom.xml
-│   ├── lms-cloud-starters											Spirng Boot Starter 自动配置服务
-│   │   ├── lms-cloud-starter-canal							Canal 数据同步(TODO)
+│   ├── lms-cloud-starters							Spring Boot Starter 自动配置服务
+│   │   ├── lms-cloud-starter-canal					Canal 数据同步(TODO)
 │   │   │   ├── src
 │   │   │   └── pom.xml
 │   │   ├── lms-cloud-starter-elasticsearch			ES 搜索引擎
 │   │   │   ├── src
 │   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-email							Email 邮件服务
+│   │   ├── lms-cloud-starter-email					Email 邮件服务
 │   │   │   ├── src
 │   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-minio							MinIO 对象存储服务
+│   │   ├── lms-cloud-starter-minio					MinIO 对象存储服务
 │   │   │   ├── src
 │   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-mybatis						MyBatis Puls MyBatis增强工具
+│   │   ├── lms-cloud-starter-mybatis				MyBatis Puls MyBatis增强工具
 │   │   │   ├── src
 │   │   │   └── pom.xml
 │   │   ├── lms-cloud-starter-oauth2-resource		OAuth2 Resource Server 权限资源服务
 │   │   │   ├── src
 │   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-rabbitmq					RabbitMQ 消息服务(TODO)
+│   │   ├── lms-cloud-starter-rabbitmq				RabbitMQ 消息服务(TODO)
 │   │   │   ├── src
 │   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-redis							Redis 缓存(TODO)
+│   │   ├── lms-cloud-starter-redis				    Redis 缓存(TODO)
 │   │   │   ├── src
 │   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-swagger						Swagger-UI 接口文档
+│   │   ├── lms-cloud-starter-swagger				Swagger-UI 接口文档
 │   │   │   ├── src
 │   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-web								Web 应用服务
+│   │   ├── lms-cloud-starter-web					Web 应用服务
 │   │   │   ├── src
 │   │   │   └── pom.xml
 │   │   ├── ...
@@ -136,11 +136,32 @@ chore：构建过程或辅助工具的变动
 3.  提交代码
 4.  新建 Pull Request
 
-#### 特技
+### 相关文章
+#### 『 Spring Boot 2.x 快速教程 』
+- [Spring Boot 整合 WebSocket](https://www.lmaye.com/2018/12/06/20181206163745/)
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+#### 『 Centos 7 快速教程 』
+- [Centos 7 静态IP设置](https://www.lmaye.com/2017/12/22/20180809103359/)
+- [Linux增加bash脚本为service，开机自启服务脚本配置](https://www.lmaye.com/2017/12/23/20180809103413/)
+- [Centos7 安装 Docker CE](hhttps://www.lmaye.com/2019/04/28/20190428183357/)
+- [Centos7 安装 JDK1.8](https://www.lmaye.com/2019/04/29/20190429005630/)
+- [Centos7 安装较高版本Ruby2.2+（RVM 安装）](https://www.lmaye.com/2019/01/24/20190124223042/)
+- [Centos7 开启Docker远程API访问端口](https://www.lmaye.com/2019/06/04/20190604230713/)
+
+#### 『 Docker 快速教程 』
+- [Docker 安装 MongoDB](https://www.lmaye.com/2019/05/06/20190506232452/)
+- [Docker 安装 MySQL 8.0](https://www.lmaye.com/2019/05/22/20190522162930/)
+- [Dockerfile 部署MySql 8并初始化数据脚本](https://www.lmaye.com/2019/06/02/20190602133656/)
+
+#### 『 Redis 快速教程 』
+- [Redis 配置文件详解](https://www.lmaye.com/2018/09/06/20180906002632/)
+- [Redis Cluster 集群](https://www.lmaye.com/2019/01/24/20190124212849/)
+- [Redis 配置集群遇到问题及解决方法](https://www.lmaye.com/2019/01/24/20190124223656/)
+
+### 联系我
+    * QQ: 379839355
+    * QQ群: [Æ┊Java✍交流┊Æ](https://jq.qq.com/?_wv=1027&k=5Dqlg2L)
+    * QQ群: [Cute Python](https://jq.qq.com/?_wv=1027&k=58hW2jl)
+    * Email: lmay@lmaye.com
+    * Home: [lmaye.com](https://www.lmaye.com)
+    * GitHub: [lmayZhou](https://github.com/lmayZhou)

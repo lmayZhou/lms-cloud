@@ -39,6 +39,12 @@
         <module>lms-cloud-starter-elasticsearch</module>
         <!-- LMS Cloud Email Starter -->
         <module>lms-cloud-starter-email</module>
+        <!-- LMS Cloud Canal Starter -->
+        <module>lms-cloud-starter-canal</module>
+        <!-- LMS Cloud RabbitMQ Starter -->
+        <module>lms-cloud-starter-rabbitmq</module>
+        <!-- LMS Cloud Redis Starter -->
+        <module>lms-cloud-starter-redis</module>
     </modules>
 
     <!-- dependencies -->
