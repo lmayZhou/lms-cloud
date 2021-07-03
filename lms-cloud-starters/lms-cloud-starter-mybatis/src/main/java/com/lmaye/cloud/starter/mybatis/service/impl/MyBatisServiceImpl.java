@@ -128,10 +128,9 @@ public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends S
     }
 
     @Override
-    public PageResult<T> findAll(PageQuery query) throws ServiceException {
+    public PageResult<T> findPage(PageQuery query) throws ServiceException {
         try {
             IPage<T> page;
-
             if (Objects.isNull(query.getQuery())) {
                 Sort sort = query.getSort();
                 if (!Objects.isNull(sort) && !CollectionUtils.isEmpty(sort.getOrder())) {

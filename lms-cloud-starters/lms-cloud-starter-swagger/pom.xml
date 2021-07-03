@@ -34,4 +34,36 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
+
+    <!-- licenses信息 -->
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <!-- organization -->
+    <organization>
+        <name>LmayE</name>
+        <url>https://www.lmaye.com</url>
+    </organization>
+
+    <!-- scm信息 -->
+    <scm>
+        <url>https://gitee.com/lmay/lms-cloud</url>
+        <connection>scm:git:https://gitee.com/lmay/lms-cloud.git</connection>
+        <developerConnection>scm:git:https://gitee.com/lmay/lms-cloud.git</developerConnection>
+    </scm>
+
+    <!-- 发布者信息 -->
+    <developers>
+        <developer>
+            <name>lmay Zhou</name>
+            <email>lmaye@lmaye.com</email>
+            <organization>LmayE</organization>
+            <organizationUrl>https://www.lmaye.com</organizationUrl>
+        </developer>
+    </developers>
 </project>

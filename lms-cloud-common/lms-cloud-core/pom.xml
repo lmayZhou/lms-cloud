@@ -3,10 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>lms-cloud-core</artifactId>
-    <version>${lms-cloud.version}</version>
+    <version>${lms-cloud.version</version>
     <name>lms-cloud-core</name>
     <packaging>jar</packaging>
     <description>LMS Cloud Core project for Spring Boot</description>
+    <url>https://www.lmaye.com</url>
 
     <!-- lookup parent from repository -->
     <parent>
@@ -42,4 +43,36 @@
             <artifactId>hutool-all</artifactId>
         </dependency>
     </dependencies>
+
+    <!-- licenses信息 -->
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <!-- organization -->
+    <organization>
+        <name>LmayE</name>
+        <url>https://www.lmaye.com</url>
+    </organization>
+
+    <!-- scm信息 -->
+    <scm>
+        <url>https://gitee.com/lmay/lms-cloud</url>
+        <connection>scm:git:https://gitee.com/lmay/lms-cloud.git</connection>
+        <developerConnection>scm:git:https://gitee.com/lmay/lms-cloud.git</developerConnection>
+    </scm>
+
+    <!-- 发布者信息 -->
+    <developers>
+        <developer>
+            <name>lmay Zhou</name>
+            <email>lmaye@lmaye.com</email>
+            <organization>LmayE</organization>
+            <organizationUrl>https://www.lmaye.com</organizationUrl>
+        </developer>
+    </developers>
 </project>

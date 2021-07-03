@@ -92,7 +92,7 @@ public interface IAppService<T, ID extends Serializable> {
      * @return a {@link PageResult} of entities matching the given {@link Query}.
      * @throws ServiceException operate exception
      */
-    PageResult<T> findAll(PageQuery query) throws ServiceException;
+    PageResult<T> findPage(PageQuery query) throws ServiceException;
 
     /**
      * Returns entities number matching the given {@link Query}.In case no match could be found, an zero

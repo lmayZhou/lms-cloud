@@ -1,6 +1,9 @@
 package com.lmaye.cloud.starter.web.controller;
 
+import com.lmaye.cloud.starter.web.context.PageResult;
 import com.lmaye.cloud.starter.web.context.ResultVO;
+import com.lmaye.cloud.starter.web.query.ListQuery;
+import com.lmaye.cloud.starter.web.query.PageQuery;
 import com.lmaye.cloud.starter.web.service.IAppService;
 import com.lmaye.cloud.starter.web.service.IRestConverter;
 import io.swagger.annotations.ApiOperation;
@@ -10,6 +13,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * -- Base Controller
@@ -49,8 +54,8 @@ public abstract class BaseController<S extends IAppService<T, ID>, C extends IRe
     @PostMapping("/add")
     @ApiOperation("新增")
     public ResultVO<V> add(@RequestBody @Validated D param) {
-        return service.insert(restConverter.convertDtoToEntity(param)).map(t ->
-                ResultVO.success(restConverter.convertEntityToVo(t))).orElseGet(() -> ResultVO.success(null));
+        return service.insert(restConverter.convertDtoToEntity(param)).map(it ->
+                ResultVO.success(restConverter.convertEntityToVo(it))).orElseGet(() -> ResultVO.success(null));
     }
 
     /**
@@ -62,8 +67,8 @@ public abstract class BaseController<S extends IAppService<T, ID>, C extends IRe
     @PostMapping("/edit")
     @ApiOperation("编辑")
     public ResultVO<V> edit(@RequestBody D param) {
-        return service.update(restConverter.convertDtoToEntity(param)).map(t ->
-                ResultVO.success(restConverter.convertEntityToVo(t))).orElseGet(() -> ResultVO.success(null));
+        return service.update(restConverter.convertDtoToEntity(param)).map(it ->
+                ResultVO.success(restConverter.convertEntityToVo(it))).orElseGet(() -> ResultVO.success(null));
     }
 
     /**
@@ -87,8 +92,39 @@ public abstract class BaseController<S extends IAppService<T, ID>, C extends IRe
      */
     @GetMapping("/{id}")
     @ApiOperation("查询")
-    public ResultVO<V> query(@PathVariable @ApiParam(value = "主键ID", required = true) ID id) {
-        return service.findById(id).map(t -> ResultVO.success(restConverter.convertEntityToVo(t))).orElseGet(()
+    public ResultVO<V> queryById(@PathVariable @ApiParam(value = "主键ID", required = true) ID id) {
+        return service.findById(id).map(it -> ResultVO.success(restConverter.convertEntityToVo(it))).orElseGet(()
                 -> ResultVO.success(null));
+    }
+
+    /**
+     * 查询列表
+     *
+     * @param query 请求参数
+     * @return ResultVO<List<V>>
+     */
+    @PostMapping("/queryRecords")
+    @ApiOperation("查询列表")
+    public ResultVO<List<V>> queryRecords(@RequestBody ListQuery query) {
+        return ResultVO.success(service.findAll(query).stream().map(restConverter::convertEntityToVo).collect(Collectors.toList()));
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param query 请求参数
+     * @return ResultVO<List<V>>
+     */
+    @PostMapping("/queryPage")
+    @ApiOperation("分页查询")
+    public ResultVO<PageResult<V>> queryPage(@RequestBody PageQuery query) {
+        PageResult<V> result = new PageResult<>();
+        PageResult<T> pageResult = service.findPage(query);
+        result.setRecords(pageResult.getRecords().stream().map(restConverter::convertEntityToVo).collect(Collectors.toList()));
+        result.setPageIndex(pageResult.getPageIndex());
+        result.setPageSize(pageResult.getPageSize());
+        result.setPages(pageResult.getPages());
+        result.setTotal(pageResult.getTotal());
+        return ResultVO.success(result);
     }
 }
