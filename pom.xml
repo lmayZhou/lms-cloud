@@ -45,8 +45,6 @@
         <module>lms-cloud-common</module>
         <!-- LMS Cloud Starters -->
         <module>lms-cloud-starters</module>
-        <!-- MS Cloud Examples -->
-        <module>lms-cloud-examples</module>
     </modules>
 
     <!-- Dependency Management -->
