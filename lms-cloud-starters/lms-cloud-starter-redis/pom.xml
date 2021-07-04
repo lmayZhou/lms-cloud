@@ -11,7 +11,8 @@
     <parent>
         <groupId>com.lmaye</groupId>
         <artifactId>lms-cloud-starters</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.3</version>
+        <relativePath/>
     </parent>
 
     <!-- dependencies -->
@@ -27,9 +28,8 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>${spring-boot.version}</version>
         </dependency>
-
-
     </dependencies>
 
     <!-- licenses信息 -->

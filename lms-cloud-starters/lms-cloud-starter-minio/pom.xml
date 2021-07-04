@@ -12,7 +12,7 @@
     <parent>
         <groupId>com.lmaye</groupId>
         <artifactId>lms-cloud-starters</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.3</version>
     </parent>
 
     <!-- dependencies -->
@@ -21,24 +21,28 @@
         <dependency>
             <groupId>com.lmaye</groupId>
             <artifactId>lms-cloud-core</artifactId>
+            <version>${lms-cloud.version}</version>
         </dependency>
 
         <!-- Commons IO -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
         </dependency>
 
         <!-- MinIO -->
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
+            <version>${minio.version}</version>
         </dependency>
 
         <!-- Spring Boot Json -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-json</artifactId>
+            <version>${spring-boot.version}</version>
         </dependency>
     </dependencies>
 

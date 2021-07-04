@@ -31,7 +31,7 @@
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <swagger-annotations.version>1.6.2</swagger-annotations.version>
         <ip2region.version>1.7.2</ip2region.version>
-        <lms-cloud.version>1.0.1</lms-cloud.version>
+        <lms-cloud.version>1.0.3</lms-cloud.version>
         <swagger-ui.version>3.0.0</swagger-ui.version>
         <guava.version>30.0-jre</guava.version>
         <minio.version>8.2.2</minio.version>
