@@ -26,7 +26,7 @@
 │   │   │   └── pom.xml
 │   │   ├── ...
 │   │   └── pom.xml
-│   ├── lms-cloud-examples							测试示例
+│   ├── lms-cloud-examples							测试示例(详见Dev分支)
 │   │   ├── lms-cloud-example-elasticsearch			ES 搜索引擎测试
 │   │   │   ├── src
 │   │   │   └── pom.xml
