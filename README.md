@@ -36,7 +36,7 @@
 │   │   ├── ...
 │   │   └── pom.xml
 │   ├── lms-cloud-starters							Spring Boot Starter 自动配置服务
-│   │   ├── lms-cloud-starter-canal					Canal 数据同步(TODO)
+│   │   ├── lms-cloud-starter-canal					Canal 数据同步
 │   │   │   ├── src
 │   │   │   └── pom.xml
 │   │   ├── lms-cloud-starter-elasticsearch			ES 搜索引擎
@@ -54,10 +54,10 @@
 │   │   ├── lms-cloud-starter-oauth2-resource		OAuth2 Resource Server 权限资源服务
 │   │   │   ├── src
 │   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-rabbitmq				RabbitMQ 消息服务(TODO)
+│   │   ├── lms-cloud-starter-rabbitmq				RabbitMQ 消息服务
 │   │   │   ├── src
 │   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-redis				    Redis 缓存(TODO)
+│   │   ├── lms-cloud-starter-redis				    Redis 缓存
 │   │   │   ├── src
 │   │   │   └── pom.xml
 │   │   ├── lms-cloud-starter-swagger				Swagger-UI 接口文档

@@ -1,5 +1,8 @@
 package com.lmaye.cloud.starter.rabbitmq;
 
+import org.springframework.boot.autoconfigure.AutoConfigureAfter;
+import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -11,5 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * @since JDK1.8
  */
 @Configuration
+@ConditionalOnBean(RabbitProperties.class)
+@AutoConfigureAfter(org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration.class)
 public class RabbitmqAutoConfiguration {
 }

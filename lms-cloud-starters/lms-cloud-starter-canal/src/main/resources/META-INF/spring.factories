@@ -1,2 +1,5 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.lmaye.cloud.starter.canal.CanalAutoConfiguration
+  com.lmaye.cloud.starter.canal.ZookeeperClientAutoConfiguration,\
+  com.lmaye.cloud.starter.canal.SimpleClientAutoConfiguration,\
+  com.lmaye.cloud.starter.canal.KafkaClientAutoConfiguration,\
+  com.lmaye.cloud.starter.canal.ClusterClientAutoConfiguration
