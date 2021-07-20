@@ -66,7 +66,7 @@ public abstract class BaseController<S extends IAppService<T, ID>, C extends IRe
      */
     @PostMapping("/edit")
     @ApiOperation("编辑")
-    public ResultVO<V> edit(@RequestBody D param) {
+    public ResultVO<V> edit(@RequestBody @Validated D param) {
         return service.update(restConverter.convertDtoToEntity(param)).map(it ->
                 ResultVO.success(restConverter.convertEntityToVo(it))).orElseGet(() -> ResultVO.success(null));
     }
