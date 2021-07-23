@@ -59,7 +59,7 @@ public class Email implements Serializable {
     private Boolean html = false;
 
     /**
-     * 邮件内容
+     * 邮件内容(text/html)
      * <pre>
      *     HTML模版填充示例:
      *
