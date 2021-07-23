@@ -131,10 +131,7 @@ chore       构建过程或辅助工具的变动
 
 #### 参与贡献
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+1.  示例地址: [lms-cloud-examples](https://gitee.com/lmay/spring-boot-examples/tree/master/lms-cloud-examples)
 
 ### 相关文章
 #### 『 Spring Boot 2.x 快速教程 』
