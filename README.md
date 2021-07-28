@@ -134,6 +134,7 @@ chore       构建过程或辅助工具的变动
 1.  示例地址: [lms-cloud-examples](https://gitee.com/lmay/spring-boot-examples/tree/master/lms-cloud-examples)
 
 ### 相关文章
+
 #### 『 Spring Boot 2.x 快速教程 』
 - [Spring Boot 整合 WebSocket](https://www.lmaye.com/2018/12/06/20181206163745/)
 - [Spring Boot Sharding-JDBC 读写分离分表分库](https://www.lmaye.com/2021/01/29/20210129000510/)
