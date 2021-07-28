@@ -8,11 +8,13 @@ import com.lmaye.cloud.starter.email.entity.Email;
 import com.lmaye.cloud.starter.email.service.EmailSendService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -109,5 +111,16 @@ public class EmailSendServiceImpl implements EmailSendService {
         }
         // 邮件内容
         messageHelper.setText(entity.getContent(), entity.getHtml());
+        // 附件
+        MultipartFile[] files = entity.getFiles();
+        if(!Objects.isNull(files)) {
+            for(MultipartFile file : files) {
+                String fileName = file.getOriginalFilename();
+                if(StringUtils.isEmpty(fileName)) {
+                    fileName = file.getName();
+                }
+                messageHelper.addAttachment(fileName, file);
+            }
+        }
     }
 }
