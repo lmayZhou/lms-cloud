@@ -1,5 +1,6 @@
 package com.lmaye.cloud.starter.rabbitmq.service.impl;
 
+import com.lmaye.cloud.core.utils.GsonUtils;
 import com.lmaye.cloud.starter.rabbitmq.service.IRabbitmqService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -35,7 +36,7 @@ public class RabbitmqServiceImpl implements IRabbitmqService {
     @Override
     public void send(String routingKey, Object message) {
         rabbitTemplate.convertAndSend(routingKey, message);
-        log.debug("routingKey [{}], message: {}", routingKey, message);
+        log.debug("routingKey [{}], message: {}", routingKey, GsonUtils.toJson(message));
     }
 
     /**
@@ -47,7 +48,8 @@ public class RabbitmqServiceImpl implements IRabbitmqService {
      */
     @Override
     public void send(String exchange, String routingKey, Object message) {
-        rabbitTemplate.convertAndSend(exchange, routingKey, message, new CorrelationData(UUID.randomUUID().toString()));
-        log.debug("exchange [{}], routingKey [{}], message: {}", exchange, routingKey, message);
+        String id = UUID.randomUUID().toString();
+        rabbitTemplate.convertAndSend(exchange, routingKey, message, new CorrelationData(id));
+        log.debug("exchange [{}], routingKey [{}], id [{}], message: {}", exchange, routingKey, id, GsonUtils.toJson(message));
     }
 }

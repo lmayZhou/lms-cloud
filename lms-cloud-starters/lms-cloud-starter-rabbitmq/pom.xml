@@ -11,11 +11,19 @@
 	<parent>
 		<groupId>com.lmaye</groupId>
 		<artifactId>lms-cloud-starters</artifactId>
-		<version>1.0.6</version>
+		<version>1.0.7</version>
 	</parent>
 
 	<!-- dependencies -->
 	<dependencies>
+		<!-- LMS Cloud Core -->
+		<dependency>
+			<groupId>com.lmaye</groupId>
+			<artifactId>lms-cloud-core</artifactId>
+			<version>${lms-cloud.version}</version>
+		</dependency>
+
+		<!-- Spring Boot Amqp -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
