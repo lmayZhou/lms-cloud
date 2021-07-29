@@ -201,24 +201,24 @@
                 <version>${lms-cloud.version}</version>
             </dependency>
 
-            <!-- LMS Cloud Web Starter -->
+            <!-- LMS Cloud Canal Starter -->
             <dependency>
                 <groupId>com.lmaye</groupId>
-                <artifactId>lms-cloud-starter-web</artifactId>
+                <artifactId>lms-cloud-starter-canal</artifactId>
                 <version>${lms-cloud.version}</version>
             </dependency>
 
-            <!-- LMS Cloud Swagger Starter -->
+            <!-- LMS Cloud ElasticSearch Starter -->
             <dependency>
                 <groupId>com.lmaye</groupId>
-                <artifactId>lms-cloud-starter-swagger</artifactId>
+                <artifactId>lms-cloud-starter-elasticsearch</artifactId>
                 <version>${lms-cloud.version}</version>
             </dependency>
 
-            <!-- LMS Cloud OAuth2 Resource Starter -->
+            <!-- LMS Cloud Email Starter -->
             <dependency>
                 <groupId>com.lmaye</groupId>
-                <artifactId>lms-cloud-starter-oauth2-resource</artifactId>
+                <artifactId>lms-cloud-starter-email</artifactId>
                 <version>${lms-cloud.version}</version>
             </dependency>
 
@@ -236,17 +236,38 @@
                 <version>${lms-cloud.version}</version>
             </dependency>
 
-            <!-- LMS Cloud ElasticSearch Starter -->
+            <!-- LMS Cloud OAuth2 Resource Starter -->
             <dependency>
                 <groupId>com.lmaye</groupId>
-                <artifactId>lms-cloud-starter-elasticsearch</artifactId>
+                <artifactId>lms-cloud-starter-oauth2-resource</artifactId>
                 <version>${lms-cloud.version}</version>
             </dependency>
 
-            <!-- LMS Cloud Email Starter -->
+            <!-- LMS Rabbitmq Swagger Starter -->
             <dependency>
                 <groupId>com.lmaye</groupId>
-                <artifactId>lms-cloud-starter-email</artifactId>
+                <artifactId>lms-cloud-starter-rabbitmq</artifactId>
+                <version>${lms-cloud.version}</version>
+            </dependency>
+
+            <!-- LMS Cloud Redis Starter -->
+            <dependency>
+                <groupId>com.lmaye</groupId>
+                <artifactId>lms-cloud-starter-redis</artifactId>
+                <version>${lms-cloud.version}</version>
+            </dependency>
+
+            <!-- LMS Cloud Swagger Starter -->
+            <dependency>
+                <groupId>com.lmaye</groupId>
+                <artifactId>lms-cloud-starter-swagger</artifactId>
+                <version>${lms-cloud.version}</version>
+            </dependency>
+
+            <!-- LMS Cloud Web Starter -->
+            <dependency>
+                <groupId>com.lmaye</groupId>
+                <artifactId>lms-cloud-starter-web</artifactId>
                 <version>${lms-cloud.version}</version>
             </dependency>
         </dependencies>
