@@ -2,7 +2,6 @@ package com.lmaye.cloud.starter.email.service.impl;
 
 import com.lmaye.cloud.core.context.ResultCode;
 import com.lmaye.cloud.core.exception.HandleException;
-import com.lmaye.cloud.core.utils.GsonUtils;
 import com.lmaye.cloud.starter.email.EmailAutoConfiguration;
 import com.lmaye.cloud.starter.email.entity.Email;
 import com.lmaye.cloud.starter.email.service.EmailSendService;
@@ -53,7 +52,6 @@ public class EmailSendServiceImpl implements EmailSendService {
     @Override
     public Boolean sendMail(Email entity) {
         try {
-            log.debug("邮件发送数据: {}", GsonUtils.toJson(entity));
             MimeMessage mimeMessage = javaMailSender.createMimeMessage();
             messageHelper(entity, mimeMessage, ((JavaMailSenderImpl) javaMailSender).getUsername());
             javaMailSender.send(mimeMessage);
@@ -74,7 +72,6 @@ public class EmailSendServiceImpl implements EmailSendService {
     @Override
     public Boolean dynamicSendMail(Email entity) {
         try {
-            log.debug("邮件发送数据: {}", GsonUtils.toJson(entity));
             JavaMailSenderImpl mailSender = emailAutoConfiguration.getMailSender(entity.getMailSender());
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             messageHelper(entity, mimeMessage, mailSender.getUsername());
