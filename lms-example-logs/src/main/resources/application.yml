@@ -24,11 +24,11 @@ web:
 # Swagger 配置
 swagger:
   enabled: true
-  title: 搜索引擎(ES) 测试-在线接口文档
-  description: 搜索引擎(ES) 测试-在线接口文档
+  title: API Doc-在线接口文档
+  description: API Doc-在线接口文档
   version: 1.0.1
   termsOfServiceUrl: https://www.lmaye.com
-  basePackage: com.lmaye.cloud.example.elasticsearch.controller
+  basePackage: com.lmaye.cloud.example.controller
   basePath: /**
   excludePath: /error
   contact:
