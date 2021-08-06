@@ -1,0 +1,48 @@
+server:
+  port: 8081
+
+# spring 配置
+spring:
+  # ES配置
+  elasticsearch:
+    rest:
+      uris:
+        - http://192.168.34.180:9200
+      connectionTimeout: 60s
+      readTimeout: 10s
+
+web:
+  # I18n 国际化
+  i18n:
+    # 是否启用
+    enabled: true
+    # 自定义请求路径参数( ?locale=en-US ), 默认使用请求头参数( Accept-Language )
+    localeName: locale
+    # local分隔符, 与 localeName 组合使用
+    localeDelimiter: "-"
+
+# Swagger 配置
+swagger:
+  enabled: true
+  title: 搜索引擎(ES) 测试-在线接口文档
+  description: 搜索引擎(ES) 测试-在线接口文档
+  version: 1.0.1
+  termsOfServiceUrl: https://www.lmaye.com
+  basePackage: com.lmaye.cloud.example.elasticsearch.controller
+  basePath: /**
+  excludePath: /error
+  contact:
+    email: lmay@lmaye.com
+    name: lmay Zhou
+    url: https://www.lmaye.com
+  globalRequestParameters:
+    - description: 凭证
+      modelType: string
+      modelFormat:
+      name: Authorization
+      parameterType: header
+      required: false
+
+# 日志配置
+logging:
+  config: classpath:log4j2.xml

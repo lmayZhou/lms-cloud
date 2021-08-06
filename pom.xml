@@ -45,6 +45,7 @@
         <module>lms-cloud-common</module>
         <!-- LMS Cloud Starters -->
         <module>lms-cloud-starters</module>
+        <module>lms-example-logs</module>
     </modules>
 
     <!-- Dependency Management -->
@@ -268,6 +269,13 @@
             <dependency>
                 <groupId>com.lmaye</groupId>
                 <artifactId>lms-cloud-starter-web</artifactId>
+                <version>${lms-cloud.version}</version>
+            </dependency>
+
+            <!-- LMS Cloud Logs Starter -->
+            <dependency>
+                <groupId>com.lmaye</groupId>
+                <artifactId>lms-cloud-starter-logs</artifactId>
                 <version>${lms-cloud.version}</version>
             </dependency>
         </dependencies>

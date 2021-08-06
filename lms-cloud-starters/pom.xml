@@ -46,6 +46,8 @@
         <module>lms-cloud-starter-rabbitmq</module>
         <!-- LMS Cloud Redis Starter -->
         <module>lms-cloud-starter-redis</module>
+        <!-- LMS Cloud Logs Starter -->
+        <module>lms-cloud-starter-logs</module>
     </modules>
 
     <!-- dependencies -->
