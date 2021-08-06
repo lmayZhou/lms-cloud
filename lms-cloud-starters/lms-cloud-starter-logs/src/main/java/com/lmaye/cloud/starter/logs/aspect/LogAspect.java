@@ -41,7 +41,7 @@ public class LogAspect {
      * @param point ProceedingJoinPoint
      * @throws Throwable Throwable
      */
-    @Around("@annotation(com.lmaye.cloud.starter.logs.annotation.UserLog)")
+    @Around("@annotation(com.lmaye.cloud.starter.logs.annotation.UserLog) || @within(com.lmaye.cloud.starter.logs.annotation.UserLog)")
     public Object userLog(ProceedingJoinPoint point) throws Throwable {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (Objects.isNull(attributes)) {
@@ -50,6 +50,10 @@ public class LogAspect {
         Object[] args = point.getArgs();
         MethodSignature methodSignature = (MethodSignature) point.getSignature();
         UserLog userLog = methodSignature.getMethod().getAnnotation(UserLog.class);
+        if(Objects.isNull(userLog)) {
+            // 获取类注解
+            userLog = point.getTarget().getClass().getAnnotation(UserLog.class);
+        }
         long beginTime = System.currentTimeMillis();
         Object rs = point.proceed();
         long endTime = System.currentTimeMillis();
@@ -84,7 +88,7 @@ public class LogAspect {
      * @param point ProceedingJoinPoint
      * @throws Throwable Throwable
      */
-    @Around("@annotation(com.lmaye.cloud.starter.logs.annotation.ServiceLog)")
+    @Around("@annotation(com.lmaye.cloud.starter.logs.annotation.ServiceLog) || @within(com.lmaye.cloud.starter.logs.annotation.ServiceLog)")
     public Object serviceLog(ProceedingJoinPoint point) throws Throwable {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (Objects.isNull(attributes)) {
@@ -92,6 +96,10 @@ public class LogAspect {
         }
         MethodSignature methodSignature = (MethodSignature) point.getSignature();
         ServiceLog serviceLog = methodSignature.getMethod().getAnnotation(ServiceLog.class);
+        if(Objects.isNull(serviceLog)) {
+            // 获取类注解
+            serviceLog = point.getTarget().getClass().getAnnotation(ServiceLog.class);
+        }
         long beginTime = System.currentTimeMillis();
         Object rs = point.proceed();
         long endTime = System.currentTimeMillis();
@@ -125,7 +133,7 @@ public class LogAspect {
      * @param point ProceedingJoinPoint
      * @throws Throwable Throwable
      */
-    @Around("@annotation(com.lmaye.cloud.starter.logs.annotation.FunctionLog)")
+    @Around("@annotation(com.lmaye.cloud.starter.logs.annotation.FunctionLog) || @within(com.lmaye.cloud.starter.logs.annotation.FunctionLog)")
     public Object functionLog(ProceedingJoinPoint point) throws Throwable {
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (Objects.isNull(attributes)) {
@@ -134,6 +142,10 @@ public class LogAspect {
         Object[] args = point.getArgs();
         MethodSignature methodSignature = (MethodSignature) point.getSignature();
         FunctionLog functionLog = methodSignature.getMethod().getAnnotation(FunctionLog.class);
+        if(Objects.isNull(functionLog)) {
+            // 获取类注解
+            functionLog = point.getTarget().getClass().getAnnotation(FunctionLog.class);
+        }
         long beginTime = System.currentTimeMillis();
         Object rs = point.proceed();
         long endTime = System.currentTimeMillis();
