@@ -29,9 +29,9 @@ public interface CoreConstants {
     SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA);
 
     /**
-     * 时区: GMT-8
+     * 时区: GMT+8
      */
-    TimeZone TIME_ZONE = TimeZone.getTimeZone("GMT-8:00");
+    TimeZone TIME_ZONE = TimeZone.getTimeZone("GMT+8:00");
 
     /**
      * 日期时间格式: yyyy-MM-dd
