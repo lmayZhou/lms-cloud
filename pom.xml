@@ -305,10 +305,15 @@
     <!-- 发布者信息 -->
     <developers>
         <developer>
+            <id>LmayZhou</id>
             <name>lmay Zhou</name>
             <email>lmaye@lmaye.com</email>
-            <organization>LmayE</organization>
+            <organization>LmayE Software, Inc.</organization>
             <organizationUrl>https://www.lmaye.com</organizationUrl>
+            <roles>
+                <role>Project lead</role>
+                <role>Project developer</role>
+            </roles>
         </developer>
     </developers>
 
