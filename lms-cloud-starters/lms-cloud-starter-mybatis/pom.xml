@@ -21,7 +21,6 @@
 		<dependency>
 			<groupId>com.lmaye</groupId>
 			<artifactId>lms-cloud-starter-web</artifactId>
-			<version>${lms-cloud.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -36,7 +35,6 @@
 		<dependency>
 			<groupId>com.baomidou</groupId>
 			<artifactId>mybatis-plus-boot-starter</artifactId>
-			<version>${mybatis-plus.version}</version>
 		</dependency>
 	</dependencies>
 

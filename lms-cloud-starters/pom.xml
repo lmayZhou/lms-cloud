@@ -21,7 +21,6 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <lms-cloud.version>1.0.9</lms-cloud.version>
     </properties>
 
     <!-- modules -->
@@ -52,18 +51,16 @@
 
     <!-- dependencies -->
     <dependencies>
-        <!-- lombok -->
+        <!-- LMS Cloud Core -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
+            <groupId>com.lmaye</groupId>
+            <artifactId>lms-cloud-core</artifactId>
         </dependency>
 
         <!-- Spring Boot Configuration Processor -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
     </dependencies>
 

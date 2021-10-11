@@ -21,7 +21,6 @@
         <dependency>
             <groupId>com.lmaye</groupId>
             <artifactId>lms-cloud-core</artifactId>
-            <version>${lms-cloud.version}</version>
         </dependency>
 
         <!-- UserAgentUtils -->
@@ -42,14 +41,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
 
         <!-- Spring Boot Web -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
     </dependencies>
 </project>

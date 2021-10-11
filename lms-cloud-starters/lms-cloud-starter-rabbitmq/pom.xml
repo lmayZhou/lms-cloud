@@ -20,14 +20,12 @@
 		<dependency>
 			<groupId>com.lmaye</groupId>
 			<artifactId>lms-cloud-core</artifactId>
-			<version>${lms-cloud.version}</version>
 		</dependency>
 
 		<!-- Spring Boot Amqp -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-amqp</artifactId>
-			<version>${spring-boot.version}</version>
 		</dependency>
 	</dependencies>
 

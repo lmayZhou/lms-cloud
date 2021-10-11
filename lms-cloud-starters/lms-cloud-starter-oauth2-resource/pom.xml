@@ -21,7 +21,6 @@
         <dependency>
             <groupId>com.lmaye</groupId>
             <artifactId>lms-cloud-starter-web</artifactId>
-            <version>${lms-cloud.version}</version>
             <scope>provided</scope>
         </dependency>
 

@@ -21,7 +21,6 @@
         <dependency>
             <groupId>com.lmaye</groupId>
             <artifactId>lms-cloud-starter-web</artifactId>
-            <version>${lms-cloud.version}</version>
             <scope>provided</scope>
         </dependency>
 
@@ -29,14 +28,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
-            <version>${spring-boot.version}</version>
         </dependency>
 
         <!-- guava -->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
         </dependency>
     </dependencies>
 
