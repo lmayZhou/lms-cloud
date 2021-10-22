@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud</artifactId>
-    <version>1.0.9</version>
+    <version>1.1.0</version>
     <name>lms-cloud</name>
     <packaging>pom</packaging>
     <description>LMS Cloud</description>
@@ -17,7 +17,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <lms-cloud.version>1.0.9</lms-cloud.version>
+        <lms-cloud.version>1.1.0</lms-cloud.version>
         <git-commit-plugin>2.2.5</git-commit-plugin>
         <spring.checkstyle.plugin>0.0.23</spring.checkstyle.plugin>
         <spring-boot.version>2.5.0</spring-boot.version>
@@ -37,6 +37,7 @@
         <minio.version>8.2.2</minio.version>
         <mybatis-plus.version>3.4.3.1</mybatis-plus.version>
         <redisson.version>3.15.6</redisson.version>
+        <kie-spring.version>7.60.0.Final</kie-spring.version>
     </properties>
 
     <!-- modules -->
@@ -275,6 +276,13 @@
             <dependency>
                 <groupId>com.lmaye</groupId>
                 <artifactId>lms-cloud-starter-logs</artifactId>
+                <version>${lms-cloud.version}</version>
+            </dependency>
+
+            <!-- LMS Cloud Drools Starter -->
+            <dependency>
+                <groupId>com.lmaye</groupId>
+                <artifactId>lms-cloud-starter-drools</artifactId>
                 <version>${lms-cloud.version}</version>
             </dependency>
         </dependencies>

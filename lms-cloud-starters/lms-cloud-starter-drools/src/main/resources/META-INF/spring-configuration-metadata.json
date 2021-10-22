@@ -1,0 +1,25 @@
+{
+  "groups": [
+    {
+      "name": "drools",
+      "type": "com.lmaye.cloud.starter.drools.DroolsProperties",
+      "sourceType": "com.lmaye.cloud.starter.drools.DroolsProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "drools.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用",
+      "sourceType": "com.lmaye.cloud.starter.drools.DroolsProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "drools.rules-path",
+      "type": "java.lang.String",
+      "description": "规则文件路径",
+      "sourceType": "com.lmaye.cloud.starter.drools.DroolsProperties"
+    }
+  ],
+  "hints": []
+}
