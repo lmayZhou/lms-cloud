@@ -2,7 +2,6 @@ package com.lmaye.cloud.starter.oauth2.utils;
 
 import com.lmaye.cloud.core.utils.GsonUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +13,7 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -47,13 +47,13 @@ public class TokenDecode {
      *
      * @return JSONObject
      */
-    public JSONObject getUserInfo() {
+    public Map<String, Object> getUserInfo() {
         final String pubKey = getPubKey();
         if(Objects.isNull(pubKey)) {
             return null;
         }
         Jwt jwt = JwtHelper.decodeAndVerify(getToken(), new RsaVerifier(pubKey));
-        return GsonUtils.fromJson(jwt.getClaims(), JSONObject.class);
+        return GsonUtils.fromJson(jwt.getClaims(), Map.class);
     }
 
     /**
