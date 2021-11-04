@@ -7,6 +7,7 @@
     <name>lms-cloud-starter-web</name>
     <packaging>jar</packaging>
     <description>LMS Cloud Web Starter project for Spring Boot</description>
+    <url>https://www.lmaye.com</url>
 
     <!-- lookup parent from repository -->
     <parent>

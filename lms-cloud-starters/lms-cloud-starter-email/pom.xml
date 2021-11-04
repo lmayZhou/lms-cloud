@@ -5,6 +5,7 @@
     <artifactId>lms-cloud-starter-email</artifactId>
     <version>${lms-cloud.version}</version>
     <name>lms-cloud-starter-email</name>
+    <packaging>jar</packaging>
     <description>LMS Cloud Email Starter project for Spring Boot</description>
     <url>https://www.lmaye.com</url>
 

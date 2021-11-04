@@ -5,6 +5,7 @@
     <artifactId>lms-cloud-starter-logs</artifactId>
     <version>${lms-cloud.version}</version>
     <name>lms-cloud-starter-logs</name>
+    <packaging>jar</packaging>
     <description>LMS Cloud Logs Starter project for Spring Boot</description>
     <url>https://www.lmaye.com</url>
 

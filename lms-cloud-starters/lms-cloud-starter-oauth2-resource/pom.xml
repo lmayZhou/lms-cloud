@@ -7,6 +7,7 @@
     <name>lms-cloud-starter-oauth2-resource</name>
     <packaging>jar</packaging>
     <description>LMS Cloud OAuth2 Resource Starter project for Spring Boot</description>
+    <url>https://www.lmaye.com</url>
 
     <!-- lookup parent from repository -->
     <parent>

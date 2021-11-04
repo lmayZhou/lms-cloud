@@ -5,7 +5,9 @@
 	<artifactId>lms-cloud-starter-canal</artifactId>
 	<version>${lms-cloud.version}</version>
 	<name>lms-cloud-starter-canal</name>
+	<packaging>jar</packaging>
 	<description>LMS Cloud Canal Starter project for Spring Boot</description>
+	<url>https://www.lmaye.com</url>
 
 	<!-- lookup parent from repository -->
 	<parent>
