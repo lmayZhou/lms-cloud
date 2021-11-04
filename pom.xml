@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <name>lms-cloud</name>
     <packaging>pom</packaging>
     <description>LMS Cloud</description>
@@ -17,7 +17,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <lms-cloud.version>1.1.1</lms-cloud.version>
+        <lms-cloud.version>1.1.2</lms-cloud.version>
         <git-commit-plugin>2.2.5</git-commit-plugin>
         <spring.checkstyle.plugin>0.0.23</spring.checkstyle.plugin>
         <spring-boot.version>2.5.0</spring-boot.version>
@@ -154,16 +154,10 @@
                 <version>${swagger-annotations.version}</version>
             </dependency>
 
-            <!-- Swagger-UI 3 -->
+            <!-- Swagger 3 -->
             <dependency>
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-boot-starter</artifactId>
-                <version>${swagger-ui.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.springfox</groupId>
-                <artifactId>springfox-swagger-ui</artifactId>
                 <version>${swagger-ui.version}</version>
             </dependency>
 
@@ -171,7 +165,7 @@
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-boot-starter</artifactId>
-                <version>3.0.2</version>
+                <version>3.0.3</version>
             </dependency>
 
             <!-- guava -->

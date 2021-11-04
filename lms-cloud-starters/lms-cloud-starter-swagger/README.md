@@ -116,23 +116,24 @@ export GPG_TTY=$(tty)
 
 ```yaml
 # Swagger 配置
+springfox:
+  documentation:
+    enabled: false
 swagger:
-  enabled: true
   title: XXX 服务API-在线接口文档
-  description: Starter for swagger 2.x
+  description: Starter for swagger 3.0
   version: 1.0.1
   termsOfServiceUrl: https://www.lmaye.com
-  basePackage: com.lmaye.cloud
+  basePackage: com.example.demo.controller
   basePath: /**
   excludePath: /error
   contact:
     email: lmay@lmaye.com
     name: lmay Zhou
     url: https://www.lmaye.com
-  globalRequestParameters:
+  global-operation-parameters:
     - description: 凭证
-      modelType: string
-      modelFormat:
+      modelRef: string
       name: Authorization
       parameterType: header
       required: false
@@ -141,7 +142,7 @@ swagger:
 ##### 配置说明
 
 ```text
-- swagger.enabled										是否启用swagger，默认：true
+- springfox.documentation.enabled						是否启用swagger，默认：true
 - swagger.title											标题
 - swagger.description									描述
 - swagger.version										版本
@@ -155,12 +156,12 @@ swagger:
 - swagger.base-path										需要处理的基础URL规则，默认：/**
 - swagger.exclude-path									需要排除的URL规则，默认：空
 - swagger.host											文档的host信息，默认：空
-- swagger.globalRequestParameters[0].name				参数名
-- swagger.globalRequestParameters[0].description		描述信息
-- swagger.globalRequestParameters[0].modelType			指定参数类型 string/integer/number(具体参考 ScalarType)
-- swagger.globalRequestParameters[0].modelFormat		指定参数类型格式 string、integer[int32/int64](具体参考 ScalarType)
-- swagger.globalRequestParameters[0].parameterType      指定参数存放位置 可选header,query,path,body.form
-- swagger.globalRequestParameters[0].required			指定参数是否必传 true,false
+- swagger.globalOperationParameters[0].name				参数名
+- swagger.globalOperationParameters[0].description		描述信息
+- swagger.globalOperationParameters[0].modelRef			指定参数类型 string/integer/number(具体参考 ScalarType)
+- swagger.globalOperationParameters[0].modelFormat		指定参数类型格式 string、integer[int32/int64](具体参考 ScalarType)
+- swagger.globalOperationParameters[0].parameterType    指定参数存放位置 可选header,query,path,body.form
+- swagger.globalOperationParameters[0].required			指定参数是否必传 true,false
 ```
 
 ##### git 规范

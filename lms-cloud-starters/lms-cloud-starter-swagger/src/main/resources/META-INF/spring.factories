@@ -1,2 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.lmaye.cloud.starter.swagger.SwaggerAutoConfiguration
+  com.lmaye.cloud.starter.swagger.SwaggerAutoConfiguration
