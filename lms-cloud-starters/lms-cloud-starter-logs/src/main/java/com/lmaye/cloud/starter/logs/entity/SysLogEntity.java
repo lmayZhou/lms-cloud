@@ -6,16 +6,16 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
- * -- ServiceLog Entity
- * - 业务日志
+ * -- Sys Entity
+ * - 系统日志
  *
  * @author lmay.Zhou
- * @date 2020/12/3 13:50
+ * @date 2020/12/3 13:52
  * @email lmay@lmaye.com
  */
 @Data
 @Accessors(chain = true)
-public class ServiceLogEntity implements Serializable {
+public class SysLogEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -34,29 +34,34 @@ public class ServiceLogEntity implements Serializable {
     private String appId;
 
     /**
+     * 日志类型
+     */
+    private String logType;
+
+    /**
      * 终端类型
      */
     private Integer clientType;
 
     /**
-     * 模块ID
+     * 方法
      */
-    private String moduleId;
+    private String function;
 
     /**
-     * 数据ID
+     * 方法名称
      */
-    private String dataId;
+    private String functionName;
 
     /**
-     * 标题
+     * 方法路径
      */
-    private String title;
+    private String path;
 
     /**
-     * 业务类型
+     * 用户ID
      */
-    private String businessType;
+    private Long userId;
 
     /**
      * 用户名
@@ -64,19 +69,24 @@ public class ServiceLogEntity implements Serializable {
     private String userName;
 
     /**
-     * 部门名称
+     * IP地址
      */
-    private String deptName;
+    private String ip;
 
     /**
-     * 操作类型
+     * 浏览器类型
      */
-    private String operationType;
+    private String browserType;
 
     /**
-     * 操作时间
+     * 请求方法(GET/POST/DELETE/PUT)
      */
-    private String operateTime;
+    private String method;
+
+    /**
+     * 请求参数
+     */
+    private String params;
 
     /**
      * 操作时间戳

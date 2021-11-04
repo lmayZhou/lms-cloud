@@ -1,7 +1,5 @@
 package com.lmaye.cloud.starter.logs.annotation;
 
-import com.lmaye.cloud.starter.logs.constant.LogConstant;
-
 import java.lang.annotation.Documented;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
@@ -12,24 +10,24 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
- * -- User Log
+ * -- Sys Log
  *
  * @author lmay.Zhou
  * @date 2021/7/26 12:24
  * @email lmay@lmaye.com
  * @since JDK1.8
  */
-@Target({ TYPE, METHOD })
+@Target({TYPE, METHOD})
 @Retention(RUNTIME)
 @Inherited
 @Documented
-public @interface UserLog {
+public @interface SysLog {
     /**
      * 索引名称
      *
      * @return String
      */
-    String indexName() default LogConstant.USER_LOG_INDEX;
+    String indexName() default "sys_log";
 
     /**
      * 应用ID
@@ -39,12 +37,14 @@ public @interface UserLog {
     String appId() default "";
 
     /**
-     * 操作类型
-     * - 0.退出; 1.登录;
-     *
-     * @return int
+     * 日志类型
      */
-    int operateType() default 1;
+    String logType() default "";
+
+    /**
+     * 方法名称
+     */
+    String functionName() default "";
 
     /**
      * 描述
@@ -52,4 +52,28 @@ public @interface UserLog {
      * @return String
      */
     String desc() default "";
+
+    /**
+     * Token认证
+     * - 字段名称
+     *
+     * @return String
+     */
+    String tokenAttr() default "Authorization";
+
+    /**
+     * 用户ID
+     * - 字段名称
+     *
+     * @return String
+     */
+    String userIdAttr() default "userId";
+
+    /**
+     * 用户名称
+     * - 字段名称
+     *
+     * @return String
+     */
+    String userNameAttr() default "userName";
 }
