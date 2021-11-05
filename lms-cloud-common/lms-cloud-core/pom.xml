@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.lmaye</groupId>
         <artifactId>lms-cloud-common</artifactId>
-        <version>1.1.2</version>
+        <version>1.1.3</version>
     </parent>
 
     <!-- dependencies -->

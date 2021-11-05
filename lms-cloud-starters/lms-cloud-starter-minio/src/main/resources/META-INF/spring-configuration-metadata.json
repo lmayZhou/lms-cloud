@@ -1,0 +1,76 @@
+{
+  "groups": [
+    {
+      "name": "minio.store",
+      "type": "com.lmaye.cloud.starter.minio.MinIoStoreProperties",
+      "sourceType": "com.lmaye.cloud.starter.minio.MinIoStoreProperties"
+    },
+    {
+      "name": "minio.store.clean-cache",
+      "type": "com.lmaye.cloud.starter.minio.MinIoStoreProperties$CleanCache",
+      "sourceType": "com.lmaye.cloud.starter.minio.MinIoStoreProperties",
+      "sourceMethod": "getCleanCache()"
+    }
+  ],
+  "properties": [
+    {
+      "name": "minio.store.access-key",
+      "type": "java.lang.String",
+      "description": "访问密钥",
+      "sourceType": "com.lmaye.cloud.starter.minio.MinIoStoreProperties"
+    },
+    {
+      "name": "minio.store.bucket",
+      "type": "java.lang.String",
+      "description": "bucket",
+      "sourceType": "com.lmaye.cloud.starter.minio.MinIoStoreProperties"
+    },
+    {
+      "name": "minio.store.clean-cache.alive-duration",
+      "type": "java.lang.Long",
+      "description": "存活时间(单位: millisecond) - 1000L * 60 * 60 * 24",
+      "sourceType": "com.lmaye.cloud.starter.minio.MinIoStoreProperties$CleanCache",
+      "defaultValue": 86400000
+    },
+    {
+      "name": "minio.store.clean-cache.clean-period",
+      "type": "java.lang.Long",
+      "description": "清除周期(单位: millisecond) - 1000L * 60 * 60 * 24",
+      "sourceType": "com.lmaye.cloud.starter.minio.MinIoStoreProperties$CleanCache",
+      "defaultValue": 86400000
+    },
+    {
+      "name": "minio.store.clean-cache.directory",
+      "type": "java.lang.String",
+      "description": "文件缓存目录",
+      "sourceType": "com.lmaye.cloud.starter.minio.MinIoStoreProperties$CleanCache",
+      "defaultValue": ".\/tmp"
+    },
+    {
+      "name": "minio.store.clean-cache.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否开启(默认: 开启)",
+      "sourceType": "com.lmaye.cloud.starter.minio.MinIoStoreProperties$CleanCache",
+      "defaultValue": true
+    },
+    {
+      "name": "minio.store.endpoint",
+      "type": "java.lang.String",
+      "description": "终端",
+      "sourceType": "com.lmaye.cloud.starter.minio.MinIoStoreProperties"
+    },
+    {
+      "name": "minio.store.part-max-size",
+      "type": "java.lang.Long",
+      "description": "文件最大大小",
+      "sourceType": "com.lmaye.cloud.starter.minio.MinIoStoreProperties"
+    },
+    {
+      "name": "minio.store.secret-key",
+      "type": "java.lang.String",
+      "description": "密钥",
+      "sourceType": "com.lmaye.cloud.starter.minio.MinIoStoreProperties"
+    }
+  ],
+  "hints": []
+}

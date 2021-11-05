@@ -7,7 +7,6 @@ import com.lmaye.cloud.starter.minio.service.impl.CleanCacheServiceImpl;
 import com.lmaye.cloud.starter.minio.service.impl.MinIoClientServiceImpl;
 import com.lmaye.cloud.starter.minio.service.impl.MinIoFileStoreServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +19,6 @@ import org.springframework.context.annotation.Configuration;
  * @since Email: lmay_zlm@meten.com
  */
 @Configuration
-@ConditionalOnProperty(prefix = "minio.store", value = "enabled", havingValue = "true")
 @EnableConfigurationProperties(MinIoStoreProperties.class)
 public class MinIoAutoConfiguration {
     /**
