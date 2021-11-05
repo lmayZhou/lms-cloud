@@ -118,7 +118,7 @@ export GPG_TTY=$(tty)
 # Swagger 配置
 springfox:
   documentation:
-    enabled: false
+    enabled: true
 swagger:
   title: XXX 服务API-在线接口文档
   description: Starter for swagger 3.0
