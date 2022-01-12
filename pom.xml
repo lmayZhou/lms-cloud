@@ -44,6 +44,8 @@
     <modules>
         <!-- LMS Cloud Common -->
         <module>lms-cloud-common</module>
+        <!-- LMS Cloud Plugins -->
+        <module>lms-cloud-plus</module>
         <!-- LMS Cloud Starters -->
         <module>lms-cloud-starters</module>
     </modules>
