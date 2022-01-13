@@ -85,7 +85,7 @@ Spring Cloud Alibaba    2.2.2.RELEASE
 <dependency>
     <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud-starter-serial-no</artifactId>
-    <version>1.1.4</version>
+    <version>Latest Version</version>
 </dependency>
 ```
 

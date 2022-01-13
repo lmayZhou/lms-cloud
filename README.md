@@ -52,7 +52,7 @@
 <parent>
     <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud</artifactId>
-    <version>1.1.4</version>
+    <version>Latest Version</version>
     <relativePath/>
 </parent>
 ```
