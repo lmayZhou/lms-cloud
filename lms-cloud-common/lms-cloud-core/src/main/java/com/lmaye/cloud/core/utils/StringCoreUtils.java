@@ -313,17 +313,35 @@ public final class StringCoreUtils {
 
     /**
      * 整数补零
+     * - 左边
      *
      * <pre>
      * eg:
-     *     fillZero(5, 1)  ->  00001
+     *     fillZeroLeft(5, 1)  ->  00001
      * </pre>
      *
      * @param len 长度
      * @param num 整数
      * @return String
      */
-    public static String fillZero(int len, long num) {
+    public static String fillZeroLeft(int len, long num) {
         return String.format(StrUtil.format("%0{}d", len), num);
+    }
+
+    /**
+     * 整数补零
+     * - 右边
+     *
+     * <pre>
+     * eg:
+     *     fillZeroRight(5, 1)  ->  10000
+     * </pre>
+     *
+     * @param len 长度
+     * @param num 整数
+     * @return String
+     */
+    public static String fillZeroRight(int len, long num) {
+        return String.format(StrUtil.format("%-{}s", len), num).replace(" ", "0");
     }
 }

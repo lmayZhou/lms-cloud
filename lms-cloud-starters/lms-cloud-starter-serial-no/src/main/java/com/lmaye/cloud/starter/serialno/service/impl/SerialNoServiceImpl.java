@@ -66,7 +66,7 @@ public class SerialNoServiceImpl implements ISerialNoService {
         atomicLong.expire(DateUtils.getDayEnd().toInstant());
         SerialNoContext serialNoContext = new SerialNoContext();
         serialNoContext.setStrategy(SerialNoFactory.getPattern(businessLogo, delimiter, hasDate));
-        return serialNoContext.generate(businessLogo, StringCoreUtils.fillZero(serialNoProperties.getGlobalIdLen(),
+        return serialNoContext.generate(businessLogo, StringCoreUtils.fillZeroLeft(serialNoProperties.getGlobalIdLen(),
                 incrId), delimiter, serialNoProperties.getDateFormat());
     }
 
