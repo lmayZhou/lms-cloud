@@ -1,6 +1,7 @@
 package com.lmaye.cloud.core.utils;
 
 import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.StrUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.nio.charset.Charset;
@@ -308,5 +309,21 @@ public final class StringCoreUtils {
             stringBuilder.append("*");
         }
         return param.substring(0, start) + stringBuilder.toString() + param.substring(param.length() - end);
+    }
+
+    /**
+     * 整数补零
+     *
+     * <pre>
+     * eg:
+     *     fillZero(5, 1)  ->  00001
+     * </pre>
+     *
+     * @param len 长度
+     * @param num 整数
+     * @return String
+     */
+    public static String fillZero(int len, long num) {
+        return String.format(StrUtil.format("%0{}d", len), num);
     }
 }

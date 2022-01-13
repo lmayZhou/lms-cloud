@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>lms-cloud-starter-minio</artifactId>
+    <artifactId>lms-cloud-starter-serial-no</artifactId>
     <version>${lms-cloud.version}</version>
-    <name>lms-cloud-starter-minio</name>
+    <name>lms-cloud-starter-serial-no</name>
     <packaging>jar</packaging>
-    <description>LMS Cloud MinIO Starter project for Spring Boot</description>
+    <description>LMS Cloud Serial No Starter project for Spring Boot</description>
     <url>https://www.lmaye.com</url>
 
     <!-- lookup parent from repository -->
@@ -18,28 +18,16 @@
 
     <!-- dependencies -->
     <dependencies>
-        <!-- LMS Cloud Core -->
+        <!-- LMS Cloud Redis Starter -->
         <dependency>
             <groupId>com.lmaye</groupId>
-            <artifactId>lms-cloud-core</artifactId>
+            <artifactId>lms-cloud-starter-redis</artifactId>
         </dependency>
 
-        <!-- Commons IO -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-
-        <!-- MinIO -->
-        <dependency>
-            <groupId>io.minio</groupId>
-            <artifactId>minio</artifactId>
-        </dependency>
-
-        <!-- Spring Boot Json -->
+        <!-- Spring Boot Autoconfigure -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-json</artifactId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
     </dependencies>
 

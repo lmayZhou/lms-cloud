@@ -2,19 +2,31 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>lms-cloud-starter-minio</artifactId>
-    <version>${lms-cloud.version}</version>
-    <name>lms-cloud-starter-minio</name>
-    <packaging>jar</packaging>
-    <description>LMS Cloud MinIO Starter project for Spring Boot</description>
+    <artifactId>lms-cloud-plus</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>lms-cloud-plus</name>
+    <packaging>pom</packaging>
+    <description>LMS Cloud Plugins</description>
     <url>https://www.lmaye.com</url>
 
     <!-- lookup parent from repository -->
     <parent>
         <groupId>com.lmaye</groupId>
-        <artifactId>lms-cloud-starters</artifactId>
+        <artifactId>lms-cloud</artifactId>
         <version>1.1.4</version>
     </parent>
+
+    <!-- properties -->
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <!-- modules -->
+    <modules>
+
+    </modules>
 
     <!-- dependencies -->
     <dependencies>
@@ -22,24 +34,6 @@
         <dependency>
             <groupId>com.lmaye</groupId>
             <artifactId>lms-cloud-core</artifactId>
-        </dependency>
-
-        <!-- Commons IO -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-
-        <!-- MinIO -->
-        <dependency>
-            <groupId>io.minio</groupId>
-            <artifactId>minio</artifactId>
-        </dependency>
-
-        <!-- Spring Boot Json -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-json</artifactId>
         </dependency>
     </dependencies>
 
