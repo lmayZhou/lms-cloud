@@ -42,26 +42,30 @@
 
 #### 安装教程
 
+可直接以 lms-cloud 为项目的 parent 工程。则该项目的Spring版本默认为 lms-cloud 引用的版本号，如[版本依赖关系](##### 版本依赖关系)
+
 1. ##### Maven
 
-   ```xml
-   <!-- LMS Cloud Core -->
-   <dependency>
-       <groupId>com.lmaye</groupId>
-       <artifactId>lms-cloud-core</artifactId>
-       <version>1.0.1</version>
-   </dependency>
-   ```
+```xml
+<!-- 项目引用 parent 工程 -->
+<parent>
+    <groupId>com.lmaye</groupId>
+    <artifactId>lms-cloud</artifactId>
+    <version>1.1.4</version>
+    <relativePath/>
+</parent>
+```
 
 2. ##### Gradle
 
-   ```groovy
-   // api或compile 引用的包对于其他module是可见的
-   api 'com.lmaye:lms-cloud-core:1.0.1'
-   compile 'com.lmaye:lms-cloud-core:1.0.1'
-   // implementation 引用的包对于其他module是不可见的
-   implementation 'com.lmaye:lms-cloud-core:1.0.1'
-   ```
+```groovy
+// 项目引用 Parent 工程
+dependencyManagement {
+    imports {
+        mavenBom 'com.lmaye:lms-cloud:1.1.4'
+    }
+}
+```
 
 #### 使用说明
 
