@@ -79,17 +79,7 @@ Spring Cloud Alibaba    2.2.2.RELEASE
 
 ##### 依赖
 
-1. Gradle 方式
-
-```groovy
-// api或compile 引用的包对于其他module是可见的
-api 'com.lmaye:lms-cloud-starter-serial-no:1.1.4'
-compile 'com.lmaye:lms-cloud-starter-serial-no:1.1.4'
-// implementation 引用的包对于其他module是不可见的
-implementation 'com.lmaye:lms-cloud-starter-serial-no:1.1.4'
-```
-
-2. Maven 方式
+1. Maven 方式
 
 ```xml
 <dependency>
@@ -97,6 +87,16 @@ implementation 'com.lmaye:lms-cloud-starter-serial-no:1.1.4'
     <artifactId>lms-cloud-starter-serial-no</artifactId>
     <version>1.1.4</version>
 </dependency>
+```
+
+2. Gradle 方式
+
+```groovy
+// api或compile 引用的包对于其他module是可见的
+api 'com.lmaye:lms-cloud-starter-serial-no:1.1.4'
+compile 'com.lmaye:lms-cloud-starter-serial-no:1.1.4'
+// implementation 引用的包对于其他module是不可见的
+implementation 'com.lmaye:lms-cloud-starter-serial-no:1.1.4'
 ```
 
 ##### 配置说明
