@@ -82,7 +82,7 @@ Spring Cloud Alibaba    2.2.2.RELEASE
 1. Gradle 方式
 
 ```groovy
-implementation 'com.lmaye:lms-cloud-starter-serial-no:1.1.3'
+implementation 'com.lmaye:lms-cloud-starter-serial-no:1.1.4'
 ```
 
 2. Maven 方式
@@ -91,7 +91,7 @@ implementation 'com.lmaye:lms-cloud-starter-serial-no:1.1.3'
 <dependency>
     <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud-starter-serial-no</artifactId>
-    <version>1.1.3</version>
+    <version>1.1.4</version>
 </dependency>
 ```
 
