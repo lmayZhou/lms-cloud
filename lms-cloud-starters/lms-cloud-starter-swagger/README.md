@@ -1,9 +1,11 @@
 # lms-cloud-starter-swagger
 
 #### 介绍
-​		基于 Spring Boot 自定义快速依赖集合，可快速集成于项目中，从而避免重复编写！如有更好的方案和idea，欢迎互相交流！如您觉得该项目对您有所帮助，欢迎点击右上方的Star标记，给予支持！！！谢谢 ~ ~
 
-​		通过自定义Spring Boot Starter(自动化配置)的特性，来实现快速的将各个自动配置服务快速引入我们的Spring Boot应用服务中。lms-cloud-starter-swagger是为了简化原生使用代码的方式整合生成API文档，而是直接通过配置文件实现整合。
+  基于 Spring Boot 自定义快速依赖集合，可快速集成于项目中，从而避免重复编写！ 通过自定义Spring Boot Starter(自动化配置)的特性，来实现快速的将各个自动配置服务快速引入我们的Spring Boot应用服务中。
+如有更好的方案和idea，欢迎互相交流！如您觉得该项目对您有所帮助，欢迎点击右上方的Star标记，给予支持！！！谢谢 ~ ~
+
+  Swagger Starter 是为了简化原生使用代码的方式整合配置生成API文档，而是直接通过配置文件来实现更方便快速的整合，无需再去写一个 swagger 配置类。
 
 #### 软件架构
 
@@ -20,80 +22,30 @@
 
 ```text
 ├── lms-cloud										根目录
-│   ├── lms-cloud-common							公共资源
-│   │   ├── lms-cloud-core							Core 应用核心依赖包
-│   │   │   ├── src
-│   │   │   └── pom.xml
-│   │   ├── ...
-│   │   └── pom.xml
-│   ├── lms-cloud-examples							测试示例(详见Dev分支)
-│   │   ├── lms-cloud-example-elasticsearch			ES 搜索引擎测试
-│   │   │   ├── src
-│   │   │   └── pom.xml
-│   │   ├── lms-cloud-example-email					Email 邮件测试
-│   │   │   ├── src
-│   │   │   └── pom.xml
-│   │   ├── ...
-│   │   └── pom.xml
-│   ├── lms-cloud-starters							Spring Boot Starter 自动配置服务
-│   │   ├── lms-cloud-starter-canal					Canal 数据同步(TODO)
-│   │   │   ├── src
-│   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-elasticsearch			ES 搜索引擎
-│   │   │   ├── src
-│   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-email					Email 邮件服务
-│   │   │   ├── src
-│   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-minio					MinIO 对象存储服务
-│   │   │   ├── src
-│   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-mybatis				MyBatis Puls MyBatis增强工具
-│   │   │   ├── src
-│   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-oauth2-resource		OAuth2 Resource Server 权限资源服务
-│   │   │   ├── src
-│   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-rabbitmq				RabbitMQ 消息服务(TODO)
-│   │   │   ├── src
-│   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-redis				    Redis 缓存(TODO)
-│   │   │   ├── src
-│   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-swagger				Swagger-UI 接口文档
-│   │   │   ├── src
-│   │   │   └── pom.xml
-│   │   ├── lms-cloud-starter-web					Web 应用服务
-│   │   │   ├── src
-│   │   │   └── pom.xml
-│   │   ├── ...
-│   │   └── pom.xml
 │   ├── ...
-│   └── pom.xml
+│   ├── lms-cloud-starters							Spring Boot Starter 自动配置服务
+│   │   ├── ...
+│   │   └── lms-cloud-starter-swagger				Swagger-UI 接口文档
 ```
 
 #### 安装教程
 
 1. ##### Maven
 
-   ```xml
-   <!-- LMS Cloud Core -->
-   <dependency>
-       <groupId>com.lmaye</groupId>
-       <artifactId>lms-cloud-starter-swagger</artifactId>
-       <version>1.0.1</version>
-   </dependency>
-   ```
+```xml
+<dependency>
+   <groupId>com.lmaye</groupId>
+   <artifactId>lms-cloud-starter-swagger</artifactId>
+   <version>1.0.1</version>
+</dependency>
+```
 
 2. ##### Gradle
 
-   ```groovy
-   // api或compile 引用的包对于其他module是可见的
-   api 'com.lmaye:lms-cloud-starter-swagger:1.0.1'
-   compile 'com.lmaye:lms-cloud-starter-swagger:1.0.1'
-   // implementation 引用的包对于其他module是不可见的
-   implementation 'com.lmaye:lms-cloud-starter-swagger:1.0.1'
-   ```
+```groovy
+// implementation 引用的包对于其他module是不可见的
+implementation 'com.lmaye:lms-cloud-starter-swagger:1.0.1'
+```
 
 #### 使用说明
 
@@ -115,6 +67,7 @@ export GPG_TTY=$(tty)
 ##### 参数配置
 
 ```yaml
+# 接口文档V3.0访问地址: http://127.0.0.1:8080/swagger-ui/index.html
 # Swagger 配置
 springfox:
   documentation:

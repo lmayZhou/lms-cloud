@@ -2,6 +2,9 @@
 
 #### 介绍
 
+  基于 Spring Boot 自定义快速依赖集合，可快速集成于项目中，从而避免重复编写！ 通过自定义Spring Boot Starter(自动化配置)的特性，来实现快速的将各个自动配置服务快速引入我们的Spring Boot应用服务中。
+如有更好的方案和idea，欢迎互相交流！如您觉得该项目对您有所帮助，欢迎点击右上方的Star标记，给予支持！！！谢谢 ~ ~
+
   Serial No Starter 分布式业务序列号，生成自由组合的业务编号。
 ```text
 生成业务序号
@@ -47,32 +50,11 @@ Spring Cloud Alibaba    2.2.2.RELEASE
 ##### 项目结构
 
 ```text
-├── lms-cloud                                               根目录
-│   ...
-├── lms-cloud-starters                                      Spring Boot Starter 自动配置服务
-│   ...
-│   ├── lms-cloud-starter-serial-no                         分布式业务序列号
-│   │   ├── pattern
-│   │   │   ├── SerialNoContext.java                        序列号上下文
-│   │   │   └── SerialNoFactory.java                        工厂模式
-│   │   ├── service
-│   │   │   ├── impl
-│   │   │   │   └── DelayQueueServiceImpl.java              序列号Service实现
-│   │   │   └── ISerialNoService.java                       序列号Service接口
-│   │   ├── strategy                                        策略模式
-│   │   │   ├── AllFormattedStrategy.java                   业务标识 + 日期 + Redis全局ID(已格式化)策略
-│   │   │   ├── AllUnFormattedStrategy.java                 业务标识 + 日期 + Redis全局ID(未格式化)策略
-│   │   │   ├── BusinessGlobalIdFormattedStrategy.java      业务标识 + Redis全局ID(已格式化)策略
-│   │   │   ├── BusinessGlobalIdStrategy.java               业务标识 + Redis全局ID(未格式化)策略
-│   │   │   ├── DateGlobalIdFormattedStrategy.java          日期 + Redis全局ID(已格式化)策略
-│   │   │   ├── DateGlobalIdStrategy.java                   日期 + Redis全局ID(未格式化)策略
-│   │   │   ├── GlobalIdStrategy.java                       Redis全局ID策略
-│   │   │   └── ISerialNoStrategy.java                      策略接口
-│   │   ├── SerialNoAutoConfiguration.java                  自动装配配置
-│   │   ├── SerialNoProperties.java                         配置属性
-│   │   └── pom.xml
-│   └── pom.xml
-└── pom.xml
+├── lms-cloud										根目录
+│   ├── ...
+│   ├── lms-cloud-starters							Spring Boot Starter 自动配置服务
+│   │   ├── ...
+│   │   └── lms-cloud-starter-serial-no             分布式业务序列号
 ```
 
 #### 服务使用
