@@ -42,7 +42,7 @@
 
 #### 安装教程
 
-可直接以 lms-cloud 为项目的 parent 工程。则该项目的Spring版本默认为 lms-cloud 引用的版本号，如[版本依赖关系](##### 版本依赖关系)
+可直接以 lms-cloud 为项目的 parent 工程。则该项目的Spring版本默认为 lms-cloud 引用的版本号，如[版本依赖关系](#####版本依赖关系)
 
 1. ##### Maven
 
