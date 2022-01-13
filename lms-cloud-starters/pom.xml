@@ -49,6 +49,8 @@
         <module>lms-cloud-starter-logs</module>
         <!-- LMS Cloud Drools Starter -->
         <module>lms-cloud-starter-drools</module>
+        <!-- LMS Cloud Serial No Starter -->
+        <module>lms-cloud-starter-serial-no</module>
     </modules>
 
     <!-- dependencies -->
