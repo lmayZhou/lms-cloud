@@ -312,8 +312,7 @@ public final class StringCoreUtils {
     }
 
     /**
-     * 整数补零
-     * - 左边
+     * 左边填充零
      *
      * <pre>
      * eg:
@@ -329,19 +328,20 @@ public final class StringCoreUtils {
     }
 
     /**
-     * 整数补零
-     * - 右边
+     * 右边填充数字
      *
      * <pre>
      * eg:
-     *     fillZeroRight(5, 1)  ->  10000
+     *     fillZeroRight(5, 1, "0")  ->  10000
+     *     fillZeroRight(5, 9, "9")  ->  99999
      * </pre>
      *
-     * @param len 长度
-     * @param num 整数
+     * @param len     长度
+     * @param num     整数
+     * @param fillNum 填充数字
      * @return String
      */
-    public static String fillZeroRight(int len, long num) {
-        return String.format(StrUtil.format("%-{}s", len), num).replace(" ", "0");
+    public static String fillNumRight(int len, long num, String fillNum) {
+        return String.format(StrUtil.format("%-{}s", len), num).replace(" ", fillNum);
     }
 }
