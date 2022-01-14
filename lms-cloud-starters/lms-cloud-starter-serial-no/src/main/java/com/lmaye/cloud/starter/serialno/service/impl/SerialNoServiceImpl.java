@@ -8,9 +8,12 @@ import com.lmaye.cloud.starter.serialno.pattern.SerialNoFactory;
 import com.lmaye.cloud.starter.serialno.service.ISerialNoService;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RAtomicLong;
+import org.redisson.api.RList;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Objects;
 
 /**
  * -- Serial Number Service
@@ -61,13 +64,31 @@ public class SerialNoServiceImpl implements ISerialNoService {
      */
     @Override
     public String generate(String businessLogo, String delimiter, boolean hasDate) {
-        final RAtomicLong atomicLong = redissonClient.getAtomicLong("GlobalIncrId:" + businessLogo);
-        final long incrId = atomicLong.incrementAndGet();
-        atomicLong.expire(DateUtils.getDayEnd().toInstant());
+        final String globalId;
+        final int globalIdLen = serialNoProperties.getGlobalIdLen();
+        if(serialNoProperties.getIsOrderly()) {
+            final RAtomicLong atomicLong = redissonClient.getAtomicLong("GlobalIncrId:" + businessLogo);
+            final long incrId = atomicLong.incrementAndGet();
+            atomicLong.expire(DateUtils.getDayEnd().toInstant());
+            globalId = StringCoreUtils.fillZeroLeft(globalIdLen, incrId);
+        } else {
+            final String key = "GlobalRandomIncr:" + businessLogo;
+            final RAtomicLong atomicLong = redissonClient.getAtomicLong(key);
+            atomicLong.expire(DateUtils.getDayEnd().toInstant());
+            if(Objects.equals(0L, redissonClient.getKeys().countExists(key))) {
+                atomicLong.set(9999);
+            }
+            final String incrStr = String.valueOf(atomicLong.incrementAndGet());
+            final int endNum = Integer.parseInt(StringCoreUtils.fillNumRight(globalIdLen, 9, "9"));
+            if(Objects.equals(Integer.parseInt(incrStr), endNum)) {
+                atomicLong.set(10000);
+            }
+            final RList<Integer> rList = redissonClient.getList("GlobalRandomNo:" + incrStr.substring(0, 2));
+            globalId = String.valueOf(rList.get(Integer.parseInt(incrStr.substring(2))));
+        }
         SerialNoContext serialNoContext = new SerialNoContext();
         serialNoContext.setStrategy(SerialNoFactory.getPattern(businessLogo, delimiter, hasDate));
-        return serialNoContext.generate(businessLogo, StringCoreUtils.fillZeroLeft(serialNoProperties.getGlobalIdLen(),
-                incrId), delimiter, serialNoProperties.getDateFormat());
+        return serialNoContext.generate(businessLogo, globalId, delimiter, serialNoProperties.getDateFormat());
     }
 
     /**

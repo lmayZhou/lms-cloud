@@ -15,11 +15,25 @@
       "defaultValue": "yyMMdd"
     },
     {
+      "name": "web.serial-no.each-cache-size",
+      "type": "java.lang.Integer",
+      "description": "无序时 - Redis每个缓存Key中存储序号的个数，默认1000",
+      "sourceType": "com.lmaye.cloud.starter.serialno.SerialNoProperties",
+      "defaultValue": 1000
+    },
+    {
       "name": "web.serial-no.global-id-len",
       "type": "java.lang.Integer",
-      "description": "全局ID长度，默认8位",
+      "description": "全局ID长度，默认5位",
       "sourceType": "com.lmaye.cloud.starter.serialno.SerialNoProperties",
-      "defaultValue": 8
+      "defaultValue": 5
+    },
+    {
+      "name": "web.serial-no.is-orderly",
+      "type": "java.lang.Boolean",
+      "description": "是否有序的全局ID，默认有序(true: 有序; false: 无序;)",
+      "sourceType": "com.lmaye.cloud.starter.serialno.SerialNoProperties",
+      "defaultValue": true
     }
   ],
   "hints": []
