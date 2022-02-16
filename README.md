@@ -27,6 +27,7 @@
 │   ├── lms-cloud-plus                              服务插件
 │   ├── lms-cloud-starters							Spring Boot Starter 自动配置服务
 │   │   ├── lms-cloud-starter-canal					Canal 数据同步
+│   │   ├── lms-cloud-starter-delay-queue           延迟队列自动配置服务
 │   │   ├── lms-cloud-starter-drools				规则引擎
 │   │   ├── lms-cloud-starter-elasticsearch			ES 搜索引擎
 │   │   ├── lms-cloud-starter-email					Email 邮件服务
