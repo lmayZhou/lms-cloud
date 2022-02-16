@@ -9,10 +9,13 @@ import com.lmaye.cloud.starter.serialno.service.ISerialNoService;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RAtomicLong;
 import org.redisson.api.RList;
+import org.redisson.api.RScript;
 import org.redisson.api.RedissonClient;
+import org.redisson.client.codec.LongCodec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Objects;
 
 /**
@@ -66,23 +69,29 @@ public class SerialNoServiceImpl implements ISerialNoService {
     public String generate(String businessLogo, String delimiter, boolean hasDate) {
         final String globalId;
         final int globalIdLen = serialNoProperties.getGlobalIdLen();
-        if(serialNoProperties.getIsOrderly()) {
+        if (serialNoProperties.getIsOrderly()) {
             final RAtomicLong atomicLong = redissonClient.getAtomicLong("GlobalIncrId:" + businessLogo);
             final long incrId = atomicLong.incrementAndGet();
             atomicLong.expire(DateUtils.getDayEnd().toInstant());
             globalId = StringCoreUtils.fillZeroLeft(globalIdLen, incrId);
         } else {
+            final String startNo = StringCoreUtils.fillNumRight(globalIdLen, 1, "0");
             final String key = "GlobalRandomIncr:" + businessLogo;
             final RAtomicLong atomicLong = redissonClient.getAtomicLong(key);
             atomicLong.expire(DateUtils.getDayEnd().toInstant());
-            if(Objects.equals(0L, redissonClient.getKeys().countExists(key))) {
-                atomicLong.set(9999);
+            if (Objects.equals(0L, redissonClient.getKeys().countExists(key))) {
+                atomicLong.set(Integer.parseInt(startNo) - 1);
             }
-            final String incrStr = String.valueOf(atomicLong.incrementAndGet());
-            final int endNum = Integer.parseInt(StringCoreUtils.fillNumRight(globalIdLen, 9, "9"));
-            if(Objects.equals(Integer.parseInt(incrStr), endNum)) {
-                atomicLong.set(10000);
-            }
+            final Long incr = redissonClient.getScript(LongCodec.INSTANCE).eval(RScript.Mode.READ_WRITE,
+                    "local key = KEYS[1];" +
+                            "local incr = redis.call('incr', key);" +
+                            "if incr >= tonumber(ARGV[1]) then " +
+                            "    redis.call('set', key, tonumber(ARGV[2]));" +
+                            "    return incr;" +
+                            "end;" +
+                            "return incr;", RScript.ReturnType.INTEGER, Collections.singletonList(key),
+                    StringCoreUtils.fillNumRight(globalIdLen, 9, "9"), startNo);
+            final String incrStr = String.valueOf(incr);
             final RList<Integer> rList = redissonClient.getList("GlobalRandomNo:" + incrStr.substring(0, 2));
             globalId = String.valueOf(rList.get(Integer.parseInt(incrStr.substring(2))));
         }
