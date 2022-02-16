@@ -2,7 +2,7 @@ package com.lmaye.cloud.starter.delay.queue.producer;
 
 import com.github.rholder.retry.Attempt;
 import com.github.rholder.retry.RetryListener;
-import com.hellotech.cloud.common.utils.GsonUtils;
+import com.lmaye.cloud.core.utils.GsonUtils;
 import com.lmaye.cloud.starter.delay.queue.DelayQueueProperties;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
