@@ -30,7 +30,7 @@ public class AutoFillMetaObjectHandler implements MetaObjectHandler {
             setFieldValByName("createdBy", userName, metaObject);
             setFieldValByName("lastModifiedBy", userName, metaObject);
         }
-        setFieldValByName("createAt", now, metaObject);
+        setFieldValByName("createdAt", now, metaObject);
         setFieldValByName("deleted", YesOrNo.NO.getCode(), metaObject);
         setFieldValByName("lastModifiedAt", now, metaObject);
         setFieldValByName("version", CoreConstants.VERSION, metaObject);
