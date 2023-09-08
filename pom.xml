@@ -288,6 +288,13 @@
                 <artifactId>lms-cloud-starter-serial-no</artifactId>
                 <version>${lms-cloud.version}</version>
             </dependency>
+
+            <!-- LMS Cloud Delay Queue Starter -->
+            <dependency>
+                <groupId>com.lmaye</groupId>
+                <artifactId>lms-cloud-starter-delay-queue</artifactId>
+                <version>${lms-cloud.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

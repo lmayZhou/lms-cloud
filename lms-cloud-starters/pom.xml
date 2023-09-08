@@ -51,6 +51,8 @@
         <module>lms-cloud-starter-drools</module>
         <!-- LMS Cloud Serial No Starter -->
         <module>lms-cloud-starter-serial-no</module>
+        <!-- LMS Cloud Delay Queue Starter -->
+        <module>lms-cloud-starter-delay-queue</module>
     </modules>
 
     <!-- dependencies -->

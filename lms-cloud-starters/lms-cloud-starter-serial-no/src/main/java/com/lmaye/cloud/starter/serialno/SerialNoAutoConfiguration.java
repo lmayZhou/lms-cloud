@@ -53,6 +53,8 @@ public class SerialNoAutoConfiguration {
 
     /**
      * Serial No Service
+     *
+     * @return ISerialNoService
      */
     @Bean
     ISerialNoService serialNoService() {
@@ -76,7 +78,6 @@ public class SerialNoAutoConfiguration {
             }
             Collections.shuffle(nums);
             final int eachCacheSize = serialNoProperties.getEachCacheSize();
-            // 10000~99999生成90个key，遍历从10开始，所以size + 9
             final int keyCacheSize = (endNum + 1 - startNum) / eachCacheSize + 9;
             for (int i = 10; i <= keyCacheSize; i++) {
                 final RList<Integer> rList = redissonClient.getList("GlobalRandomNo:" + i);

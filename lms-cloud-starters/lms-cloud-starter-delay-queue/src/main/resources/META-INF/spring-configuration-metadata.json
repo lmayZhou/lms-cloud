@@ -1,0 +1,67 @@
+{
+  "groups": [
+    {
+      "name": "delay-queue",
+      "type": "com.lmaye.cloud.starter.delay.queue.DelayQueueProperties",
+      "sourceType": "com.lmaye.cloud.starter.delay.queue.DelayQueueProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "delay-queue.core-pool-size",
+      "type": "java.lang.Integer",
+      "description": "线程池大小",
+      "sourceType": "com.lmaye.cloud.starter.delay.queue.DelayQueueProperties",
+      "defaultValue": 10
+    },
+    {
+      "name": "delay-queue.delay",
+      "type": "java.lang.Long",
+      "description": "线程延迟时间(单位: s)，一个执行的终止和下一个执行的开始之间的延迟",
+      "sourceType": "com.lmaye.cloud.starter.delay.queue.DelayQueueProperties",
+      "defaultValue": 30
+    },
+    {
+      "name": "delay-queue.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用",
+      "sourceType": "com.lmaye.cloud.starter.delay.queue.DelayQueueProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "delay-queue.initial-delay",
+      "type": "java.lang.Long",
+      "description": "初始延迟时间(单位: s)，延迟第一次执行的时间",
+      "sourceType": "com.lmaye.cloud.starter.delay.queue.DelayQueueProperties",
+      "defaultValue": 0
+    },
+    {
+      "name": "delay-queue.lock-key",
+      "type": "java.lang.String",
+      "description": "分布式锁Key",
+      "sourceType": "com.lmaye.cloud.starter.delay.queue.DelayQueueProperties",
+      "defaultValue": "Locked"
+    },
+    {
+      "name": "delay-queue.queue-cache-key",
+      "type": "java.lang.String",
+      "description": "队列缓存Key",
+      "sourceType": "com.lmaye.cloud.starter.delay.queue.DelayQueueProperties"
+    },
+    {
+      "name": "delay-queue.retry-nums",
+      "type": "java.lang.Long",
+      "description": "重试次数",
+      "sourceType": "com.lmaye.cloud.starter.delay.queue.DelayQueueProperties",
+      "defaultValue": 3
+    },
+    {
+      "name": "delay-queue.retry-sleep-time",
+      "type": "java.lang.Long",
+      "description": "重试睡眠时间(单位: s)",
+      "sourceType": "com.lmaye.cloud.starter.delay.queue.DelayQueueProperties",
+      "defaultValue": 3
+    }
+  ],
+  "hints": []
+}
