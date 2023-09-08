@@ -87,6 +87,29 @@ Gradle: gradle publish
 Maven: mvn clean deploy
 ```
 
+```shell
+# 1. 命令上传方式
+# 生成秘钥
+gpg --gen-key
+
+# 查看秘钥
+gpg --list-keys
+
+# 上传秘钥至公钥服务器
+gpg --keyserver keyserver.ubuntu.com --send-keys 秘钥ID
+
+# 验证是否成功
+gpg --keyserver keyserver.ubuntu.com --recv-keys 秘钥ID
+
+# gpg: 发送至公钥服务器失败：No route to host
+# 2. 手动上传方式
+
+# 导出秘钥
+gpg --export lmay@lmaye.com > ~/Downloads/gpg.pub
+
+https://keys.openpgp.org/upload
+```
+
 指定发布 release
 ```bash
 mvn clean deploy -P release
