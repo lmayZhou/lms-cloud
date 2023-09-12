@@ -33,8 +33,7 @@ import java.util.stream.Collectors;
  */
 @AllArgsConstructor
 public abstract class BaseController<S extends IAppService<T, ID>, C extends IRestConverter<T, V, D>,
-        T extends Serializable, V extends Serializable, D extends Serializable, ID extends Serializable>
-        implements IRestConverter<T, V, D> {
+        T extends Serializable, V extends Serializable, D extends Serializable, ID extends Serializable> {
     /**
      * IService
      */
