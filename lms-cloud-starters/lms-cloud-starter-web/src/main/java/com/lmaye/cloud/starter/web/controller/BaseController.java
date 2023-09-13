@@ -8,10 +8,10 @@ import com.lmaye.cloud.starter.web.service.IAppService;
 import com.lmaye.cloud.starter.web.service.IRestConverter;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lombok.AllArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,18 +31,19 @@ import java.util.stream.Collectors;
  * @email lmay@lmaye.com
  * @since JDK1.8
  */
-@AllArgsConstructor
 public abstract class BaseController<S extends IAppService<T, ID>, C extends IRestConverter<T, V, D>,
         T extends Serializable, V extends Serializable, D extends Serializable, ID extends Serializable> {
     /**
      * IService
      */
-    protected final S service;
+    @Resource
+    protected S service;
 
     /**
      * IRestConverter
      */
-    protected final C restConverter;
+    @Resource
+    protected C restConverter;
 
     /**
      * 新增
