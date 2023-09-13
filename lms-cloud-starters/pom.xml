@@ -53,6 +53,8 @@
         <module>lms-cloud-starter-serial-no</module>
         <!-- LMS Cloud Delay Queue Starter -->
         <module>lms-cloud-starter-delay-queue</module>
+        <!-- LMS Cloud OSS Starter -->
+        <module>lms-cloud-starter-oss</module>
     </modules>
 
     <!-- dependencies -->
