@@ -75,10 +75,10 @@ Spring Cloud Alibaba    2.2.2.RELEASE
 
 ```groovy
 // api或compile 引用的包对于其他module是可见的
-api 'com.lmaye:lms-cloud-starter-serial-no:1.1.5'
-compile 'com.lmaye:lms-cloud-starter-serial-no:1.1.5'
+api 'com.lmaye:lms-cloud-starter-serial-no:1.1.6'
+compile 'com.lmaye:lms-cloud-starter-serial-no:1.1.6'
 // implementation 引用的包对于其他module是不可见的
-implementation 'com.lmaye:lms-cloud-starter-serial-no:1.1.5'
+implementation 'com.lmaye:lms-cloud-starter-serial-no:1.1.6'
 ```
 
 ##### 配置说明
