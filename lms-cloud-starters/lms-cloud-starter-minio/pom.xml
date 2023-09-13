@@ -18,12 +18,6 @@
 
     <!-- dependencies -->
     <dependencies>
-        <!-- LMS Cloud Core -->
-        <dependency>
-            <groupId>com.lmaye</groupId>
-            <artifactId>lms-cloud-core</artifactId>
-        </dependency>
-
         <!-- Commons IO -->
         <dependency>
             <groupId>commons-io</groupId>
