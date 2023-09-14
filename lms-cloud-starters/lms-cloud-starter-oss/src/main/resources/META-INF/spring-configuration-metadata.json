@@ -1,0 +1,62 @@
+{
+  "groups": [
+    {
+      "name": "oss",
+      "type": "com.lmaye.cloud.starter.oss.OssProperties",
+      "sourceType": "com.lmaye.cloud.starter.oss.OssProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "oss.access-key-id",
+      "type": "java.lang.String",
+      "description": "秘钥ID",
+      "sourceType": "com.lmaye.cloud.starter.oss.OssProperties"
+    },
+    {
+      "name": "oss.access-url",
+      "type": "java.lang.String",
+      "description": "访问地址",
+      "sourceType": "com.lmaye.cloud.starter.oss.OssProperties"
+    },
+    {
+      "name": "oss.bucket-name",
+      "type": "java.lang.String",
+      "description": "存储桶名称",
+      "sourceType": "com.lmaye.cloud.starter.oss.OssProperties"
+    },
+    {
+      "name": "oss.cache-control",
+      "type": "java.lang.String",
+      "description": "设置缓存控制标头 - no-cache\/no-store\/public\/private\/only-if-cached",
+      "sourceType": "com.lmaye.cloud.starter.oss.OssProperties",
+      "defaultValue": "no-cache"
+    },
+    {
+      "name": "oss.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否开启(默认: 开启)",
+      "sourceType": "com.lmaye.cloud.starter.oss.OssProperties",
+      "defaultValue": true
+    },
+    {
+      "name": "oss.endpoint",
+      "type": "java.lang.String",
+      "description": "终端",
+      "sourceType": "com.lmaye.cloud.starter.oss.OssProperties"
+    },
+    {
+      "name": "oss.secret-access-key",
+      "type": "java.lang.String",
+      "description": "秘钥",
+      "sourceType": "com.lmaye.cloud.starter.oss.OssProperties"
+    },
+    {
+      "name": "oss.security-token",
+      "type": "java.lang.String",
+      "description": "令牌",
+      "sourceType": "com.lmaye.cloud.starter.oss.OssProperties"
+    }
+  ],
+  "hints": []
+}
