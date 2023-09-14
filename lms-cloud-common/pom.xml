@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>lms-cloud-common</artifactId>
-    <version>1.1.8</version>
+    <version>1.2.3</version>
     <name>lms-cloud-common</name>
     <packaging>pom</packaging>
     <description>MS Cloud Common</description>
@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.lmaye</groupId>
         <artifactId>lms-cloud</artifactId>
-        <version>1.1.8</version>
+        <version>1.2.3</version>
     </parent>
 
     <!-- properties -->
@@ -21,7 +21,7 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <lms-cloud.version>1.1.8</lms-cloud.version>
+        <lms-cloud.version>1.2.3</lms-cloud.version>
     </properties>
 
     <!-- modules -->
