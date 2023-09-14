@@ -1,8 +1,8 @@
 package com.lmaye.cloud.starter.web.service.impl;
 
 import com.lmaye.cloud.starter.web.service.IRestConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 
 /**
@@ -18,6 +18,6 @@ public class RestConverterImpl<C extends IRestConverter<T, V, D>, T extends Seri
     /**
      * IRestConverter
      */
-    @Resource
+    @Autowired
     protected C restConverter;
 }
