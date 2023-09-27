@@ -1,0 +1,62 @@
+{
+  "groups": [
+    {
+      "name": "email",
+      "type": "com.lmaye.cloud.starter.email.EmailProperties",
+      "sourceType": "com.lmaye.cloud.starter.email.EmailProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "email.configs",
+      "type": "java.util.List<com.lmaye.cloud.starter.email.EmailProperties>",
+      "description": "多账户配置",
+      "sourceType": "com.lmaye.cloud.starter.email.EmailProperties"
+    },
+    {
+      "name": "email.default-encoding",
+      "type": "java.lang.String",
+      "description": "默认编码",
+      "sourceType": "com.lmaye.cloud.starter.email.EmailProperties"
+    },
+    {
+      "name": "email.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启用",
+      "sourceType": "com.lmaye.cloud.starter.email.EmailProperties",
+      "defaultValue": false
+    },
+    {
+      "name": "email.host",
+      "type": "java.lang.String",
+      "description": "Host",
+      "sourceType": "com.lmaye.cloud.starter.email.EmailProperties"
+    },
+    {
+      "name": "email.password",
+      "type": "java.lang.String",
+      "description": "密码",
+      "sourceType": "com.lmaye.cloud.starter.email.EmailProperties"
+    },
+    {
+      "name": "email.port",
+      "type": "java.lang.Integer",
+      "description": "端口",
+      "sourceType": "com.lmaye.cloud.starter.email.EmailProperties"
+    },
+    {
+      "name": "email.protocol",
+      "type": "java.lang.String",
+      "description": "协议",
+      "sourceType": "com.lmaye.cloud.starter.email.EmailProperties",
+      "defaultValue": "smtp"
+    },
+    {
+      "name": "email.username",
+      "type": "java.lang.String",
+      "description": "账户",
+      "sourceType": "com.lmaye.cloud.starter.email.EmailProperties"
+    }
+  ],
+  "hints": []
+}
