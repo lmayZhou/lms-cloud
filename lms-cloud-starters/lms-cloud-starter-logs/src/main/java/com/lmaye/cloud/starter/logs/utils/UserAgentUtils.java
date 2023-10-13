@@ -1,6 +1,6 @@
 package com.lmaye.cloud.starter.logs.utils;
 
-import com.lmaye.cloud.starter.logs.constant.ClientType;
+import com.lmaye.cloud.core.constants.ClientType;
 import eu.bitwalker.useragentutils.DeviceType;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;

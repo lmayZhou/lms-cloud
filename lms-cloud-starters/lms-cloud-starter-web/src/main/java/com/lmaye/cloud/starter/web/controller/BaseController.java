@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * -- Base Controller
@@ -25,7 +24,6 @@ import java.util.stream.Collectors;
  * @param <V>  VO
  * @param <D>  DTO
  * @param <ID> ID
- *
  * @author lmay.Zhou
  * @date 2021/7/1 22:50
  * @email lmay@lmaye.com
@@ -45,19 +43,6 @@ public abstract class BaseController<S extends IAppService<T, ID>, C extends IRe
     protected final C restConverter;
 
     /**
-     * 新增
-     *
-     * @param param 请求参数
-     * @return ResultVO<V>
-     */
-    @PostMapping("/add")
-    @ApiOperation("新增")
-    public ResultVO<V> add(@RequestBody @Validated D param) {
-        return service.insert(restConverter.convertDtoToEntity(param)).map(it ->
-                ResultVO.success(restConverter.convertEntityToVo(it))).orElseGet(() -> ResultVO.success(null));
-    }
-
-    /**
      * 编辑
      *
      * @param param 请求参数
@@ -66,8 +51,7 @@ public abstract class BaseController<S extends IAppService<T, ID>, C extends IRe
     @PostMapping("/edit")
     @ApiOperation("编辑")
     public ResultVO<V> edit(@RequestBody @Validated D param) {
-        return service.update(restConverter.convertDtoToEntity(param)).map(it ->
-                ResultVO.success(restConverter.convertEntityToVo(it))).orElseGet(() -> ResultVO.success(null));
+        return ResultVO.success(restConverter.convertEntityToVo(service.insertOrUpdate(restConverter.convertDtoToEntity(param))));
     }
 
     /**
@@ -83,6 +67,18 @@ public abstract class BaseController<S extends IAppService<T, ID>, C extends IRe
     }
 
     /**
+     * 批量删除
+     *
+     * @param ids 主键ID
+     * @return ResultVO<Boolean>
+     */
+    @DeleteMapping("/batch/{ids}")
+    @ApiOperation("批量删除")
+    public ResultVO<Boolean> delete(@PathVariable @ApiParam(value = "主键ID", required = true) List<ID> ids) {
+        return ResultVO.success(service.deleteByIds(ids));
+    }
+
+    /**
      * 查询
      * - 根据主键ID
      *
@@ -92,38 +88,30 @@ public abstract class BaseController<S extends IAppService<T, ID>, C extends IRe
     @GetMapping("/{id}")
     @ApiOperation("查询")
     public ResultVO<V> queryById(@PathVariable @ApiParam(value = "主键ID", required = true) ID id) {
-        return service.findById(id).map(it -> ResultVO.success(restConverter.convertEntityToVo(it))).orElseGet(()
-                -> ResultVO.success(null));
+        return ResultVO.success(restConverter.convertEntityToVo(service.findById(id)));
     }
 
     /**
      * 查询列表
      *
      * @param query 请求参数
-     * @return ResultVO<List<V>>
+     * @return ResultVO<List < V>>
      */
     @PostMapping("/queryRecords")
     @ApiOperation("查询列表")
     public ResultVO<List<V>> queryRecords(@RequestBody ListQuery query) {
-        return ResultVO.success(service.findAll(query).stream().map(restConverter::convertEntityToVo).collect(Collectors.toList()));
+        return ResultVO.success(restConverter.convertEntityToVoList(service.findAll(query)));
     }
 
     /**
      * 分页查询
      *
      * @param query 请求参数
-     * @return ResultVO<List<V>>
+     * @return ResultVO<PageResult < V>>
      */
     @PostMapping("/queryPage")
     @ApiOperation("分页查询")
     public ResultVO<PageResult<V>> queryPage(@RequestBody PageQuery query) {
-        PageResult<V> result = new PageResult<>();
-        PageResult<T> pageResult = service.findPage(query);
-        result.setRecords(pageResult.getRecords().stream().map(restConverter::convertEntityToVo).collect(Collectors.toList()));
-        result.setPageIndex(pageResult.getPageIndex());
-        result.setPageSize(pageResult.getPageSize());
-        result.setPages(pageResult.getPages());
-        result.setTotal(pageResult.getTotal());
-        return ResultVO.success(result);
+        return ResultVO.success(restConverter.convertEntityToVoPage(service.findPage(query)));
     }
 }

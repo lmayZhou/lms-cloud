@@ -5,14 +5,14 @@ import org.apache.commons.lang3.StringUtils;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * -- Log Utils
+ * -- HttpUtils
  *
  * @author lmay.Zhou
  * @date 2021/7/26 14:20
  * @email lmay@lmaye.com
  * @since JDK1.8
  */
-public final class LogUtils {
+public final class HttpUtils {
     /**
      * 获取IP地址
      *

@@ -17,14 +17,6 @@ import java.util.*;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DateUtils {
-    /**
-     * 开始时间范围后缀
-     */
-    public static final String TIME_START_POSTFIX = "00:00:00.000";
-    /**
-     * 结束时间范围后缀
-     */
-    public static final String TIME_END_POSTFIX = "23:59:59.999";
     private static final String[] ZODIAC_ARR = {"猴", "鸡", "狗", "猪", "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊"};
     private static final String[] CONSTELLATION_ARR = {"水瓶座", "双鱼座", "白羊座", "金牛座", "双子座", "巨蟹座", "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "魔羯座"};
     private static final int[] CONSTELLATION_EDGE_DAY = {20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22, 22};
@@ -42,7 +34,7 @@ public final class DateUtils {
      * @param date 日期
      * @return String
      */
-    public static String getZodica(Date date) {
+    public static String getZodIca(Date date) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         return ZODIAC_ARR[cal.get(Calendar.YEAR) % 12];
@@ -557,7 +549,7 @@ public final class DateUtils {
      * 格式化日期
      * - eg: yyyy-MM-dd HH:mm:ss
      *
-     * @param date 日期
+     * @param date    日期
      * @param pattern 格式
      * @return String
      */
@@ -569,7 +561,7 @@ public final class DateUtils {
     /**
      * 格式化日期
      *
-     * @param date 日期
+     * @param date    日期
      * @param pattern 格式
      * @return Date
      */

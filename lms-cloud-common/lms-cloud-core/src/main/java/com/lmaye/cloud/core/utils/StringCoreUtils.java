@@ -344,4 +344,14 @@ public final class StringCoreUtils {
     public static String fillNumRight(int len, long num, String fillNum) {
         return String.format(StrUtil.format("%-{}s", len), num).replace(" ", fillNum);
     }
+
+    /**
+     * 去空格
+     *
+     * @param str 字符串
+     * @return String
+     */
+    public static String trim(String str) {
+        return (Objects.isNull(str) ? "" : str.trim());
+    }
 }

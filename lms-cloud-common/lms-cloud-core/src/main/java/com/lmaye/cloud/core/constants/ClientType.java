@@ -1,4 +1,4 @@
-package com.lmaye.cloud.starter.logs.constant;
+package com.lmaye.cloud.core.constants;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

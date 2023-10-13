@@ -8,7 +8,6 @@ import com.lmaye.cloud.starter.web.query.Query;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * -- Service
@@ -26,16 +25,7 @@ public interface IAppService<T, ID extends Serializable> {
      * @return the saved entity will never be {@literal null}.
      * @throws ServiceException operate exception
      */
-    <S extends T> Optional<S> insert(S entity) throws ServiceException;
-
-    /**
-     * 更新数据
-     *
-     * @param entity must not be {@literal null}.
-     * @return he saved entity will never be {@literal null}.
-     * @throws ServiceException operate exception
-     */
-    <S extends T> Optional<S> update(S entity) throws ServiceException;
+    <S extends T> S insertOrUpdate(S entity) throws ServiceException;
 
     /**
      * Saves all given entities.
@@ -56,13 +46,22 @@ public interface IAppService<T, ID extends Serializable> {
     boolean deleteById(ID id) throws ServiceException;
 
     /**
+     * Deletes the entity with the given id.
+     *
+     * @param ids must not be {@literal null}.
+     * @return boolean
+     * @throws ServiceException operate exception
+     */
+    boolean deleteByIds(List<ID> ids) throws ServiceException;
+
+    /**
      * Retrieves an entity by its id.
      *
      * @param id must not be {@literal null}.
      * @return the entity with the given id or {@literal Optional#empty()} if none found
      * @throws ServiceException operate exception
      */
-    Optional<T> findById(ID id) throws ServiceException;
+    T findById(ID id) throws ServiceException;
 
     /**
      * Returns all entities matching the given {@link Query}. In case no match could be found an empty {@link List}

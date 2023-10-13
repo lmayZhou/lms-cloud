@@ -1,13 +1,16 @@
 package com.lmaye.cloud.starter.mybatis.handler;
 
+import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.lmaye.cloud.core.constants.CoreConstants;
 import com.lmaye.cloud.core.constants.YesOrNo;
-import com.lmaye.cloud.starter.web.context.BaseContext;
-import org.apache.commons.lang3.StringUtils;
+import com.lmaye.cloud.starter.web.utils.HttpUtils;
+import com.lmaye.cloud.starter.web.utils.TokenUtils;
 import org.apache.ibatis.reflection.MetaObject;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * -- 自动填充公共字段
@@ -25,10 +28,14 @@ public class AutoFillMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         LocalDateTime now = LocalDateTime.now();
-        String userName = BaseContext.getBaseInfo().getUserName();
-        if(StringUtils.isNotBlank(userName)) {
-            setFieldValByName("createdBy", userName, metaObject);
-            setFieldValByName("lastModifiedBy", userName, metaObject);
+        final HttpServletRequest request = HttpUtils.getRequest();
+        if (Objects.nonNull(request)) {
+            final JSONObject json = TokenUtils.parsingUserInfo(request.getHeader(CoreConstants.FIELD_AUTHORIZATION));
+            if (Objects.nonNull(json)) {
+                final Long userId = json.getLong(CoreConstants.FIELD_USER_ID);
+                setFieldValByName("createdBy", userId, metaObject);
+                setFieldValByName("lastModifiedBy", userId, metaObject);
+            }
         }
         setFieldValByName("createdAt", now, metaObject);
         setFieldValByName("deleted", YesOrNo.NO.getCode(), metaObject);
@@ -43,9 +50,12 @@ public class AutoFillMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
-        String userName = BaseContext.getBaseInfo().getUserName();
-        if(StringUtils.isNotBlank(userName)) {
-            setFieldValByName("lastModifiedBy", userName, metaObject);
+        final HttpServletRequest request = HttpUtils.getRequest();
+        if (Objects.nonNull(request)) {
+            final JSONObject json = TokenUtils.parsingUserInfo(request.getHeader(CoreConstants.FIELD_AUTHORIZATION));
+            if (Objects.nonNull(json)) {
+                setFieldValByName("lastModifiedBy", json.getLong(CoreConstants.FIELD_USER_ID), metaObject);
+            }
         }
         setFieldValByName("lastModifiedAt", LocalDateTime.now(), metaObject);
     }
