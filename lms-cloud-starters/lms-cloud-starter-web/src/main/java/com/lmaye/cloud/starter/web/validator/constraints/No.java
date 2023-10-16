@@ -24,7 +24,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = NoValidator.class)
 public @interface No {
 
-    String message() default "{No.message}";
+    String message() default "{no.message}";
 
     Class<?>[] groups() default {};
 

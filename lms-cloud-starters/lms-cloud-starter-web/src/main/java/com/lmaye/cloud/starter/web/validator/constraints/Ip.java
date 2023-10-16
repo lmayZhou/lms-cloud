@@ -24,7 +24,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = IpValidator.class)
 public @interface Ip {
 
-    String message() default "{Ip.message}";
+    String message() default "{ip.message}";
 
     Class<?>[] groups() default {};
 

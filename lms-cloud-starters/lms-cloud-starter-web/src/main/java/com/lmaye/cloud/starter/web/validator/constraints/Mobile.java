@@ -24,7 +24,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = MobileValidator.class)
 public @interface Mobile {
 
-    String message() default "{Mobile.message}";
+    String message() default "{mobile.message}";
 
     Class<?>[] groups() default {};
 
