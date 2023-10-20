@@ -2,7 +2,10 @@ package com.lmaye.cloud.starter.web.query;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.util.CollectionUtils;
 
@@ -18,6 +21,9 @@ import java.util.List;
  * @since 2020/12/1 14:34
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Accessors(chain = true)
 @ApiModel(value = "Query", description = "查询参数")
 public class Query implements Serializable {

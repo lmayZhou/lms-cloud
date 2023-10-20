@@ -36,7 +36,7 @@
 <dependency>
    <groupId>com.lmaye</groupId>
    <artifactId>lms-cloud-starter-swagger</artifactId>
-   <version>1.0.1</version>
+   <version>1.2.10</version>
 </dependency>
 ```
 

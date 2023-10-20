@@ -12,7 +12,7 @@
     <parent>
         <groupId>com.lmaye</groupId>
         <artifactId>lms-cloud-starters</artifactId>
-        <version>1.2.9</version>
+        <version>1.2.10</version>
     </parent>
 
     <!-- dependencies -->
@@ -35,7 +35,6 @@
         <dependency>
             <groupId>com.github.rholder</groupId>
             <artifactId>guava-retrying</artifactId>
-            <version>2.0.0</version>
         </dependency>
     </dependencies>
 

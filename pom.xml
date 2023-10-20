@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud</artifactId>
-    <version>1.2.9</version>
+    <version>1.2.10</version>
     <name>lms-cloud</name>
     <packaging>pom</packaging>
     <description>LMS Cloud</description>
@@ -17,27 +17,34 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <lms-cloud.version>1.2.9</lms-cloud.version>
+        <lms-cloud.version>1.2.10</lms-cloud.version>
         <git-commit-plugin>2.2.5</git-commit-plugin>
         <spring.checkstyle.plugin>0.0.23</spring.checkstyle.plugin>
         <spring-boot.version>2.5.0</spring-boot.version>
         <spring-cloud.version>2020.0.3</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
         <spring-security-oauth2.version>2.3.6.RELEASE</spring-security-oauth2.version>
-        <spring-boot-admin.version>2.4.1</spring-boot-admin.version>
-        <hutool.version>5.6.6</hutool.version>
+        <hutool.version>5.8.22</hutool.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <commons-io.version>2.7</commons-io.version>
         <antisamy.version>1.5.8</antisamy.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <swagger-annotations.version>1.6.2</swagger-annotations.version>
-        <ip2region.version>1.7.2</ip2region.version>
+        <ip2region.version>2.7.0</ip2region.version>
         <swagger-ui.version>3.0.0</swagger-ui.version>
-        <guava.version>30.0-jre</guava.version>
+        <knife4j.version>3.0.3</knife4j.version>
+        <guava.version>32.1.2-jre</guava.version>
+        <gson.version>2.10.1</gson.version>
         <minio.version>8.2.2</minio.version>
         <mybatis-plus.version>3.4.3.1</mybatis-plus.version>
         <redisson.version>3.15.6</redisson.version>
         <kie-spring.version>7.60.0.Final</kie-spring.version>
+        <canal.version>1.1.4</canal.version>
+        <hibernate-jpa.version>1.0.2.Final</hibernate-jpa.version>
+        <aliyun.version>3.17.1</aliyun.version>
+        <useragent.version>1.21</useragent.version>
+        <servlet.version>4.0.1</servlet.version>
+        <guava-retrying.version>2.0.0</guava-retrying.version>
     </properties>
 
     <!-- modules -->
@@ -167,7 +174,7 @@
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-boot-starter</artifactId>
-                <version>3.0.3</version>
+                <version>${knife4j.version}</version>
             </dependency>
 
             <!-- guava -->
@@ -177,11 +184,79 @@
                 <version>${guava.version}</version>
             </dependency>
 
+            <!-- gson -->
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+
             <!-- MinIO -->
             <dependency>
                 <groupId>io.minio</groupId>
                 <artifactId>minio</artifactId>
                 <version>${minio.version}</version>
+            </dependency>
+
+            <!-- Redisson -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+
+            <!-- kie-spring -->
+            <dependency>
+                <groupId>org.kie</groupId>
+                <artifactId>kie-spring</artifactId>
+                <version>${kie-spring.version}</version>
+            </dependency>
+
+            <!-- Canal -->
+            <dependency>
+                <groupId>com.alibaba.otter</groupId>
+                <artifactId>canal.common</artifactId>
+                <version>${canal.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.otter</groupId>
+                <artifactId>canal.client</artifactId>
+                <version>${canal.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.hibernate.javax.persistence</groupId>
+                <artifactId>hibernate-jpa-2.1-api</artifactId>
+                <version>${hibernate-jpa.version}</version>
+            </dependency>
+
+            <!-- OSS -->
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun.version}</version>
+            </dependency>
+
+            <!-- UserAgentUtils -->
+            <dependency>
+                <groupId>eu.bitwalker</groupId>
+                <artifactId>UserAgentUtils</artifactId>
+                <version>${useragent.version}</version>
+            </dependency>
+
+            <!-- Servlet -->
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${servlet.version}</version>
+            </dependency>
+
+            <!-- guava-retrying -->
+            <dependency>
+                <groupId>com.github.rholder</groupId>
+                <artifactId>guava-retrying</artifactId>
+                <version>${guava-retrying.version}</version>
             </dependency>
 
             <!-- MyBatis Plus -->

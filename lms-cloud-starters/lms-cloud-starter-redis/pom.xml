@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.lmaye</groupId>
         <artifactId>lms-cloud-starters</artifactId>
-        <version>1.2.9</version>
+        <version>1.2.10</version>
     </parent>
 
     <!-- dependencies -->
@@ -22,7 +22,6 @@
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
-            <version>${redisson.version}</version>
         </dependency>
 
         <!-- Spring Boot Redis -->

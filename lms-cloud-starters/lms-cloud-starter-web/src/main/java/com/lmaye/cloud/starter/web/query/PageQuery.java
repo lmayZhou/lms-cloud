@@ -2,7 +2,10 @@ package com.lmaye.cloud.starter.web.query;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Range;
 
@@ -18,6 +21,9 @@ import java.io.Serializable;
  * @since 2020/12/1 14:34
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Accessors(chain = true)
 @ApiModel(value = "PageQuery", description = "分页查询参数")
 public class PageQuery implements Serializable {
@@ -26,8 +32,8 @@ public class PageQuery implements Serializable {
     /**
      * 查询条件
      */
-    @ApiModelProperty("查询条件")
     @Valid
+    @ApiModelProperty("查询条件")
     private Query query;
 
     /**
