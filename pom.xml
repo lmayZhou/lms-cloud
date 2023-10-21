@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud</artifactId>
-    <version>1.2.10</version>
+    <version>1.2.11</version>
     <name>lms-cloud</name>
     <packaging>pom</packaging>
     <description>LMS Cloud</description>
@@ -17,7 +17,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <lms-cloud.version>1.2.10</lms-cloud.version>
+        <lms-cloud.version>1.2.11</lms-cloud.version>
         <git-commit-plugin>2.2.5</git-commit-plugin>
         <spring.checkstyle.plugin>0.0.23</spring.checkstyle.plugin>
         <spring-boot.version>2.5.0</spring-boot.version>
