@@ -1,2 +1,10 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.lmaye.cloud.starter.serialno.SerialNoAutoConfiguration
+  com.lmaye.cloud.starter.serialno.SerialNoAutoConfiguration,\
+  com.lmaye.cloud.starter.serialno.pattern.SerialNoFactory,\
+  com.lmaye.cloud.starter.serialno.strategy.AllFormattedStrategy,\
+  com.lmaye.cloud.starter.serialno.strategy.AllUnFormattedStrategy,\
+  com.lmaye.cloud.starter.serialno.strategy.BusinessGlobalIdFormattedStrategy,\
+  com.lmaye.cloud.starter.serialno.strategy.BusinessGlobalIdStrategy,\
+  com.lmaye.cloud.starter.serialno.strategy.DateGlobalIdFormattedStrategy,\
+  com.lmaye.cloud.starter.serialno.strategy.DateGlobalIdStrategy,\
+  com.lmaye.cloud.starter.serialno.strategy.GlobalIdStrategy
