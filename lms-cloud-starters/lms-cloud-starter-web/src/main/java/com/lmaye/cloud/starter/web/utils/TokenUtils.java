@@ -1,7 +1,6 @@
 package com.lmaye.cloud.starter.web.utils;
 
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
+import com.lmaye.cloud.starter.web.context.UserToken;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
 
@@ -20,10 +19,10 @@ public class TokenUtils {
      * @param token Token
      * @return JSONObject
      */
-    public static JSONObject parsingUserInfo(String token) {
+    public static UserToken parsUserInfo(String token) {
         try {
             String userInfo = token.substring(token.indexOf("."), token.lastIndexOf("."));
-            return JSONUtil.parseObj(StringUtils.newStringUtf8(Base64.decodeBase64(userInfo.getBytes())));
+            return JsonUtils.toBean(StringUtils.newStringUtf8(Base64.decodeBase64(userInfo.getBytes())), UserToken.class);
         } catch (Exception e) {
             return null;
         }

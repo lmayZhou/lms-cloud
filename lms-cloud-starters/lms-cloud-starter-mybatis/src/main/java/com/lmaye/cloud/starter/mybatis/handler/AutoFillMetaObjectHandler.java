@@ -1,9 +1,9 @@
 package com.lmaye.cloud.starter.mybatis.handler;
 
-import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.lmaye.cloud.core.constants.CoreConstants;
 import com.lmaye.cloud.core.constants.YesOrNo;
+import com.lmaye.cloud.starter.web.context.UserToken;
 import com.lmaye.cloud.starter.web.utils.HttpUtils;
 import com.lmaye.cloud.starter.web.utils.TokenUtils;
 import org.apache.ibatis.reflection.MetaObject;
@@ -30,9 +30,9 @@ public class AutoFillMetaObjectHandler implements MetaObjectHandler {
         LocalDateTime now = LocalDateTime.now();
         final HttpServletRequest request = HttpUtils.getRequest();
         if (Objects.nonNull(request)) {
-            final JSONObject json = TokenUtils.parsingUserInfo(request.getHeader(CoreConstants.FIELD_AUTHORIZATION));
-            if (Objects.nonNull(json)) {
-                final Long userId = json.getLong(CoreConstants.FIELD_USER_ID);
+            final UserToken userToken = TokenUtils.parsUserInfo(request.getHeader(CoreConstants.FIELD_AUTHORIZATION));
+            if (Objects.nonNull(userToken)) {
+                final Long userId = userToken.getId();
                 setFieldValByName("createdBy", userId, metaObject);
                 setFieldValByName("lastModifiedBy", userId, metaObject);
             }
@@ -52,9 +52,9 @@ public class AutoFillMetaObjectHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
         final HttpServletRequest request = HttpUtils.getRequest();
         if (Objects.nonNull(request)) {
-            final JSONObject json = TokenUtils.parsingUserInfo(request.getHeader(CoreConstants.FIELD_AUTHORIZATION));
-            if (Objects.nonNull(json)) {
-                setFieldValByName("lastModifiedBy", json.getLong(CoreConstants.FIELD_USER_ID), metaObject);
+            final UserToken userToken = TokenUtils.parsUserInfo(request.getHeader(CoreConstants.FIELD_AUTHORIZATION));
+            if (Objects.nonNull(userToken)) {
+                setFieldValByName("lastModifiedBy", userToken.getId(), metaObject);
             }
         }
         setFieldValByName("lastModifiedAt", LocalDateTime.now(), metaObject);

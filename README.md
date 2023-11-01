@@ -13,9 +13,9 @@
 
 | 框架                   | 版本          |
 | ---------------------- | :------------ |
-| Spring Cloud           | 2020.0.3      |
-| Spring Cloud Alibaba   | 2021.1        |
-| Spring Boot            | 2.5.0         |
+| Spring Cloud           | 2021.0.1      |
+| Spring Cloud Alibaba   | 2021.0.1.0    |
+| Spring Boot            | 2.6.3         |
 | Spring Security OAuth2 | 2.3.6.RELEASE |
 
 ##### 项目结构
@@ -54,7 +54,7 @@
 <parent>
     <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud</artifactId>
-    <version>1.2.11</version>
+    <version>1.2.13</version>
     <relativePath/>
 </parent>
 ```
@@ -65,7 +65,7 @@
 // 项目引用 Parent 工程
 dependencyManagement {
     imports {
-        mavenBom 'com.lmaye:lms-cloud:1.2.11'
+        mavenBom 'com.lmaye:lms-cloud:1.2.13'
     }
 }
 ```

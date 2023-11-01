@@ -92,9 +92,4 @@ public interface CoreConstants {
      * (字段) 时区
      */
     String FIELD_TIME_ZONE = "timeZone";
-
-    /**
-     * (字段) 用户ID
-     */
-    String FIELD_USER_ID = "userId";
 }

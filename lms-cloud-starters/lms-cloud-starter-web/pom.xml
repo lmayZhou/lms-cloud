@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.lmaye</groupId>
         <artifactId>lms-cloud-starters</artifactId>
-        <version>1.2.11</version>
+        <version>1.2.13</version>
     </parent>
 
     <!-- dependencies -->
@@ -68,6 +68,12 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
         </dependency>
     </dependencies>
 
