@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.lmaye</groupId>
         <artifactId>lms-cloud-starters</artifactId>
-        <version>1.2.13</version>
+        <version>1.2.14</version>
     </parent>
 
     <dependencies>
@@ -46,8 +46,8 @@
     <!-- scm信息 -->
     <scm>
         <url>https://github.com/lmayZhou/lms-cloud</url>
-        <connection>scm:git:git://github.com/lmayZhou/lms-cloud.git</connection>
-        <developerConnection>scm:git:git://github.com/lmayZhou/lms-cloud.git</developerConnection>
+        <connection>scm:git@github.com:lmayZhou/lms-cloud.git</connection>
+        <developerConnection>scm:git@github.com:lmayZhou/lms-cloud.git</developerConnection>
     </scm>
 
     <!-- 发布者信息 -->

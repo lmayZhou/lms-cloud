@@ -32,9 +32,11 @@ public final class HttpUtils {
         String ip = request.getHeader("x-forwarded-for");
         if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("Proxy-Client-IP");
-        } else if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+        }
+        if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getHeader("WL-Proxy-Client-IP");
-        } else if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+        }
+        if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
         return ip;
