@@ -69,7 +69,7 @@ public @interface SysLog {
      *
      * @return String
      */
-    String userIdAttr() default "userId";
+    String userIdAttr() default "id";
 
     /**
      * 用户名称
@@ -77,5 +77,5 @@ public @interface SysLog {
      *
      * @return String
      */
-    String userNameAttr() default "userName";
+    String userNameAttr() default "username";
 }
