@@ -54,7 +54,7 @@
 <parent>
     <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud</artifactId>
-    <version>1.2.16</version>
+    <version>1.2.17</version>
     <relativePath/>
 </parent>
 ```
@@ -65,7 +65,7 @@
 // 项目引用 Parent 工程
 dependencyManagement {
     imports {
-        mavenBom 'com.lmaye:lms-cloud:1.2.16'
+        mavenBom 'com.lmaye:lms-cloud:1.2.17'
     }
 }
 ```
