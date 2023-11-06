@@ -12,9 +12,9 @@ import org.redisson.api.RList;
 import org.redisson.api.RScript;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.codec.LongCodec;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Collections;
 import java.util.Objects;
 
@@ -32,13 +32,13 @@ public class SerialNoServiceImpl implements ISerialNoService {
     /**
      * Redisson Client
      */
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
 
     /**
      * Serial No Properties
      */
-    @Autowired
+    @Resource
     private SerialNoProperties serialNoProperties;
 
     /**

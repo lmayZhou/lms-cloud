@@ -8,7 +8,7 @@ import com.lmaye.cloud.starter.web.service.IAppService;
 import com.lmaye.cloud.starter.web.service.IRestConverter;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,18 +29,19 @@ import java.util.List;
  * @email lmay@lmaye.com
  * @since JDK1.8
  */
-@AllArgsConstructor
 public abstract class BaseController<S extends IAppService<T, ID>, C extends IRestConverter<T, V, D>,
         T extends Serializable, V extends Serializable, D extends Serializable, ID extends Serializable> {
     /**
      * IService
      */
-    protected final S service;
+    @Autowired
+    protected S service;
 
     /**
      * IRestConverter
      */
-    protected final C restConverter;
+    @Autowired
+    protected C restConverter;
 
     /**
      * 编辑

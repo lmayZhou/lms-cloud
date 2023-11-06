@@ -2,13 +2,4 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
   com.lmaye.cloud.starter.canal.ZookeeperClientAutoConfiguration,\
   com.lmaye.cloud.starter.canal.SimpleClientAutoConfiguration,\
   com.lmaye.cloud.starter.canal.KafkaClientAutoConfiguration,\
-  com.lmaye.cloud.starter.canal.ClusterClientAutoConfiguration,\
-  com.lmaye.cloud.starter.canal.patterns.BigDecimalType,\
-  com.lmaye.cloud.starter.canal.patterns.BooleanType,\
-  com.lmaye.cloud.starter.canal.patterns.DateType,\
-  com.lmaye.cloud.starter.canal.patterns.DoubleType,\
-  com.lmaye.cloud.starter.canal.patterns.FloatType,\
-  com.lmaye.cloud.starter.canal.patterns.IntegerType,\
-  com.lmaye.cloud.starter.canal.patterns.LongType,\
-  com.lmaye.cloud.starter.canal.patterns.StringType,\
-  com.lmaye.cloud.starter.canal.patterns.StrategyFactory
+  com.lmaye.cloud.starter.canal.ClusterClientAutoConfiguration

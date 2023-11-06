@@ -1,14 +1,12 @@
 package com.lmaye.cloud.starter.serialno;
 
 import com.lmaye.cloud.core.utils.StringCoreUtils;
-import com.lmaye.cloud.starter.serialno.service.ISerialNoService;
-import com.lmaye.cloud.starter.serialno.service.impl.SerialNoServiceImpl;
 import org.redisson.api.RList;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -17,6 +15,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,40 +32,26 @@ import java.util.stream.Stream;
  */
 @EnableAsync
 @Configuration
+@ComponentScan("com.lmaye.cloud.starter.serialno")
 @EnableConfigurationProperties(SerialNoProperties.class)
 public class SerialNoAutoConfiguration {
     /**
      * Redisson Client
      */
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
 
     /**
      * Serial No Properties
-     *
-     * @return SerialNoProperties
      */
-    @Bean
-    SerialNoProperties serialNoProperties() {
-        return new SerialNoProperties();
-    }
-
-    /**
-     * Serial No Service
-     *
-     * @return ISerialNoService
-     */
-    @Bean
-    ISerialNoService serialNoService() {
-        return new SerialNoServiceImpl();
-    }
+    @Resource
+    private SerialNoProperties serialNoProperties;
 
     /**
      * 初始Redis全局随机序号
      */
     @PostConstruct
     private void initGlobalRandomNo() {
-        final SerialNoProperties serialNoProperties = serialNoProperties();
         final Stream<String> keysStreamByPattern = redissonClient.getKeys().getKeysStreamByPattern("GlobalRandomNo:*");
         if (!serialNoProperties.getIsOrderly() && Objects.equals(0L, keysStreamByPattern.count())) {
             final int globalIdLen = serialNoProperties.getGlobalIdLen();
