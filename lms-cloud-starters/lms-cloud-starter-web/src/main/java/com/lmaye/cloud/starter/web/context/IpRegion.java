@@ -1,7 +1,7 @@
 package com.lmaye.cloud.starter.web.context;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,37 +23,37 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@ApiModel(value = "IpRegion", description = "IpRegion")
+@Tag(name = "IpRegion", description = "IpRegion")
 public class IpRegion implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
      * 国家
      */
-    @ApiModelProperty("国家")
+    @Schema(description = "国家")
     private String country;
 
     /**
      * 地区
      */
-    @ApiModelProperty("地区")
+    @Schema(description = "地区")
     private String region;
 
     /**
      * 省
      */
-    @ApiModelProperty("省")
+    @Schema(description = "省")
     private String province;
 
     /**
      * 市
      */
-    @ApiModelProperty("市")
+    @Schema(description = "市")
     private String city;
 
     /**
      * 运营商
      */
-    @ApiModelProperty("运营商")
+    @Schema(description = "运营商")
     private String isp;
 }

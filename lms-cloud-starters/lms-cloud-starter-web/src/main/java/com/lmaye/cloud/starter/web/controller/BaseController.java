@@ -6,8 +6,9 @@ import com.lmaye.cloud.starter.web.query.ListQuery;
 import com.lmaye.cloud.starter.web.query.PageQuery;
 import com.lmaye.cloud.starter.web.service.IAppService;
 import com.lmaye.cloud.starter.web.service.IRestConverter;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +17,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * -- Base Controller
+ * -- BaseController
+ * - 基础的数据增删改查相关接口
  *
  * @param <S>  Service
  * @param <C>  Converter
@@ -50,7 +52,7 @@ public abstract class BaseController<S extends IAppService<T, ID>, C extends IRe
      * @return ResultVO<V>
      */
     @PostMapping("/edit")
-    @ApiOperation("编辑")
+    @Operation(summary = "编辑", description = "新增/修改")
     public ResultVO<V> edit(@RequestBody @Validated D param) {
         return ResultVO.success(restConverter.convertEntityToVo(service.insertOrUpdate(restConverter.convertDtoToEntity(param))));
     }
@@ -62,8 +64,9 @@ public abstract class BaseController<S extends IAppService<T, ID>, C extends IRe
      * @return ResultVO<Boolean>
      */
     @DeleteMapping("/{id}")
-    @ApiOperation("删除")
-    public ResultVO<Boolean> delete(@PathVariable @ApiParam(value = "主键ID", required = true) ID id) {
+    @Operation(summary = "删除", description = "根据主键ID",
+            parameters = @Parameter(name = "id", description = "主键ID", required = true, in = ParameterIn.PATH))
+    public ResultVO<Boolean> delete(@PathVariable ID id) {
         return ResultVO.success(service.deleteById(id));
     }
 
@@ -74,8 +77,9 @@ public abstract class BaseController<S extends IAppService<T, ID>, C extends IRe
      * @return ResultVO<Boolean>
      */
     @DeleteMapping("/batch/{ids}")
-    @ApiOperation("批量删除")
-    public ResultVO<Boolean> delete(@PathVariable @ApiParam(value = "主键ID", required = true) List<ID> ids) {
+    @Operation(summary = "批量删除", description = "根据主键ID",
+            parameters = @Parameter(name = "ids", description = "主键ID", required = true, in = ParameterIn.PATH))
+    public ResultVO<Boolean> delete(@PathVariable List<ID> ids) {
         return ResultVO.success(service.deleteByIds(ids));
     }
 
@@ -87,8 +91,9 @@ public abstract class BaseController<S extends IAppService<T, ID>, C extends IRe
      * @return ResultVO<V>
      */
     @GetMapping("/{id}")
-    @ApiOperation("查询")
-    public ResultVO<V> queryById(@PathVariable @ApiParam(value = "主键ID", required = true) ID id) {
+    @Operation(summary = "查询", description = "根据主键ID",
+            parameters = @Parameter(name = "id", description = "主键ID", required = true, in = ParameterIn.PATH))
+    public ResultVO<V> queryById(@PathVariable ID id) {
         return ResultVO.success(restConverter.convertEntityToVo(service.findById(id)));
     }
 
@@ -99,7 +104,7 @@ public abstract class BaseController<S extends IAppService<T, ID>, C extends IRe
      * @return ResultVO<List < V>>
      */
     @PostMapping("/queryRecords")
-    @ApiOperation("查询列表")
+    @Operation(summary = "查询列表", description = "根据条件查询所有数据")
     public ResultVO<List<V>> queryRecords(@RequestBody ListQuery query) {
         return ResultVO.success(restConverter.convertEntityToVoList(service.findAll(query)));
     }
@@ -111,7 +116,7 @@ public abstract class BaseController<S extends IAppService<T, ID>, C extends IRe
      * @return ResultVO<PageResult < V>>
      */
     @PostMapping("/queryPage")
-    @ApiOperation("分页查询")
+    @Operation(summary = "分页查询", description = "根据条件查询分页数据")
     public ResultVO<PageResult<V>> queryPage(@RequestBody PageQuery query) {
         return ResultVO.success(restConverter.convertEntityToVoPage(service.findPage(query)));
     }

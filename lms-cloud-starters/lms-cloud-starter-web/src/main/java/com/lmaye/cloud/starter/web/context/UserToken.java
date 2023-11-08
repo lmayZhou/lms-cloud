@@ -1,7 +1,7 @@
 package com.lmaye.cloud.starter.web.context;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,14 +22,14 @@ import java.util.Collection;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-@ApiModel(value = "UserToken", description = "用户Token")
+@Tag(name = "UserToken", description = "用户Token")
 public class UserToken extends User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
      * 主键ID
      */
-    @ApiModelProperty("主键ID")
+    @Schema(description = "主键ID")
     private Long id;
 
     public UserToken(String username, String password, Collection<? extends GrantedAuthority> authorities) {

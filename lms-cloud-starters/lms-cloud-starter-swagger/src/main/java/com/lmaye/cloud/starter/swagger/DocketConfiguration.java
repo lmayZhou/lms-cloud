@@ -1,7 +1,16 @@
 package com.lmaye.cloud.starter.swagger;
 
-import com.google.common.base.Predicates;
 import com.lmaye.cloud.starter.swagger.properties.SwaggerProperties;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.SpecVersion;
+import io.swagger.v3.oas.models.info.Contact;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
+import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springdoc.core.GroupedOpenApi;
+import org.springdoc.core.customizers.OperationCustomizer;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -11,22 +20,9 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.beans.factory.support.GenericBeanDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.builders.RequestParameterBuilder;
-import springfox.documentation.schema.ScalarType;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.ParameterType;
-import springfox.documentation.service.RequestParameter;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
 
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
-import static com.google.common.collect.Lists.newArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * -- Docket Configuration
@@ -47,13 +43,7 @@ public class DocketConfiguration implements BeanFactoryAware {
      * Swagger Properties
      */
     @Autowired
-    private SwaggerProperties swaggerProperties;
-
-    /**
-     * Swagger Authorization Configuration
-     */
-    @Autowired
-    private SwaggerAuthorizationConfiguration swaggerAuthorizationConfiguration;
+    private SwaggerProperties properties;
 
     /**
      * bean name
@@ -66,36 +56,42 @@ public class DocketConfiguration implements BeanFactoryAware {
     }
 
     /**
-     * Create the corresponding configuration for DocumentationPluginRegistry
+     * API文档基本信息
+     *
+     * @return OpenAPI
      */
     @Bean
-    public void createSpringFoxRestApi() {
+    public OpenAPI apiInfo() {
+        final SwaggerProperties.Contact contact = properties.getContact();
+        return new OpenAPI().info(new Info().title(properties.getTitle()).description(properties.getDescription())
+                        .version(properties.getVersion())
+                        .license(new License().name(properties.getLicense()).url(properties.getLicenseUrl()))
+                        .contact(new Contact().name(contact.getName()).url(contact.getUrl()).email(contact.getEmail()))
+                        .termsOfService(properties.getTermsOfServiceUrl()))
+                .components(new Components().addSecuritySchemes("Authorization", new SecurityScheme()
+                        .name("认证").type(SecurityScheme.Type.HTTP).description("JWT认证").scheme("Bearer").bearerFormat("JWT")));
+    }
+
+    /**
+     * 分组API
+     */
+    @Bean
+    public GroupedOpenApi groupedOpenApi() {
         BeanDefinitionRegistry beanRegistry = (BeanDefinitionRegistry) beanFactory;
-        // 没有分组
-        if (swaggerProperties.getDocket().isEmpty()) {
-            String beanName = BEAN_NAME + "default";
-            BeanDefinition beanDefinition4Group = new GenericBeanDefinition();
-            beanDefinition4Group.getConstructorArgumentValues().addIndexedArgumentValue(0, DocumentationType.OAS_30);
-            beanDefinition4Group.setBeanClassName(Docket.class.getName());
-            beanDefinition4Group.setRole(BeanDefinition.ROLE_SUPPORT);
-            beanRegistry.registerBeanDefinition(beanName, beanDefinition4Group);
-            Docket docket4Group = (Docket) beanFactory.getBean(beanName);
-            ApiInfo apiInfo = apiInfo(swaggerProperties);
-            docket4Group.host(swaggerProperties.getHost()).apiInfo(apiInfo)
-                    .globalRequestParameters(
-                            assemblyRequestParameters(swaggerProperties.getGlobalOperationParameters(), new ArrayList<>()))
-                    .securityContexts(Collections.singletonList(swaggerAuthorizationConfiguration.securityContext()))
-                    .securitySchemes(swaggerAuthorizationConfiguration.getSecuritySchemes()).select()
-                    .apis(RequestHandlerSelectors.basePackage(swaggerProperties.getBasePackage()))
-                    .paths(paths(swaggerProperties.getBasePath(), swaggerProperties.getExcludePath())).build();
-            return;
+        if (properties.getDocket().isEmpty()) {
+            // 没有分组
+            return GroupedOpenApi.builder().group("default").displayName("测试接口")
+                    .packagesToScan(properties.getBasePackage())
+                    .pathsToExclude(String.join(",", properties.getExcludePath()).split(","))
+                    .pathsToMatch(String.join(",", properties.getBasePath()).split(","))
+                    .addOperationCustomizer(operationCustomizer())
+                    .build();
         }
-        // 分组创建
-        for (Map.Entry<String, SwaggerProperties.DocketInfo> entry : swaggerProperties.getDocket().entrySet()) {
+        for (Map.Entry<String, SwaggerProperties.DocketInfo> entry : properties.getDocket().entrySet()) {
+            // 分组创建
             String groupName = entry.getKey();
             SwaggerProperties.DocketInfo docketInfo = entry.getValue();
-            String beanName = BEAN_NAME + groupName;
-            SwaggerProperties.Contact contact = swaggerProperties.getContact();
+            SwaggerProperties.Contact contact = properties.getContact();
             SwaggerProperties.Contact docketContact = docketInfo.getContact();
             String title = docketInfo.getTitle();
             String description = docketInfo.getDescription();
@@ -106,118 +102,41 @@ public class DocketConfiguration implements BeanFactoryAware {
             String contactUrl = docketContact.getUrl();
             String contactEmail = docketContact.getEmail();
             String termsOfServiceUrl = docketInfo.getTermsOfServiceUrl();
-            ApiInfo apiInfo = new ApiInfoBuilder().title(title.isEmpty() ? swaggerProperties.getTitle() : title)
-                    .description(description.isEmpty() ? swaggerProperties.getDescription() : description)
-                    .version(version.isEmpty() ? swaggerProperties.getVersion() : version)
-                    .license(license.isEmpty() ? swaggerProperties.getLicense() : license)
-                    .licenseUrl(licenseUrl.isEmpty() ? swaggerProperties.getLicenseUrl() : licenseUrl)
-                    .contact(new Contact(contactName.isEmpty() ? contact.getName() : contactName,
-                            contactUrl.isEmpty() ? contact.getUrl() : contactUrl,
-                            contactEmail.isEmpty() ? contact.getEmail() : contactEmail))
-                    .termsOfServiceUrl(termsOfServiceUrl.isEmpty() ? swaggerProperties.getTermsOfServiceUrl() : termsOfServiceUrl)
-                    .build();
+            OpenAPI apiInfo = new OpenAPI().info(new Info().title(title.isEmpty() ? properties.getTitle() : title)
+                    .description(description.isEmpty() ? properties.getDescription() : description)
+                    .version(version.isEmpty() ? properties.getVersion() : version)
+                    .license(license.isEmpty() ? new License().name(properties.getLicense())
+                            .url(properties.getLicenseUrl()) : new License().name(license).url(licenseUrl))
+                    .contact(new Contact().name(contactName.isEmpty() ? contact.getName() : contactName)
+                            .url(contactUrl.isEmpty() ? contact.getUrl() : contactUrl)
+                            .email(contactEmail.isEmpty() ? contact.getEmail() : contactEmail))
+                    .termsOfService(termsOfServiceUrl.isEmpty() ? properties.getTermsOfServiceUrl() : termsOfServiceUrl));
             // base-path处理，当没有配置任何path的时候，解析/**
             List<String> basePath = docketInfo.getBasePath();
             if (basePath.isEmpty()) {
                 basePath.add("/**");
             }
             BeanDefinition beanDefinition = new GenericBeanDefinition();
-            beanDefinition.getConstructorArgumentValues().addIndexedArgumentValue(0, DocumentationType.OAS_30);
-            beanDefinition.setBeanClassName(Docket.class.getName());
+            beanDefinition.getConstructorArgumentValues().addIndexedArgumentValue(0, SpecVersion.V30);
+            beanDefinition.setBeanClassName(GroupedOpenApi.class.getName());
             beanDefinition.setRole(BeanDefinition.ROLE_SUPPORT);
-            beanRegistry.registerBeanDefinition(beanName, beanDefinition);
-            Docket docket = (Docket) beanFactory.getBean(beanName);
-            String basePackage = docketInfo.getBasePackage();
-            docket.groupName(groupName).host(basePackage).apiInfo(apiInfo)
-                    .globalRequestParameters(assemblyRequestParameters(swaggerProperties.getGlobalOperationParameters(),
-                            docketInfo.getGlobalOperationParameters()))
-                    .securityContexts(Collections.singletonList(swaggerAuthorizationConfiguration.securityContext()))
-                    .securitySchemes(swaggerAuthorizationConfiguration.getSecuritySchemes()).select()
-                    .apis(RequestHandlerSelectors.basePackage(basePackage))
-                    .paths(paths(basePath, docketInfo.getExcludePath())).build();
+            beanRegistry.registerBeanDefinition(BEAN_NAME + groupName, beanDefinition);
+//            String basePackage = docketInfo.getBasePackage();
+//            docket.groupName(groupName).host(basePackage).apiInfo(apiInfo)
+//                    .globalRequestParameters(assemblyRequestParameters(swaggerProperties.getGlobalOperationParameters(),
+//                            docketInfo.getGlobalOperationParameters()))
+//                    .securityContexts(Collections.singletonList(swaggerAuthorizationConfiguration.securityContext()))
+//                    .securitySchemes(swaggerAuthorizationConfiguration.getSecuritySchemes()).select()
+//                    .apis(RequestHandlerSelectors.basePackage(basePackage))
+//                    .paths(paths(basePath, docketInfo.getExcludePath())).build();
         }
+        return null;
     }
 
-    /**
-     * 全局请求参数
-     *
-     * @param properties {@link SwaggerProperties}
-     * @return RequestParameter {@link RequestParameter}
-     */
-    private List<RequestParameter> getRequestParameters(List<SwaggerProperties.GlobalOperationParameter> properties) {
-        return properties.stream()
-                .map(param -> new RequestParameterBuilder().name(param.getName()).description(param.getDescription())
-                        .in(ParameterType.from(param.getParameterType())).required(param.getRequired())
-                        .query(q -> q.defaultValue(param.getType()))
-                        .query(q -> q.model(m -> m.scalarModel(!ScalarType.from(param.getType(), param.getFormat()).isPresent()
-                                ? ScalarType.STRING : ScalarType.from(param.getType(), param.getFormat()).get())))
-                        .build())
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * 局部参数按照name覆盖局部参数
-     *
-     * @param globalRequestParameters 全局配置
-     * @param groupRequestParameters  Group 的配置
-     * @return List<RequestParameter>
-     */
-    private List<RequestParameter> assemblyRequestParameters(
-            List<SwaggerProperties.GlobalOperationParameter> globalRequestParameters,
-            List<SwaggerProperties.GlobalOperationParameter> groupRequestParameters) {
-        if (Objects.isNull(groupRequestParameters) || groupRequestParameters.isEmpty()) {
-            return getRequestParameters(globalRequestParameters);
-        }
-        Set<String> paramNames = groupRequestParameters.stream().map(SwaggerProperties.GlobalOperationParameter::getName)
-                .collect(Collectors.toSet());
-        List<SwaggerProperties.GlobalOperationParameter> requestParameters = newArrayList();
-        if (Objects.nonNull(globalRequestParameters)) {
-            for (SwaggerProperties.GlobalOperationParameter parameter : globalRequestParameters) {
-                if (!paramNames.contains(parameter.getName())) {
-                    requestParameters.add(parameter);
-                }
-            }
-        }
-        requestParameters.addAll(groupRequestParameters);
-        return getRequestParameters(requestParameters);
-    }
-
-    /**
-     * API接口路径选择
-     *
-     * @param basePath    basePath
-     * @param excludePath excludePath
-     * @return Predicate
-     */
-    private Predicate paths(List<String> basePath, List<String> excludePath) {
-        // base-path处理，当没有配置任何path的时候，解析/**
-        if (basePath.isEmpty()) {
-            basePath.add("/**");
-        }
-        List<com.google.common.base.Predicate<String>> basePathList = new ArrayList<>();
-        for (String path : basePath) {
-            basePathList.add(PathSelectors.ant(path));
-        }
-        // exclude-path处理
-        List<com.google.common.base.Predicate<String>> excludePathList = new ArrayList<>();
-        for (String path : excludePath) {
-            excludePathList.add(PathSelectors.ant(path));
-        }
-        return Predicates.and(Predicates.not(Predicates.or(excludePathList)), Predicates.or(basePathList));
-    }
-
-    /**
-     * API文档基本信息
-     *
-     * @param properties SwaggerProperties
-     * @return ApiInfo
-     */
-    private ApiInfo apiInfo(SwaggerProperties properties) {
-        return new ApiInfoBuilder().title(properties.getTitle()).description(properties.getDescription())
-                .version(properties.getVersion()).license(properties.getLicense())
-                .licenseUrl(properties.getLicenseUrl())
-                .contact(new Contact(properties.getContact().getName(), properties.getContact().getUrl(),
-                        properties.getContact().getEmail()))
-                .termsOfServiceUrl(properties.getTermsOfServiceUrl()).build();
+    public OperationCustomizer operationCustomizer() {
+        return (operation, handlerMethod) -> {
+            operation.addSecurityItem(new SecurityRequirement().addList("Authorization"));
+            return operation;
+        };
     }
 }

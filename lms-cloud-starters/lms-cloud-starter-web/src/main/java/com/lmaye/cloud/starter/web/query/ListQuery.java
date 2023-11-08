@@ -1,7 +1,7 @@
 package com.lmaye.cloud.starter.web.query;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,7 +23,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@ApiModel(value = "ListQuery", description = "列表查询参数")
+@Tag(name = "ListQuery", description = "列表查询参数")
 public class ListQuery implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -31,13 +31,13 @@ public class ListQuery implements Serializable {
      * 条件
      */
     @Valid
-    @ApiModelProperty("条件")
+    @Schema(description = "条件")
     private Query query;
 
     /**
      * 排序
      */
     @Valid
-    @ApiModelProperty("排序")
+    @Schema(description = "排序")
     private Sort sort;
 }

@@ -1,8 +1,8 @@
 package com.lmaye.cloud.starter.web.query;
 
 import com.lmaye.cloud.starter.web.validator.constraints.Safe;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,7 +26,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@ApiModel(value = "Order", description = "顺序参数")
+@Tag(name = "Order", description = "顺序参数")
 public class Order implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -35,7 +35,7 @@ public class Order implements Serializable {
      */
     @Safe
     @NotBlank
-    @ApiModelProperty("排序字段")
+    @Schema(description = "排序字段")
     private String name;
 
     /**
@@ -43,6 +43,6 @@ public class Order implements Serializable {
      */
     @NotNull
     @Range(min = 0, max = 1)
-    @ApiModelProperty("是否正序: 0. 否; 1. 是;")
+    @Schema(description = "是否正序: 0. 否; 1. 是;")
     private Integer asc;
 }

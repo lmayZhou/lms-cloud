@@ -1,7 +1,7 @@
 package com.lmaye.cloud.starter.web.query;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +25,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@ApiModel(value = "Query", description = "查询参数")
+@Tag(name = "Query", description = "查询参数")
 public class Query implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -33,42 +33,42 @@ public class Query implements Serializable {
      * 等值查询
      */
     @Valid
-    @ApiModelProperty("等值查询")
+    @Schema(description = "等值查询")
     private List<TermQuery> terms;
 
     /**
      * 模糊查询
      */
     @Valid
-    @ApiModelProperty("模糊查询")
+    @Schema(description = "模糊查询")
     private List<MatchQuery> matches;
 
     /**
      * 范围查询
      */
     @Valid
-    @ApiModelProperty("范围查询")
+    @Schema(description = "范围查询")
     private List<RangeQuery> ranges;
 
     /**
      * IN查询
      */
     @Valid
-    @ApiModelProperty("IN查询")
+    @Schema(description = "IN查询")
     private List<InQuery> ins;
 
     /**
      * 且查询
      */
     @Valid
-    @ApiModelProperty("且查询")
+    @Schema(description = "且查询")
     private Query must;
 
     /**
      * 或查询
      */
     @Valid
-    @ApiModelProperty("或查询")
+    @Schema(description = "或查询")
     private Query should;
 
     /**
@@ -76,6 +76,7 @@ public class Query implements Serializable {
      *
      * @return boolean
      */
+    @Schema(hidden = true)
     public boolean isNull() {
         return CollectionUtils.isEmpty(terms) && CollectionUtils.isEmpty(matches)
                 && CollectionUtils.isEmpty(ranges) && CollectionUtils.isEmpty(ins);

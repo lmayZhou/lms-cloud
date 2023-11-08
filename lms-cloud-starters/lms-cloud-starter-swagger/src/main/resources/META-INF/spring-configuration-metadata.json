@@ -21,11 +21,6 @@
       "type": "com.lmaye.cloud.starter.swagger.properties.SwaggerProperties$GlobalResponseMessage",
       "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerProperties",
       "sourceMethod": "getGlobalResponseMessage()"
-    },
-    {
-      "name": "swagger.ui-config",
-      "type": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
     }
   ],
   "properties": [
@@ -196,104 +191,6 @@
       "type": "java.lang.String",
       "description": "标题",
       "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerProperties"
-    },
-    {
-      "name": "swagger.ui-config.api-sorter",
-      "type": "java.lang.String",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.deep-linking",
-      "type": "java.lang.Boolean",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.default-model-expand-depth",
-      "type": "java.lang.Integer",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.default-model-rendering",
-      "type": "springfox.documentation.swagger.web.ModelRendering",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.default-models-expand-depth",
-      "type": "java.lang.Integer",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.display-operation-id",
-      "type": "java.lang.Boolean",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.display-request-duration",
-      "type": "java.lang.Boolean",
-      "description": "是否显示请求耗时，默认false",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.doc-expansion",
-      "type": "springfox.documentation.swagger.web.DocExpansion",
-      "description": "可选 none | list",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.filter",
-      "type": "java.lang.Object",
-      "description": "Boolean=false OR String",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.json-editor",
-      "type": "java.lang.Boolean",
-      "description": "是否启用json编辑器",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.max-displayed-tags",
-      "type": "java.lang.Integer",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.operations-sorter",
-      "type": "springfox.documentation.swagger.web.OperationsSorter",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.request-timeout",
-      "type": "java.lang.Long",
-      "description": "请求超时时间",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.show-extensions",
-      "type": "java.lang.Boolean",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.show-request-headers",
-      "type": "java.lang.Boolean",
-      "description": "是否显示请求头信息",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.submit-methods",
-      "type": "java.lang.String",
-      "description": "支持页面提交的请求类型",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.tags-sorter",
-      "type": "springfox.documentation.swagger.web.TagsSorter",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
-    },
-    {
-      "name": "swagger.ui-config.validator-url",
-      "type": "java.lang.String",
-      "description": "Network",
-      "sourceType": "com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties"
     },
     {
       "name": "swagger.version",

@@ -1,8 +1,6 @@
 package com.lmaye.cloud.starter.swagger;
 
-import com.lmaye.cloud.starter.swagger.properties.SwaggerAuthorizationProperties;
 import com.lmaye.cloud.starter.swagger.properties.SwaggerProperties;
-import com.lmaye.cloud.starter.swagger.properties.SwaggerUiProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -24,9 +22,9 @@ import org.springframework.context.annotation.Import;
  * @since 2020/7/5 10:28 星期日
  */
 @Configuration
-@EnableConfigurationProperties({SwaggerProperties.class, SwaggerUiProperties.class, SwaggerAuthorizationProperties.class})
-@Import({SwaggerUiConfiguration.class, SwaggerAuthorizationConfiguration.class, DocketConfiguration.class})
-@ConditionalOnProperty(value = "springfox.documentation.enabled", havingValue = "true", matchIfMissing = true)
+@EnableConfigurationProperties(SwaggerProperties.class)
+@Import(DocketConfiguration.class)
+@ConditionalOnProperty(value = "swagger.enabled", havingValue = "true", matchIfMissing = true)
 public class SwaggerAutoConfiguration {
     /**
      * Docket Bean Factory Post Processor

@@ -5,8 +5,8 @@ import com.lmaye.cloud.core.context.IResultCode;
 import com.lmaye.cloud.core.context.ResultCode;
 import com.lmaye.cloud.starter.web.WebProperties;
 import com.lmaye.cloud.starter.web.utils.SpringUtils;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.apache.commons.lang3.StringUtils;
@@ -24,24 +24,24 @@ import java.util.Objects;
 @Data
 @Accessors(chain = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-@ApiModel(value = "ResultVO", description = "响应结果")
+@Tag(name = "ResultVO", description = "响应结果")
 public class ResultVO<T> implements Serializable {
     /**
      * 响应代码
      */
-    @ApiModelProperty("响应代码")
+    @Schema(description = "响应代码")
     private Integer code;
 
     /**
      * 响应消息
      */
-    @ApiModelProperty("响应消息")
+    @Schema(description = "响应消息")
     private String msg;
 
     /**
      * 响应数据
      */
-    @ApiModelProperty("响应数据")
+    @Schema(description = "响应数据")
     private T data;
 
     public ResultVO(Integer code, String msg) {

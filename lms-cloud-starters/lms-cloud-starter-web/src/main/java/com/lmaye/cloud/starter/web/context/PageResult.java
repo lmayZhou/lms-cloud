@@ -1,7 +1,7 @@
 package com.lmaye.cloud.starter.web.context;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,38 +25,38 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@ApiModel(value = "PageResult", description = "分页实体")
+@Tag(name = "PageResult", description = "分页实体")
 public class PageResult<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
      * 当前页码
      */
-    @ApiModelProperty("当前页码")
+    @Schema(description = "当前页码")
     private Long pageIndex;
 
     /**
      * 每页显示页数
      */
-    @ApiModelProperty("每页显示页数")
+    @Schema(description = "每页显示页数")
     private Long pageSize;
 
     /**
      * 总条数
      */
-    @ApiModelProperty("总条数")
+    @Schema(description = "总条数")
     private Long total;
 
     /**
      * 总页数
      */
-    @ApiModelProperty("总页数")
+    @Schema(description = "总页数")
     private Long pages;
 
     /**
      * 数据列表
      */
-    @ApiModelProperty("数据列表")
+    @Schema(description = "数据列表")
     private List<T> records;
 
     public List<T> getRecords() {
@@ -71,7 +71,7 @@ public class PageResult<T> implements Serializable {
      *
      * @return boolean
      */
-    @ApiModelProperty("是否首页")
+    @Schema(description = "是否首页")
     public boolean isFirst() {
         return 1 == pageIndex;
     }
@@ -81,7 +81,7 @@ public class PageResult<T> implements Serializable {
      *
      * @return boolean
      */
-    @ApiModelProperty("是否尾页")
+    @Schema(description = "是否尾页")
     public boolean isLast() {
         return pageIndex.equals(pages);
     }

@@ -1,8 +1,8 @@
 package com.lmaye.cloud.starter.web.query;
 
 import com.lmaye.cloud.core.constants.YesOrNo;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
 
@@ -17,7 +17,7 @@ import java.util.Objects;
  * @since 2020/12/1 14:34
  */
 @Data
-@ApiModel(value = "Negation", description = "是否否定")
+@Tag(name = "Negation", description = "是否否定")
 public class Negation implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -25,7 +25,7 @@ public class Negation implements Serializable {
      * 是否否定: 0. 否; 1. 是;
      */
     @Range(min = 0, max = 1)
-    @ApiModelProperty("是否否定: 0. 否; 1. 是;")
+    @Schema(description = "是否否定: 0. 否; 1. 是;")
     private Integer negation = 0;
 
     /**

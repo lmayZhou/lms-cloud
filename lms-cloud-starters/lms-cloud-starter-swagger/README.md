@@ -36,7 +36,7 @@
 <dependency>
    <groupId>com.lmaye</groupId>
    <artifactId>lms-cloud-starter-swagger</artifactId>
-   <version>1.2.17</version>
+   <version>1.3.0</version>
 </dependency>
 ```
 
@@ -44,7 +44,7 @@
 
 ```groovy
 // implementation 引用的包对于其他module是不可见的
-implementation 'com.lmaye:lms-cloud-starter-swagger:1.0.1'
+implementation 'com.lmaye:lms-cloud-starter-swagger:1.3.0'
 ```
 
 #### 使用说明
@@ -69,10 +69,8 @@ export GPG_TTY=$(tty)
 ```yaml
 # 接口文档V3.0访问地址: http://127.0.0.1:8080/swagger-ui/index.html
 # Swagger 配置
-springfox:
-  documentation:
-    enabled: true
 swagger:
+  enabled: true
   title: XXX 服务API-在线接口文档
   description: Starter for swagger 3.0
   version: 1.0.1

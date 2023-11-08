@@ -1,8 +1,8 @@
 package com.lmaye.cloud.starter.web.query;
 
 import com.lmaye.cloud.starter.web.validator.constraints.Safe;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -23,7 +23,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-@ApiModel(value = "MatchQuery", description = "模糊查询参数")
+@Tag(name = "MatchQuery", description = "模糊查询参数")
 public class MatchQuery extends Negation implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -32,13 +32,13 @@ public class MatchQuery extends Negation implements Serializable {
      */
     @Safe
     @NotBlank
-    @ApiModelProperty("字段")
+    @Schema(description = "字段")
     private String field;
 
     /**
      * 值
      */
     @NotNull
-    @ApiModelProperty("值")
+    @Schema(description = "值")
     private Object value;
 }

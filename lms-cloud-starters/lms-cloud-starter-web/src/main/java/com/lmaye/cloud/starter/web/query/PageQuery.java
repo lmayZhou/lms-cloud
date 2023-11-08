@@ -1,7 +1,7 @@
 package com.lmaye.cloud.starter.web.query;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +25,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
-@ApiModel(value = "PageQuery", description = "分页查询参数")
+@Tag(name = "PageQuery", description = "分页查询参数")
 public class PageQuery implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -33,33 +33,33 @@ public class PageQuery implements Serializable {
      * 查询条件
      */
     @Valid
-    @ApiModelProperty("查询条件")
+    @Schema(description = "查询条件")
     private Query query;
 
     /**
      * 当前页码(默认: 1)
      */
     @Min(1)
-    @ApiModelProperty(value = "当前页码(默认: 1)", example = "1")
+    @Schema(description = "当前页码(默认: 1)", example = "1")
     private Long pageIndex = 1L;
 
     /**
      * 每页显示页数(默认: 10)
      */
     @Range(min = 1, max = 10000)
-    @ApiModelProperty(value = "每页显示页数(默认: 10)", example = "10")
+    @Schema(description = "每页显示页数(默认: 10)", example = "10")
     private Long pageSize = 10L;
 
     /**
      * 排序
      */
     @Valid
-    @ApiModelProperty("排序")
+    @Schema(description = "排序")
     private Sort sort;
 
     /**
      * 滚动ID(深度分页查询)
      */
-    @ApiModelProperty("滚动ID(深度分页查询)")
+    @Schema(description = "滚动ID(深度分页查询)")
     private String scrollId;
 }

@@ -1,0 +1,40 @@
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    #operations-sorter: order
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.example.swagger
+  default-flat-param-object: true
+
+# Swagger 配置
+swagger:
+  title: 香港落户小程序 API-在线接口文档
+  description: Qiuruida Software, Inc.
+  version: 1.0.1
+  termsOfServiceUrl: https://www.luckyturnfast.com
+  basePackage: com.example.swagger
+  basePath: /**
+  excludePath: /error
+  contact:
+    email: lmay@lmaye.com
+    name: lmay Zhou
+    url: https://www.luckyturnfast.com
+  global-operation-parameters:
+    - description: 凭证
+      modelRef: string
+      name: Authorization
+      parameterType: header
+      required: true

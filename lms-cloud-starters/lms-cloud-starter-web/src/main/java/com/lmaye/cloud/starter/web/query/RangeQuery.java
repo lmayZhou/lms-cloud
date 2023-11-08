@@ -1,8 +1,8 @@
 package com.lmaye.cloud.starter.web.query;
 
 import com.lmaye.cloud.starter.web.validator.constraints.Safe;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -23,7 +23,7 @@ import java.io.Serializable;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-@ApiModel(value = "RangeQuery", description = "范围查询参数")
+@Tag(name = "RangeQuery", description = "范围查询参数")
 public class RangeQuery extends Negation implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -32,20 +32,20 @@ public class RangeQuery extends Negation implements Serializable {
      */
     @Safe
     @NotBlank
-    @ApiModelProperty("字段")
+    @Schema(description = "字段")
     private String field;
 
     /**
      * 小值
      */
     @NotNull
-    @ApiModelProperty("小值")
+    @Schema(description = "小值")
     private Object le;
 
     /**
      * 大值
      */
     @NotNull
-    @ApiModelProperty("大值")
+    @Schema(description = "大值")
     private Object ge;
 }
