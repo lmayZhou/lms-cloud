@@ -1,7 +1,7 @@
 package com.lmaye.cloud.starter.oauth2.utils;
 
 import com.lmaye.cloud.core.utils.GsonUtils;
-import com.lmaye.cloud.starter.web.context.UserToken;
+import com.lmaye.cloud.starter.web.context.UserBaseInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -45,15 +45,15 @@ public class TokenDecode {
     /**
      * 获取当前的登录的用户的用户信息
      *
-     * @return UserToken
+     * @return UserBaseInfo
      */
-    public UserToken getUserInfo() {
+    public UserBaseInfo getUserInfo() {
         final String pubKey = getPubKey();
         if (Objects.isNull(pubKey)) {
             return null;
         }
         Jwt jwt = JwtHelper.decodeAndVerify(getToken(), new RsaVerifier(pubKey));
-        return GsonUtils.fromJson(jwt.getClaims(), UserToken.class);
+        return GsonUtils.fromJson(jwt.getClaims(), UserBaseInfo.class);
     }
 
     /**

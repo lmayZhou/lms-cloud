@@ -1,6 +1,6 @@
 package com.lmaye.cloud.starter.web.utils;
 
-import com.lmaye.cloud.starter.web.context.UserToken;
+import com.lmaye.cloud.starter.web.context.UserBaseInfo;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
 
@@ -17,12 +17,12 @@ public class TokenUtils {
      * 解析用户信息
      *
      * @param token Token
-     * @return JSONObject
+     * @return UserBaseInfo
      */
-    public static UserToken parsUserInfo(String token) {
+    public static UserBaseInfo parsUserInfo(String token) {
         try {
             String userInfo = token.substring(token.indexOf("."), token.lastIndexOf("."));
-            return JsonUtils.toBean(StringUtils.newStringUtf8(Base64.decodeBase64(userInfo.getBytes())), UserToken.class);
+            return JsonUtils.toBean(StringUtils.newStringUtf8(Base64.decodeBase64(userInfo.getBytes())), UserBaseInfo.class);
         } catch (Exception e) {
             return null;
         }

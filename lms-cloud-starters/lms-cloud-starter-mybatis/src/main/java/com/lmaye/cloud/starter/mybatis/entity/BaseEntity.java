@@ -40,7 +40,7 @@ public class BaseEntity implements Serializable {
      * 是否删除: 0. 否; 1. 是;
      */
     @TableField(value = "is_deleted", fill = FieldFill.INSERT)
-    private Integer deleted;
+    private Boolean deleted;
 
     /**
      * 备注
@@ -58,7 +58,7 @@ public class BaseEntity implements Serializable {
      * 创建人
      */
     @TableField(value = "created_by", fill = FieldFill.INSERT)
-    private String createdBy;
+    private Long createdBy;
 
     /**
      * 创建时间

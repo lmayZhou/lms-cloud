@@ -40,7 +40,7 @@ public class FullEntity extends BaseEntity implements Serializable {
      * 修改人
      */
     @TableField(value = "last_modified_by", fill = FieldFill.INSERT_UPDATE)
-    private String lastModifiedBy;
+    private Long lastModifiedBy;
 
     /**
      * 修改时间

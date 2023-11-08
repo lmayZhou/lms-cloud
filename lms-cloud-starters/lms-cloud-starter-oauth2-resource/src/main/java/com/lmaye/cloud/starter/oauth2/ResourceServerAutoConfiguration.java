@@ -48,7 +48,7 @@ public class ResourceServerAutoConfiguration extends ResourceServerConfigurerAda
      * @return TokenDecode
      */
     @Bean
-    TokenDecode tokenDecode() {
+    public TokenDecode tokenDecode() {
         return new TokenDecode();
     }
 
