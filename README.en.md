@@ -1,9 +1,11 @@
 # lms-cloud
 
 #### Description
+
 基于 Spring Boot 自定义快速依赖集合，可快速集成于项目中，从而避免重复编写！如有更好的方案和idea，欢迎互相交流！如您觉得该项目对您有所帮助，欢迎点击右上方的Star标记，给予支持！！！谢谢 ~ ~
 
 #### Software Architecture
+
 Software architecture description
 
 #### Installation
