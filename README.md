@@ -151,7 +151,6 @@ chore       构建过程或辅助工具的变动
 - 新增 lms-cloud-starter-serial-no[分布式业务序列号]
 - 新增 lms-cloud-plus[服务插件] TODO
 
-
 #### 参与贡献
 
 1.  示例地址: [lms-cloud-examples](https://gitee.com/lmay/spring-boot-examples/tree/master/lms-cloud-examples)
