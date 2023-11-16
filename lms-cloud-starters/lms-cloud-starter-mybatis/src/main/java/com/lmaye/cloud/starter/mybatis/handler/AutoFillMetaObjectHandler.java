@@ -2,7 +2,6 @@ package com.lmaye.cloud.starter.mybatis.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.lmaye.cloud.core.constants.CoreConstants;
-import com.lmaye.cloud.core.constants.YesOrNo;
 import com.lmaye.cloud.starter.web.context.UserBaseInfo;
 import com.lmaye.cloud.starter.web.utils.HttpUtils;
 import com.lmaye.cloud.starter.web.utils.TokenUtils;
@@ -38,7 +37,7 @@ public class AutoFillMetaObjectHandler implements MetaObjectHandler {
             }
         }
         setFieldValByName("createdAt", now, metaObject);
-        setFieldValByName("deleted", YesOrNo.NO.getCode(), metaObject);
+        setFieldValByName("deleted", Boolean.FALSE, metaObject);
         setFieldValByName("lastModifiedAt", now, metaObject);
         setFieldValByName("version", CoreConstants.VERSION, metaObject);
     }
