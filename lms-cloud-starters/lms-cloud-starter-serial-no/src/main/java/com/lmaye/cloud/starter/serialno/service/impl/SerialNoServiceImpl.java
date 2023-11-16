@@ -72,13 +72,17 @@ public class SerialNoServiceImpl implements ISerialNoService {
         if (serialNoProperties.getIsOrderly()) {
             final RAtomicLong atomicLong = redissonClient.getAtomicLong("GlobalIncrId:" + businessLogo);
             final long incrId = atomicLong.incrementAndGet();
-            atomicLong.expire(DateUtils.getDayEnd().toInstant());
+            if (serialNoProperties.getIsExpire()) {
+                atomicLong.expire(DateUtils.getDayEnd().toInstant());
+            }
             globalId = StringCoreUtils.fillZeroLeft(globalIdLen, incrId);
         } else {
             final String startNo = StringCoreUtils.fillNumRight(globalIdLen, 1, "0");
             final String key = "GlobalRandomIncr:" + businessLogo;
             final RAtomicLong atomicLong = redissonClient.getAtomicLong(key);
-            atomicLong.expire(DateUtils.getDayEnd().toInstant());
+            if (serialNoProperties.getIsExpire()) {
+                atomicLong.expire(DateUtils.getDayEnd().toInstant());
+            }
             if (Objects.equals(0L, redissonClient.getKeys().countExists(key))) {
                 atomicLong.set(Integer.parseInt(startNo) - 1);
             }

@@ -30,6 +30,11 @@ public class SerialNoProperties {
     private Boolean isOrderly = true;
 
     /**
+     * 是否过期(当天失效)
+     */
+    private Boolean isExpire = true;
+
+    /**
      * 无序时 - Redis每个缓存Key中存储序号的个数，默认1000
      */
     private int eachCacheSize = 1000;
