@@ -1,5 +1,6 @@
 package com.lmaye.cloud.starter.mybatis.annotation;
 
+import com.lmaye.cloud.starter.mybatis.constant.EnDecryptType;
 import com.lmaye.cloud.starter.mybatis.constant.HandleStrategy;
 
 import java.lang.annotation.*;
@@ -18,6 +19,14 @@ import java.lang.annotation.*;
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FieldEnDecrypt {
+    /**
+     * 加解密算法
+     * - 默认AES
+     *
+     * @return EnDecryptType
+     */
+    EnDecryptType value() default EnDecryptType.AES;
+
     /**
      * 处理策略
      *

@@ -18,21 +18,21 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("mybatis-plus.ext")
 public class MybatisExtProperties {
     /**
-     * AES 加密算法
+     * 非对称加密算法(二选一)
      */
-    private Aes aes;
+    private Symmetric symmetric;
 
     /**
-     * Des 加密算法
+     * 对称加密算法(二选一)
      */
-    private Des des;
+    private Asymmetric asymmetric;
 
     /**
-     * AES 加密算法
+     * 非对称加密算法
      */
     @Data
     @NoArgsConstructor
-    public static class Aes {
+    public static class Symmetric {
         /**
          * 模式
          */
@@ -55,29 +55,19 @@ public class MybatisExtProperties {
     }
 
     /**
-     * Des 加密算法
+     * 对称加密算法
      */
     @Data
     @NoArgsConstructor
-    public static class Des {
+    public static class Asymmetric {
         /**
-         * 模式
+         * 公钥
          */
-        private String mode = Mode.CBC.name();
+        private String publicKey;
 
         /**
-         * 补码方式
+         * 私钥
          */
-        private String padding = Padding.PKCS5Padding.name();
-
-        /**
-         * 密钥，支持三种密钥长度：128、192、256位
-         */
-        private String key;
-
-        /**
-         * 加盐
-         */
-        private String iv;
+        private String privateKey;
     }
 }
