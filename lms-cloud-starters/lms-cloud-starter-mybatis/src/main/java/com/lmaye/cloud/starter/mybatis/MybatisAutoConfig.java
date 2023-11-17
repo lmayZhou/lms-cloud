@@ -10,6 +10,7 @@ import com.lmaye.cloud.starter.mybatis.handler.AutoFillMetaObjectHandler;
 import org.springframework.aop.interceptor.PerformanceMonitorInterceptor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -24,7 +25,18 @@ import org.springframework.context.annotation.Profile;
  */
 @Configuration
 @ConditionalOnClass(GlobalConfig.class)
+@EnableConfigurationProperties(MybatisExtProperties.class)
 public class MybatisAutoConfig {
+    /**
+     * MybatisExtProperties
+     *
+     * @return MybatisPlusExtProperties
+     */
+    @Bean(name = "mybatisExtProperties")
+    public MybatisExtProperties mybatisExtProperties() {
+        return new MybatisExtProperties();
+    }
+
     /**
      * 填充处理器
      *

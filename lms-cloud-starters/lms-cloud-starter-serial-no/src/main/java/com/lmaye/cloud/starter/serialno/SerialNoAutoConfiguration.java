@@ -1,6 +1,6 @@
 package com.lmaye.cloud.starter.serialno;
 
-import com.lmaye.cloud.core.utils.StringCoreUtils;
+import com.lmaye.cloud.core.utils.CoreUtils;
 import org.redisson.api.RList;
 import org.redisson.api.RedissonClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -55,8 +55,8 @@ public class SerialNoAutoConfiguration {
         final Stream<String> keysStreamByPattern = redissonClient.getKeys().getKeysStreamByPattern("GlobalRandomNo:*");
         if (!serialNoProperties.getIsOrderly() && Objects.equals(0L, keysStreamByPattern.count())) {
             final int globalIdLen = serialNoProperties.getGlobalIdLen();
-            final int startNum = Integer.parseInt(StringCoreUtils.fillNumRight(globalIdLen, 1, "0"));
-            final int endNum = Integer.parseInt(StringCoreUtils.fillNumRight(globalIdLen, 9, "9"));
+            final int startNum = Integer.parseInt(CoreUtils.fillNumRight(globalIdLen, 1, "0"));
+            final int endNum = Integer.parseInt(CoreUtils.fillNumRight(globalIdLen, 9, "9"));
             List<Integer> nums = new ArrayList<>();
             for (int i = startNum; i <= endNum; i++) {
                 nums.add(i);

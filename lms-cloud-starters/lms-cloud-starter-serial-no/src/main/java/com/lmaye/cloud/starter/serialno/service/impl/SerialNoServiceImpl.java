@@ -1,7 +1,7 @@
 package com.lmaye.cloud.starter.serialno.service.impl;
 
 import com.lmaye.cloud.core.utils.DateUtils;
-import com.lmaye.cloud.core.utils.StringCoreUtils;
+import com.lmaye.cloud.core.utils.CoreUtils;
 import com.lmaye.cloud.starter.serialno.SerialNoProperties;
 import com.lmaye.cloud.starter.serialno.pattern.SerialNoContext;
 import com.lmaye.cloud.starter.serialno.pattern.SerialNoFactory;
@@ -75,9 +75,9 @@ public class SerialNoServiceImpl implements ISerialNoService {
             if (serialNoProperties.getIsExpire()) {
                 atomicLong.expire(DateUtils.getDayEnd().toInstant());
             }
-            globalId = StringCoreUtils.fillZeroLeft(globalIdLen, incrId);
+            globalId = CoreUtils.fillZeroLeft(globalIdLen, incrId);
         } else {
-            final String startNo = StringCoreUtils.fillNumRight(globalIdLen, 1, "0");
+            final String startNo = CoreUtils.fillNumRight(globalIdLen, 1, "0");
             final String key = "GlobalRandomIncr:" + businessLogo;
             final RAtomicLong atomicLong = redissonClient.getAtomicLong(key);
             if (serialNoProperties.getIsExpire()) {
@@ -94,7 +94,7 @@ public class SerialNoServiceImpl implements ISerialNoService {
                             "    return incr;" +
                             "end;" +
                             "return incr;", RScript.ReturnType.INTEGER, Collections.singletonList(key),
-                    StringCoreUtils.fillNumRight(globalIdLen, 9, "9"), startNo);
+                    CoreUtils.fillNumRight(globalIdLen, 9, "9"), startNo);
             final String incrStr = String.valueOf(incr);
             final RList<Integer> rList = redissonClient.getList("GlobalRandomNo:" + incrStr.substring(0, 2));
             globalId = String.valueOf(rList.get(Integer.parseInt(incrStr.substring(2))));

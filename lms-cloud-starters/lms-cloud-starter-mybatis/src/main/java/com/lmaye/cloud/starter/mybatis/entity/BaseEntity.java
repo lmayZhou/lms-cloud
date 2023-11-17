@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -23,9 +24,10 @@ import java.time.LocalDateTime;
  * @since JDK1.8
  */
 @Data
-@Accessors(chain = true)
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
 public class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
