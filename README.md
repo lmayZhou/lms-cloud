@@ -52,6 +52,7 @@
 
 ```xml
 <!-- 项目引用 parent 工程 -->
+<!-- https://mvnrepository.com/artifact/com.lmaye/lms-cloud -->
 <parent>
     <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud</artifactId>
@@ -64,6 +65,7 @@
 
 ```groovy
 // 项目引用 Parent 工程
+// https://mvnrepository.com/artifact/com.lmaye/lms-cloud
 dependencyManagement {
     imports {
         mavenBom 'com.lmaye:lms-cloud:1.2.23'
