@@ -12,5 +12,5 @@ ${AnsiColor.BRIGHT_YELLOW}
     * *              Blog: www.lmaye.com                * *
     * *              Email: lmay@lmaye.com              * *
     *******************************************************
-    Application Powered by：Spring Boot ${spring-boot.version}
+    Application Powered by: Spring Boot ${spring-boot.version}
 ${AnsiColor.DEFAULT}

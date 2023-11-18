@@ -1,5 +1,6 @@
 package com.lmaye.cloud.starter.swagger.properties;
 
+import com.lmaye.cloud.core.constants.CoreConstants;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -17,7 +18,7 @@ public class SwaggerAuthorizationProperties {
     /**
      * 鉴权策略ID，对应 SecurityReferences ID
      */
-    private String name = "Authorization";
+    private String name = CoreConstants.FIELD_AUTHORIZATION;
 
     /**
      * 鉴权策略，可选 ApiKey | BasicAuth | None，默认ApiKey

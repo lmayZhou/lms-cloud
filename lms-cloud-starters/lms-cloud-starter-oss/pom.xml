@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>lms-cloud-starter-oss</artifactId>
+    <version>${lms-cloud.version}</version>
+    <name>lms-cloud-starter-oss</name>
+    <packaging>jar</packaging>
+    <description>LMS Cloud MinIO Starter project for Spring Boot</description>
+    <url>https://www.lmaye.com</url>
+
+    <!-- lookup parent from repository -->
+    <parent>
+        <groupId>com.lmaye</groupId>
+        <artifactId>lms-cloud-starters</artifactId>
+        <version>1.2.23</version>
+    </parent>
+
+    <!-- dependencies -->
+    <dependencies>
+        <!-- OSS -->
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Autoconfigure -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+    </dependencies>
+
+
+    <!-- licenses信息 -->
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <!-- organization -->
+    <organization>
+        <name>LmayE</name>
+        <url>https://www.lmaye.com</url>
+    </organization>
+
+    <!-- scm信息 -->
+    <scm>
+        <url>https://github.com/lmayZhou/lms-cloud</url>
+        <connection>scm:git@github.com:lmayZhou/lms-cloud.git</connection>
+        <developerConnection>scm:git@github.com:lmayZhou/lms-cloud.git</developerConnection>
+    </scm>
+
+    <!-- 发布者信息 -->
+    <developers>
+        <developer>
+            <id>LmayZhou</id>
+            <name>lmay Zhou</name>
+            <email>lmaye@lmaye.com</email>
+            <organization>LmayE Software, Inc.</organization>
+            <organizationUrl>https://www.lmaye.com</organizationUrl>
+            <roles>
+                <role>Project lead</role>
+                <role>Project developer</role>
+            </roles>
+        </developer>
+    </developers>
+</project>

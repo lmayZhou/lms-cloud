@@ -17,6 +17,7 @@ import java.sql.SQLException;
  * @author lmay.Zhou
  * @date 2019/12/6 18:29 星期五
  * @email lmay@lmaye.com
+ * @see com.baomidou.mybatisplus.annotation.TableField
  */
 public class JsonTypeHandler extends BaseTypeHandler<JsonType> {
     @Override
@@ -27,7 +28,7 @@ public class JsonTypeHandler extends BaseTypeHandler<JsonType> {
     @Override
     public JsonType getNullableResult(ResultSet rs, String columnName) throws SQLException {
         String val = rs.getString(columnName);
-        if(StringUtils.isBlank(val)) {
+        if (StringUtils.isBlank(val)) {
             return null;
         }
         return new JsonType().setVal(val);
@@ -36,7 +37,7 @@ public class JsonTypeHandler extends BaseTypeHandler<JsonType> {
     @Override
     public JsonType getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
         String val = rs.getString(columnIndex);
-        if(StringUtils.isBlank(val)) {
+        if (StringUtils.isBlank(val)) {
             return null;
         }
         return new JsonType().setVal(val);
@@ -45,7 +46,7 @@ public class JsonTypeHandler extends BaseTypeHandler<JsonType> {
     @Override
     public JsonType getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
         String val = cs.getString(columnIndex);
-        if(StringUtils.isBlank(val)) {
+        if (StringUtils.isBlank(val)) {
             return null;
         }
         return new JsonType().setVal(val);

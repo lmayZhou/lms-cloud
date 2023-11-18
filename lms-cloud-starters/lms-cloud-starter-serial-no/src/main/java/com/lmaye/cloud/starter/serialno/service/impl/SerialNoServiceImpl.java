@@ -1,16 +1,22 @@
 package com.lmaye.cloud.starter.serialno.service.impl;
 
 import com.lmaye.cloud.core.utils.DateUtils;
-import com.lmaye.cloud.core.utils.StringCoreUtils;
+import com.lmaye.cloud.core.utils.CoreUtils;
 import com.lmaye.cloud.starter.serialno.SerialNoProperties;
 import com.lmaye.cloud.starter.serialno.pattern.SerialNoContext;
 import com.lmaye.cloud.starter.serialno.pattern.SerialNoFactory;
 import com.lmaye.cloud.starter.serialno.service.ISerialNoService;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RAtomicLong;
+import org.redisson.api.RList;
+import org.redisson.api.RScript;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.redisson.client.codec.LongCodec;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.Collections;
+import java.util.Objects;
 
 /**
  * -- Serial Number Service
@@ -26,13 +32,13 @@ public class SerialNoServiceImpl implements ISerialNoService {
     /**
      * Redisson Client
      */
-    @Autowired
+    @Resource
     private RedissonClient redissonClient;
 
     /**
      * Serial No Properties
      */
-    @Autowired
+    @Resource
     private SerialNoProperties serialNoProperties;
 
     /**
@@ -61,13 +67,41 @@ public class SerialNoServiceImpl implements ISerialNoService {
      */
     @Override
     public String generate(String businessLogo, String delimiter, boolean hasDate) {
-        final RAtomicLong atomicLong = redissonClient.getAtomicLong("GlobalIncrId:" + businessLogo);
-        final long incrId = atomicLong.incrementAndGet();
-        atomicLong.expire(DateUtils.getDayEnd().toInstant());
+        final String globalId;
+        final int globalIdLen = serialNoProperties.getGlobalIdLen();
+        if (serialNoProperties.getIsOrderly()) {
+            final RAtomicLong atomicLong = redissonClient.getAtomicLong("GlobalIncrId:" + businessLogo);
+            final long incrId = atomicLong.incrementAndGet();
+            if (serialNoProperties.getIsExpire()) {
+                atomicLong.expire(DateUtils.getDayEnd().toInstant());
+            }
+            globalId = CoreUtils.fillZeroLeft(globalIdLen, incrId);
+        } else {
+            final String startNo = CoreUtils.fillNumRight(globalIdLen, 1, "0");
+            final String key = "GlobalRandomIncr:" + businessLogo;
+            final RAtomicLong atomicLong = redissonClient.getAtomicLong(key);
+            if (serialNoProperties.getIsExpire()) {
+                atomicLong.expire(DateUtils.getDayEnd().toInstant());
+            }
+            if (Objects.equals(0L, redissonClient.getKeys().countExists(key))) {
+                atomicLong.set(Integer.parseInt(startNo) - 1);
+            }
+            final Long incr = redissonClient.getScript(LongCodec.INSTANCE).eval(RScript.Mode.READ_WRITE,
+                    "local key = KEYS[1];" +
+                            "local incr = redis.call('incr', key);" +
+                            "if incr >= tonumber(ARGV[1]) then " +
+                            "    redis.call('set', key, tonumber(ARGV[2]));" +
+                            "    return incr;" +
+                            "end;" +
+                            "return incr;", RScript.ReturnType.INTEGER, Collections.singletonList(key),
+                    CoreUtils.fillNumRight(globalIdLen, 9, "9"), startNo);
+            final String incrStr = String.valueOf(incr);
+            final RList<Integer> rList = redissonClient.getList("GlobalRandomNo:" + incrStr.substring(0, 2));
+            globalId = String.valueOf(rList.get(Integer.parseInt(incrStr.substring(2))));
+        }
         SerialNoContext serialNoContext = new SerialNoContext();
         serialNoContext.setStrategy(SerialNoFactory.getPattern(businessLogo, delimiter, hasDate));
-        return serialNoContext.generate(businessLogo, StringCoreUtils.fillZero(serialNoProperties.getGlobalIdLen(),
-                incrId), delimiter, serialNoProperties.getDateFormat());
+        return serialNoContext.generate(businessLogo, globalId, delimiter, serialNoProperties.getDateFormat());
     }
 
     /**

@@ -2,12 +2,14 @@ package com.lmaye.cloud.starter.mybatis.handler;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.lmaye.cloud.core.constants.CoreConstants;
-import com.lmaye.cloud.core.constants.YesOrNo;
-import com.lmaye.cloud.starter.web.context.BaseContext;
-import org.apache.commons.lang3.StringUtils;
+import com.lmaye.cloud.starter.web.context.UserBaseInfo;
+import com.lmaye.cloud.starter.web.utils.HttpUtils;
+import com.lmaye.cloud.starter.web.utils.TokenUtils;
 import org.apache.ibatis.reflection.MetaObject;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * -- 自动填充公共字段
@@ -25,13 +27,17 @@ public class AutoFillMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         LocalDateTime now = LocalDateTime.now();
-        String userName = BaseContext.getBaseInfo().getUserName();
-        if(StringUtils.isNotBlank(userName)) {
-            setFieldValByName("createdBy", userName, metaObject);
-            setFieldValByName("lastModifiedBy", userName, metaObject);
+        final HttpServletRequest request = HttpUtils.getRequest();
+        if (Objects.nonNull(request)) {
+            final UserBaseInfo userInfo = TokenUtils.parsUserInfo(request.getHeader(CoreConstants.FIELD_AUTHORIZATION));
+            if (Objects.nonNull(userInfo)) {
+                final Long userId = userInfo.getId();
+                setFieldValByName("createdBy", userId, metaObject);
+                setFieldValByName("lastModifiedBy", userId, metaObject);
+            }
         }
-        setFieldValByName("createAt", now, metaObject);
-        setFieldValByName("deleted", YesOrNo.NO.getCode(), metaObject);
+        setFieldValByName("createdAt", now, metaObject);
+        setFieldValByName("deleted", Boolean.FALSE, metaObject);
         setFieldValByName("lastModifiedAt", now, metaObject);
         setFieldValByName("version", CoreConstants.VERSION, metaObject);
     }
@@ -43,9 +49,12 @@ public class AutoFillMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
-        String userName = BaseContext.getBaseInfo().getUserName();
-        if(StringUtils.isNotBlank(userName)) {
-            setFieldValByName("lastModifiedBy", userName, metaObject);
+        final HttpServletRequest request = HttpUtils.getRequest();
+        if (Objects.nonNull(request)) {
+            final UserBaseInfo userInfo = TokenUtils.parsUserInfo(request.getHeader(CoreConstants.FIELD_AUTHORIZATION));
+            if (Objects.nonNull(userInfo)) {
+                setFieldValByName("lastModifiedBy", userInfo.getId(), metaObject);
+            }
         }
         setFieldValByName("lastModifiedAt", LocalDateTime.now(), metaObject);
     }

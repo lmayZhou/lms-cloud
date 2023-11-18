@@ -24,7 +24,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = UserNameValidator.class)
 public @interface UserName {
 
-    String message() default "{Username.message}";
+    String message() default "{username.message}";
 
     Class<?>[] groups() default {};
 

@@ -1,12 +1,14 @@
 package com.lmaye.cloud.core.utils;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
+import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.StrUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
+import java.nio.charset.Charset;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -18,38 +20,34 @@ import java.util.regex.Pattern;
  * @email lmay@lmaye.com
  * @since 2020-12-01 15:23:22
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class CoreUtils {
+    private static final int INDEX_NOT_FOUND = -1;
     /**
      * 校验包含大写字母的正则表达式
      */
     private static final Pattern UPPERCASE_PATTERN = Pattern.compile("[A-Z]");
 
     /**
-     * 获取32位的UUID
-     * - 去-符号
+     * 生成32位的Uuid
      *
-     * @return String
+     * @return 字符串
      */
-    public static String getUuid() {
-        UUID object = UUID.randomUUID();
-        String uuid = object.toString();
-        uuid = uuid.replaceAll("-", "");
-        return uuid;
+    public static String generateUuid() {
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
     /**
      * 获取随机数(字母、数字)
      *
-     * @param length 长度
+     * @param length 字符串长度
      * @return String
      */
-    public static String getRandomNumber(int length) {
+    public static String generateStr(int length) {
         String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            int number = random.nextInt(str.length());
+            int number = random.nextInt(62);
             sb.append(str.charAt(number));
         }
         return sb.toString();
@@ -75,11 +73,12 @@ public final class CoreUtils {
     /**
      * 驼峰命名转下划线
      *
-     * @param humpName 名称
+     * @param str 字符串
      * @return String
      */
-    public static String humpNameToUnderline(String humpName) {
-        Matcher matcher = UPPERCASE_PATTERN.matcher(humpName);
+    public static String humpNameToUnderline(String str) {
+        Assert.notEmpty(str, "The transform string cannot be empty");
+        Matcher matcher = UPPERCASE_PATTERN.matcher(str);
         StringBuffer sb = new StringBuffer();
         while (matcher.find()) {
             matcher.appendReplacement(sb, "_" + matcher.group(0).toLowerCase());
@@ -89,20 +88,202 @@ public final class CoreUtils {
     }
 
     /**
-     * 获取最大长度的字符串
-     * - length - 3
+     * 截取字符串，如果超出最大长度，则截取到最大长度-3的位数再加上“...”
      *
-     * @param param  字符串
+     * @param str    字符串
      * @param length 最大长度
      * @return String
      */
-    public static String getMaxLengthString(String param, int length) {
-        Objects.requireNonNull(param, "The intercepted string cannot be empty");
-        if (param.length() > length) {
-            return param.substring(0, length - 3) + "...";
-        } else {
-            return param;
+    public static String getMaxLengthString(String str, int length) {
+        if (StringUtils.isBlank(str)) {
+            return str;
         }
+        if (str.length() <= length) {
+            return str;
+        }
+        return str.substring(0, length - 3) + "...";
+    }
+
+    /**
+     * 编码字符串
+     * - 使用系统默认编码
+     *
+     * @param str 字符串
+     * @return byte[]
+     */
+    public static byte[] bytes(CharSequence str) {
+        return bytes(str, Charset.defaultCharset());
+    }
+
+    /**
+     * 编码字符串
+     *
+     * @param str     字符串
+     * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
+     * @return byte[]
+     */
+    public static byte[] bytes(CharSequence str, Charset charset) {
+        if (Objects.isNull(str)) {
+            return null;
+        }
+        if (Objects.isNull(charset)) {
+            return str.toString().getBytes();
+        }
+        return str.toString().getBytes(charset);
+    }
+
+    /**
+     * 解码字节码
+     *
+     * @param data 字符串
+     * @return String
+     */
+    public static String str(byte[] data) {
+        if (Objects.isNull(data)) {
+            return null;
+        }
+        return new String(data, Charset.defaultCharset());
+    }
+
+    /**
+     * 解码字节码
+     *
+     * @param data    字符串
+     * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
+     * @return String
+     */
+    public static String str(byte[] data, Charset charset) {
+        if (Objects.isNull(data)) {
+            return null;
+        }
+        if (Objects.isNull(charset)) {
+            return new String(data);
+        }
+        return new String(data, charset);
+    }
+
+    /**
+     * 指定范围内查找字符串，忽略大小写<br>
+     *
+     * <pre>
+     * StrUtil.indexOfIgnoreCase(null, *, *)          = -1
+     * StrUtil.indexOfIgnoreCase(*, null, *)          = -1
+     * StrUtil.indexOfIgnoreCase("", "", 0)           = 0
+     * StrUtil.indexOfIgnoreCase("aabaabaa", "A", 0)  = 0
+     * StrUtil.indexOfIgnoreCase("aabaabaa", "B", 0)  = 2
+     * StrUtil.indexOfIgnoreCase("aabaabaa", "AB", 0) = 1
+     * StrUtil.indexOfIgnoreCase("aabaabaa", "B", 3)  = 5
+     * StrUtil.indexOfIgnoreCase("aabaabaa", "B", 9)  = -1
+     * StrUtil.indexOfIgnoreCase("aabaabaa", "B", -1) = 2
+     * StrUtil.indexOfIgnoreCase("aabaabaa", "", 2)   = 2
+     * StrUtil.indexOfIgnoreCase("abc", "", 9)        = -1
+     * </pre>
+     *
+     * @param str       字符串
+     * @param searchStr 需要查找位置的字符串
+     * @return int
+     * @since 3.2.1
+     */
+    public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr) {
+        return indexOfIgnoreCase(str, searchStr, 0);
+    }
+
+    /**
+     * 指定范围内查找字符串
+     *
+     * <pre>
+     * StrUtil.indexOfIgnoreCase(null, *, *)          = -1
+     * StrUtil.indexOfIgnoreCase(*, null, *)          = -1
+     * StrUtil.indexOfIgnoreCase("", "", 0)           = 0
+     * StrUtil.indexOfIgnoreCase("aabaabaa", "A", 0)  = 0
+     * StrUtil.indexOfIgnoreCase("aabaabaa", "B", 0)  = 2
+     * StrUtil.indexOfIgnoreCase("aabaabaa", "AB", 0) = 1
+     * StrUtil.indexOfIgnoreCase("aabaabaa", "B", 3)  = 5
+     * StrUtil.indexOfIgnoreCase("aabaabaa", "B", 9)  = -1
+     * StrUtil.indexOfIgnoreCase("aabaabaa", "B", -1) = 2
+     * StrUtil.indexOfIgnoreCase("aabaabaa", "", 2)   = 2
+     * StrUtil.indexOfIgnoreCase("abc", "", 9)        = -1
+     * </pre>
+     *
+     * @param str       字符串
+     * @param searchStr 需要查找位置的字符串
+     * @param fromIndex 起始位置
+     * @return int
+     * @since 3.2.1
+     */
+    public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, int fromIndex) {
+        return indexOf(str, searchStr, fromIndex, true);
+    }
+
+    /**
+     * 指定范围内反向查找字符串
+     *
+     * @param str        字符串
+     * @param searchStr  需要查找位置的字符串
+     * @param fromIndex  起始位置
+     * @param ignoreCase 是否忽略大小写
+     * @return int
+     * @since 3.2.1
+     */
+    public static int indexOf(final CharSequence str, CharSequence searchStr, int fromIndex, boolean ignoreCase) {
+        if (Objects.isNull(str) || Objects.isNull(searchStr)) {
+            return INDEX_NOT_FOUND;
+        }
+        if (fromIndex < 0) {
+            fromIndex = 0;
+        }
+        final int endLimit = str.length() - searchStr.length() + 1;
+        if (fromIndex > endLimit) {
+            return INDEX_NOT_FOUND;
+        }
+        if (searchStr.length() == 0) {
+            return fromIndex;
+        }
+        if (!ignoreCase) {
+            // 不忽略大小写调用JDK方法
+            return str.toString().indexOf(searchStr.toString(), fromIndex);
+        }
+        for (int i = fromIndex; i < endLimit; i++) {
+            if (isSubEquals(str, i, searchStr, 0, searchStr.length(), true)) {
+                return i;
+            }
+        }
+        return INDEX_NOT_FOUND;
+    }
+
+    /**
+     * 截取两个字符串的不同部分（长度一致），判断截取的子串是否相同<br>
+     * 任意一个字符串为null返回false
+     *
+     * @param str1       第一个字符串
+     * @param start1     第一个字符串开始的位置
+     * @param str2       第二个字符串
+     * @param start2     第二个字符串开始的位置
+     * @param length     截取长度
+     * @param ignoreCase 是否忽略大小写
+     * @return boolean
+     * @since 3.2.1
+     */
+    public static boolean isSubEquals(CharSequence str1, int start1, CharSequence str2, int start2, int length, boolean ignoreCase) {
+        if (Objects.isNull(str1) || Objects.isNull(str2)) {
+            return false;
+        }
+        return str1.toString().regionMatches(ignoreCase, start1, str2.toString(), start2, length);
+    }
+
+    /**
+     * 重复字符串
+     *
+     * @param string 字符串
+     * @param times  次数
+     * @return String
+     */
+    public static String repeat(String string, int times) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < times; i++) {
+            sb.append(string);
+        }
+        return sb.toString();
     }
 
     /**
@@ -120,11 +301,55 @@ public final class CoreUtils {
         if (param.length() <= start + end) {
             return param;
         }
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         for (int i = start; i < (param.length() - end); i++) {
-            stringBuilder.append("*");
+            sb.append("*");
         }
-        return param.substring(0, start) + stringBuilder.toString() + param.substring(param.length() - end);
+        return param.substring(0, start) + sb + param.substring(param.length() - end);
+    }
+
+    /**
+     * 左边填充零
+     *
+     * <pre>
+     * eg:
+     *     fillZeroLeft(5, 1)  ->  00001
+     * </pre>
+     *
+     * @param len 长度
+     * @param num 整数
+     * @return String
+     */
+    public static String fillZeroLeft(int len, long num) {
+        return String.format(StrUtil.format("%0{}d", len), num);
+    }
+
+    /**
+     * 右边填充数字
+     *
+     * <pre>
+     * eg:
+     *     fillZeroRight(5, 1, "0")  ->  10000
+     *     fillZeroRight(5, 9, "9")  ->  99999
+     * </pre>
+     *
+     * @param len     长度
+     * @param num     整数
+     * @param fillNum 填充数字
+     * @return String
+     */
+    public static String fillNumRight(int len, long num, String fillNum) {
+        return String.format(StrUtil.format("%-{}s", len), num).replace(" ", fillNum);
+    }
+
+    /**
+     * 去空格
+     *
+     * @param str 字符串
+     * @return String
+     */
+    public static String trim(String str) {
+        return (Objects.isNull(str) ? "" : str.trim());
     }
 
     /**
@@ -134,7 +359,7 @@ public final class CoreUtils {
      * @return String
      */
     public static String digitUppercase(long param) {
-        BigDecimal amount = new BigDecimal(param).divide(new BigDecimal("100"), 2, BigDecimal.ROUND_HALF_UP);
+        BigDecimal amount = new BigDecimal(param).divide(new BigDecimal("100"), 2, RoundingMode.HALF_UP);
         String[] fraction = {"角", "分"};
         String[] digit = {"零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"};
         String[][] unit = {{"元", "万", "亿"}, {"", "拾", "佰", "仟"}};
@@ -230,7 +455,7 @@ public final class CoreUtils {
      * @param bytes byte[]
      * @return String
      */
-    public static String getCRC(byte[] bytes) {
+    public static String getCrc(byte[] bytes) {
         // initial value
         int crc = 0x00;
         int polynomial = 0x1021;
@@ -321,7 +546,7 @@ public final class CoreUtils {
                 re = Integer.parseInt(bit, 2) - 256;
             }
         } else {
-            //4 bit处理
+            // 4 bit处理
             re = Integer.parseInt(bit, 2);
         }
         return (byte) re;
@@ -335,7 +560,7 @@ public final class CoreUtils {
      */
     public static byte[] intToBytes(int num) {
         byte[] bytes = new byte[4];
-        //通过移位运算，截取低8位的方式，将int保存到byte数组
+        // 通过移位运算，截取低8位的方式，将int保存到byte数组
         bytes[0] = (byte) (num >>> 24);
         bytes[1] = (byte) (num >>> 16);
         bytes[2] = (byte) (num >>> 8);
@@ -350,7 +575,7 @@ public final class CoreUtils {
      * @return int
      */
     public static int bytesToInt(byte[] bytes) {
-        //如果不与0xff进行按位与操作，转换结果将出错，有兴趣的同学可以试一下。
+        // 如果不与0xff进行按位与操作，转换结果将出错，有兴趣的同学可以试一下。
         int int1 = bytes[0] & 0xff;
         int int2 = (bytes[1] & 0xff) << 8;
         int int3 = (bytes[2] & 0xff) << 16;

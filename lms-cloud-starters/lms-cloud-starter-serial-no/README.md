@@ -75,10 +75,10 @@ Spring Cloud Alibaba    2.2.2.RELEASE
 
 ```groovy
 // api或compile 引用的包对于其他module是可见的
-api 'com.lmaye:lms-cloud-starter-serial-no:1.1.4'
-compile 'com.lmaye:lms-cloud-starter-serial-no:1.1.4'
+api 'com.lmaye:lms-cloud-starter-serial-no:1.2.23'
+compile 'com.lmaye:lms-cloud-starter-serial-no:1.2.23'
 // implementation 引用的包对于其他module是不可见的
-implementation 'com.lmaye:lms-cloud-starter-serial-no:1.1.4'
+implementation 'com.lmaye:lms-cloud-starter-serial-no:1.2.23'
 ```
 
 ##### 配置说明
@@ -136,6 +136,36 @@ Thread Id 60 -- 生成ID: B00122010600000002
 Thread Id 62 -- 生成ID: B00122010600000016
 Thread Id 61 -- 生成ID: B00122010600000017
 ...
+```
+
+#### 注意事项
+
+Redis + Lua 解决高并发Redis计数越界值。
+
+Lua脚本的好处：
+
+- 减少网络开销，可以将多个请求通过脚本的形式一次发送，减少网络时延。
+- 原子操作，redis 会将整个脚本作为一个整体执行，中间不会被其他命令插入。因此在编写脚本的过程中无需担心会出现竞态条件，无需使用事务。
+- 复用，客户端发送的脚本会永久存在redis中，这样，其他客户端可以复用这一脚本而不需要使用代码完成相同的逻辑。
+- redis会将整个脚本作为一个整体执行，中间不会被其他命令插入。因此在编写脚本的过程中无需担心会出现竞态条件，无需使用事务。
+
+```java
+// 高并发存在的问题，并发时incr的值分别为19998/19999/20000/20001/20002，然而到19999需重置，没生效。
+final String incrStr = String.valueOf(atomicLong.incrementAndGet());
+if (Objects.equals(Integer.parseInt(incrStr), 19999)) {
+    atomicLong.set(10000);
+}
+
+// Redis + Lua 解决高并发
+String getIncr = "local key = KEYS[1];" +
+        "local incr = redis.call('incr', key);" +
+        "if incr >= tonumber(ARGV[1]) then " +
+        "    redis.call('set', key, tonumber(ARGV[2]));" +
+        "    return incr;" +
+        "end;" +
+        "return incr;";
+final Long incr = redissonClient.getScript(LongCodec.INSTANCE).eval(RScript.Mode.READ_WRITE, getIncr, RScript.ReturnType.INTEGER,
+        Collections.singletonList(key), 19999, 10000);
 ```
 
 #### Git 格式规范

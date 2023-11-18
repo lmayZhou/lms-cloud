@@ -3,7 +3,6 @@ package com.lmaye.cloud.starter.oauth2;
 import com.lmaye.cloud.starter.oauth2.component.AuthExceptionEntryPoint;
 import com.lmaye.cloud.starter.oauth2.component.CustomAccessDeniedHandler;
 import com.lmaye.cloud.starter.oauth2.utils.TokenDecode;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.security.oauth2.OAuth2AutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -19,6 +18,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.util.CollectionUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -39,7 +39,7 @@ public class ResourceServerAutoConfiguration extends ResourceServerConfigurerAda
     /**
      * Web Properties
      */
-    @Autowired
+    @Resource
     private Oauth2ResourceProperties oauth2ResourceProperties;
 
     /**
@@ -48,7 +48,7 @@ public class ResourceServerAutoConfiguration extends ResourceServerConfigurerAda
      * @return TokenDecode
      */
     @Bean
-    TokenDecode tokenDecode() {
+    public TokenDecode tokenDecode() {
         return new TokenDecode();
     }
 
@@ -79,10 +79,9 @@ public class ResourceServerAutoConfiguration extends ResourceServerConfigurerAda
      * 配置自定义响应
      *
      * @param resources ResourceServerSecurityConfigurer
-     * @throws Exception 异常
      */
     @Override
-    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+    public void configure(ResourceServerSecurityConfigurer resources) {
         // 自定义异常
         resources.authenticationEntryPoint(new AuthExceptionEntryPoint())
                 .accessDeniedHandler(new CustomAccessDeniedHandler());

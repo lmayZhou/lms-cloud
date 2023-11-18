@@ -1,2 +1,4 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.lmaye.cloud.starter.mybatis.MybatisAutoConfig
+  com.lmaye.cloud.starter.mybatis.MybatisAutoConfig,\
+  com.lmaye.cloud.starter.mybatis.handler.ParameterInterceptor,\
+  com.lmaye.cloud.starter.mybatis.handler.ResultSetInterceptor

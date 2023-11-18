@@ -34,7 +34,7 @@ import java.util.concurrent.ExecutorService;
 @ConditionalOnBean(value = {EntryHandler.class})
 @ConditionalOnProperty(value = CanalProperties.CANAL_MODE, havingValue = "simple", matchIfMissing = true)
 @Import(com.lmaye.cloud.starter.canal.ThreadPoolAutoConfiguration.class)
-@ComponentScan(value = "com.lmaye.cloud.starter.canal")
+@ComponentScan("com.lmaye.cloud.starter.canal")
 public class SimpleClientAutoConfiguration {
     private final CanalSimpleProperties canalSimpleProperties;
 

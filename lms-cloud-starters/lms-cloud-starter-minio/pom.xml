@@ -13,17 +13,11 @@
     <parent>
         <groupId>com.lmaye</groupId>
         <artifactId>lms-cloud-starters</artifactId>
-        <version>1.1.4</version>
+        <version>1.2.23</version>
     </parent>
 
     <!-- dependencies -->
     <dependencies>
-        <!-- LMS Cloud Core -->
-        <dependency>
-            <groupId>com.lmaye</groupId>
-            <artifactId>lms-cloud-core</artifactId>
-        </dependency>
-
         <!-- Commons IO -->
         <dependency>
             <groupId>commons-io</groupId>
@@ -61,8 +55,8 @@
     <!-- scm信息 -->
     <scm>
         <url>https://github.com/lmayZhou/lms-cloud</url>
-        <connection>scm:git:git://github.com/lmayZhou/lms-cloud.git</connection>
-        <developerConnection>scm:git:git://github.com/lmayZhou/lms-cloud.git</developerConnection>
+        <connection>scm:git@github.com:lmayZhou/lms-cloud.git</connection>
+        <developerConnection>scm:git@github.com:lmayZhou/lms-cloud.git</developerConnection>
     </scm>
 
     <!-- 发布者信息 -->

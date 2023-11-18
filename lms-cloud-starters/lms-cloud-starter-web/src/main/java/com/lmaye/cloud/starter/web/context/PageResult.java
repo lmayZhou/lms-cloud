@@ -2,7 +2,10 @@ package com.lmaye.cloud.starter.web.context;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -18,6 +21,9 @@ import java.util.Objects;
  * @since 2020-12-01 15:23:22
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Accessors(chain = true)
 @ApiModel(value = "PageResult", description = "分页实体")
 public class PageResult<T> implements Serializable {

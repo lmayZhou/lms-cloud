@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.lmaye.cloud.starter.delay.queue.DelayQueueAutoConfiguration

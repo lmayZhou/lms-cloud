@@ -1,5 +1,6 @@
 package com.lmaye.cloud.starter.web.config;
 
+import com.lmaye.cloud.core.constants.CoreConstants;
 import feign.RequestInterceptor;
 import feign.codec.Encoder;
 import feign.form.spring.SpringFormEncoder;
@@ -35,7 +36,8 @@ public class FeignEncoderConfig {
     /**
      * 请求头
      */
-    private static final String[] HEADERS = {"Authorization", "clientId", "language", "timeZone"};
+    private static final String[] HEADERS = {CoreConstants.FIELD_AUTHORIZATION, CoreConstants.FIELD_CLIENT_ID,
+            CoreConstants.FIELD_LANGUAGE, CoreConstants.FIELD_TIME_ZONE};
 
     /**
      * feign支持文件，同时实体类作为参数接收
@@ -60,8 +62,8 @@ public class FeignEncoderConfig {
             ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
             if (!Objects.isNull(attributes)) {
                 HttpServletRequest request = attributes.getRequest();
-                log.info("Feign request: {}", request.getRequestURI());
-                for(String key : HEADERS) {
+                log.info("Feign Request: {}", request.getRequestURI());
+                for (String key : HEADERS) {
                     requestTemplate.header(key, request.getHeader(key));
                 }
             }

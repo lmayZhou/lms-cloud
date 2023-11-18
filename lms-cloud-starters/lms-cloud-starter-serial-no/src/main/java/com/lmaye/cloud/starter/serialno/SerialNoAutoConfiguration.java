@@ -1,16 +1,26 @@
 package com.lmaye.cloud.starter.serialno;
 
-import com.lmaye.cloud.starter.serialno.service.ISerialNoService;
-import com.lmaye.cloud.starter.serialno.service.impl.SerialNoServiceImpl;
+import com.lmaye.cloud.core.utils.CoreUtils;
+import org.redisson.api.RList;
+import org.redisson.api.RedissonClient;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.scheduling.annotation.EnableAsync;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * -- Serial No Auto Configuration
@@ -22,14 +32,44 @@ import org.springframework.scheduling.annotation.EnableAsync;
  */
 @EnableAsync
 @Configuration
+@ComponentScan("com.lmaye.cloud.starter.serialno")
 @EnableConfigurationProperties(SerialNoProperties.class)
 public class SerialNoAutoConfiguration {
     /**
-     * Serial No Service
+     * Redisson Client
      */
-    @Bean
-    ISerialNoService serialNoService() {
-        return new SerialNoServiceImpl();
+    @Resource
+    private RedissonClient redissonClient;
+
+    /**
+     * Serial No Properties
+     */
+    @Resource
+    private SerialNoProperties serialNoProperties;
+
+    /**
+     * 初始Redis全局随机序号
+     */
+    @PostConstruct
+    private void initGlobalRandomNo() {
+        final Stream<String> keysStreamByPattern = redissonClient.getKeys().getKeysStreamByPattern("GlobalRandomNo:*");
+        if (!serialNoProperties.getIsOrderly() && Objects.equals(0L, keysStreamByPattern.count())) {
+            final int globalIdLen = serialNoProperties.getGlobalIdLen();
+            final int startNum = Integer.parseInt(CoreUtils.fillNumRight(globalIdLen, 1, "0"));
+            final int endNum = Integer.parseInt(CoreUtils.fillNumRight(globalIdLen, 9, "9"));
+            List<Integer> nums = new ArrayList<>();
+            for (int i = startNum; i <= endNum; i++) {
+                nums.add(i);
+            }
+            Collections.shuffle(nums);
+            final int eachCacheSize = serialNoProperties.getEachCacheSize();
+            final int keyCacheSize = (endNum + 1 - startNum) / eachCacheSize + 9;
+            for (int i = 10; i <= keyCacheSize; i++) {
+                final RList<Integer> rList = redissonClient.getList("GlobalRandomNo:" + i);
+                final int x = (i - 10) * eachCacheSize;
+                rList.addAll(nums.subList(x, x + eachCacheSize));
+            }
+        }
     }
 
     /**

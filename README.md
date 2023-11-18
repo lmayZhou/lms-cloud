@@ -27,6 +27,7 @@
 │   ├── lms-cloud-plus                              服务插件
 │   ├── lms-cloud-starters							Spring Boot Starter 自动配置服务
 │   │   ├── lms-cloud-starter-canal					Canal 数据同步
+│   │   ├── lms-cloud-starter-delay-queue           延迟队列自动配置服务
 │   │   ├── lms-cloud-starter-drools				规则引擎
 │   │   ├── lms-cloud-starter-elasticsearch			ES 搜索引擎
 │   │   ├── lms-cloud-starter-email					Email 邮件服务
@@ -53,7 +54,7 @@
 <parent>
     <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud</artifactId>
-    <version>Latest Version</version>
+    <version>1.2.23</version>
     <relativePath/>
 </parent>
 ```
@@ -64,7 +65,7 @@
 // 项目引用 Parent 工程
 dependencyManagement {
     imports {
-        mavenBom 'com.lmaye:lms-cloud:1.1.4'
+        mavenBom 'com.lmaye:lms-cloud:1.2.23'
     }
 }
 ```
@@ -84,6 +85,29 @@ RELEASE     ----  正式版本
 
 Gradle: gradle publish
 Maven: mvn clean deploy
+```
+
+```shell
+# 1. 命令上传方式
+# 生成秘钥
+gpg --gen-key
+
+# 查看秘钥
+gpg --list-keys
+
+# 上传秘钥至公钥服务器
+gpg --keyserver keyserver.ubuntu.com --send-keys 秘钥ID
+
+# 验证是否成功
+gpg --keyserver keyserver.ubuntu.com --recv-keys 秘钥ID
+
+# gpg: 发送至公钥服务器失败：No route to host
+# 2. 手动上传方式
+
+# 导出秘钥
+gpg --export lmay@lmaye.com > ~/Downloads/gpg.pub
+
+https://keys.openpgp.org/upload
 ```
 
 指定发布 release
@@ -126,7 +150,6 @@ chore       构建过程或辅助工具的变动
 
 - 新增 lms-cloud-starter-serial-no[分布式业务序列号]
 - 新增 lms-cloud-plus[服务插件] TODO
-
 
 #### 参与贡献
 

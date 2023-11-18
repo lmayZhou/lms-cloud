@@ -34,7 +34,7 @@ import java.util.concurrent.ExecutorService;
 @ConditionalOnBean(value = {EntryHandler.class})
 @ConditionalOnProperty(value = CanalProperties.CANAL_MODE, havingValue = "kafka")
 @Import(ThreadPoolAutoConfiguration.class)
-@ComponentScan(value = "com.lmaye.cloud.starter.canal")
+@ComponentScan("com.lmaye.cloud.starter.canal")
 public class KafkaClientAutoConfiguration {
     private final CanalKafkaProperties canalKafkaProperties;
 

@@ -16,6 +16,7 @@ import java.sql.SQLException;
 /**
  * -- 数据加密
  *
+ * @see com.baomidou.mybatisplus.annotation.TableField
  * @author lmay.Zhou
  * @date 2020/1/2 11:42 星期四
  * @email lmay@lmaye.com
@@ -27,7 +28,7 @@ public class EncryptTypeHandler extends BaseTypeHandler<EncryptType> {
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, EncryptType parameter, JdbcType jdbcType) throws SQLException {
-        if(parameter.isNull()) {
+        if (parameter.isNull()) {
             ps.setString(i, "");
         } else {
             String encryptVal = AES.encryptBase64(parameter.getVal());
@@ -38,7 +39,7 @@ public class EncryptTypeHandler extends BaseTypeHandler<EncryptType> {
     @Override
     public EncryptType getNullableResult(ResultSet rs, String columnName) throws SQLException {
         String value = rs.getString(columnName);
-        if(StringUtils.isEmpty(value)) {
+        if (StringUtils.isEmpty(value)) {
             return null;
         }
         return getColumnValue(value);
@@ -47,7 +48,7 @@ public class EncryptTypeHandler extends BaseTypeHandler<EncryptType> {
     @Override
     public EncryptType getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
         String value = rs.getString(columnIndex);
-        if(StringUtils.isEmpty(value)) {
+        if (StringUtils.isEmpty(value)) {
             return null;
         }
         return getColumnValue(value);
@@ -56,7 +57,7 @@ public class EncryptTypeHandler extends BaseTypeHandler<EncryptType> {
     @Override
     public EncryptType getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
         String value = cs.getString(columnIndex);
-        if(StringUtils.isEmpty(value)) {
+        if (StringUtils.isEmpty(value)) {
             return null;
         }
         return getColumnValue(value);

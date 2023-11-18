@@ -1,5 +1,7 @@
 package com.lmaye.cloud.starter.logs.annotation;
 
+import com.lmaye.cloud.core.constants.CoreConstants;
+
 import java.lang.annotation.Documented;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
@@ -59,7 +61,7 @@ public @interface SysLog {
      *
      * @return String
      */
-    String tokenAttr() default "Authorization";
+    String tokenAttr() default CoreConstants.FIELD_AUTHORIZATION;
 
     /**
      * 用户ID
@@ -67,7 +69,7 @@ public @interface SysLog {
      *
      * @return String
      */
-    String userIdAttr() default "userId";
+    String userIdAttr() default "id";
 
     /**
      * 用户名称
@@ -75,5 +77,5 @@ public @interface SysLog {
      *
      * @return String
      */
-    String userNameAttr() default "userName";
+    String userNameAttr() default "username";
 }

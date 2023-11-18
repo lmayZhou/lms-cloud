@@ -42,7 +42,7 @@ public class EmailAutoConfiguration {
     public void buildMailSender() {
         EmailProperties properties = emailProperties();
         if(!properties.getEnabled()) {
-            log.error("------------ DDisable dynamic mail sending ------------");
+            log.info("------------ DDisable dynamic mail sending ------------");
             return;
         }
         List<EmailProperties> configs = properties.getConfigs();

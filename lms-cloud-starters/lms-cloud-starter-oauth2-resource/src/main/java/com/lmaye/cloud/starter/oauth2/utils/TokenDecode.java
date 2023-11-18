@@ -1,6 +1,7 @@
 package com.lmaye.cloud.starter.oauth2.utils;
 
 import com.lmaye.cloud.core.utils.GsonUtils;
+import com.lmaye.cloud.starter.web.context.UserBaseInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -13,7 +14,6 @@ import org.springframework.security.oauth2.provider.authentication.OAuth2Authent
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -45,15 +45,15 @@ public class TokenDecode {
     /**
      * 获取当前的登录的用户的用户信息
      *
-     * @return JSONObject
+     * @return UserBaseInfo
      */
-    public Map<String, Object> getUserInfo() {
+    public UserBaseInfo getUserInfo() {
         final String pubKey = getPubKey();
-        if(Objects.isNull(pubKey)) {
+        if (Objects.isNull(pubKey)) {
             return null;
         }
         Jwt jwt = JwtHelper.decodeAndVerify(getToken(), new RsaVerifier(pubKey));
-        return GsonUtils.fromJson(jwt.getClaims(), Map.class);
+        return GsonUtils.fromJson(jwt.getClaims(), UserBaseInfo.class);
     }
 
     /**
@@ -63,8 +63,8 @@ public class TokenDecode {
      */
     public String getPubKey() {
         Resource resource = new ClassPathResource(PUBLIC_KEY);
-        try(InputStreamReader streamReader = new InputStreamReader(resource.getInputStream());
-            BufferedReader br = new BufferedReader(streamReader)) {
+        try (InputStreamReader streamReader = new InputStreamReader(resource.getInputStream());
+             BufferedReader br = new BufferedReader(streamReader)) {
             return br.lines().collect(Collectors.joining("\n"));
         } catch (IOException e) {
             log.error("公钥读取异常: ", e);

@@ -44,9 +44,6 @@ public class ResultVO<T> implements Serializable {
     @ApiModelProperty("响应数据")
     private T data;
 
-    public ResultVO() {
-    }
-
     public ResultVO(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
@@ -76,8 +73,9 @@ public class ResultVO<T> implements Serializable {
      *     msg.success=Success
      *     msg.failure=Failure
      * </pre>
-     * @see ResultCode
+     *
      * @param resultCode IResultCode
+     * @see ResultCode
      */
     private void initParams(IResultCode resultCode) {
         this.code = resultCode.getCode();
@@ -91,9 +89,19 @@ public class ResultVO<T> implements Serializable {
     /**
      * 处理成功
      *
+     * @param <T> 泛型
+     * @return ResultVO<T>
+     */
+    public static <T> ResultVO<T> success() {
+        return new ResultVO<>(ResultCode.SUCCESS, null);
+    }
+
+    /**
+     * 处理成功
+     *
      * @param data 响应数据
      * @param <T>  泛型
-     * @return ResponseResult<T>
+     * @return ResultVO<T>
      */
     public static <T> ResultVO<T> success(T data) {
         return new ResultVO<>(ResultCode.SUCCESS, data);
@@ -103,10 +111,21 @@ public class ResultVO<T> implements Serializable {
      * 处理失败
      *
      * @param <T> 泛型
-     * @return ResponseResult<T>
+     * @return ResultVO<T>
      */
     public static <T> ResultVO<T> failed() {
         return new ResultVO<>(ResultCode.FAILURE, null);
+    }
+
+    /**
+     * 处理失败
+     *
+     * @param data 响应数据
+     * @param <T>  泛型
+     * @return ResultVO<T>
+     */
+    public static <T> ResultVO<T> failed(T data) {
+        return new ResultVO<>(ResultCode.FAILURE, data);
     }
 
     /**
@@ -115,7 +134,7 @@ public class ResultVO<T> implements Serializable {
      * @param resultCode 响应编码
      * @param data       响应数据
      * @param <T>        泛型
-     * @return ResponseResult<T>
+     * @return ResultVO<T>
      */
     public static <T> ResultVO<T> response(IResultCode resultCode, T data) {
         return new ResultVO<>(resultCode, data);

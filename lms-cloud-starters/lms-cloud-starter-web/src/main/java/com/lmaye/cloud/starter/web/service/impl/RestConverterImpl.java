@@ -15,6 +15,9 @@ import java.io.Serializable;
  */
 public class RestConverterImpl<C extends IRestConverter<T, V, D>, T extends Serializable, V extends Serializable,
         D extends Serializable> {
+    /**
+     * IRestConverter
+     */
     @Autowired
     protected C restConverter;
 }

@@ -22,7 +22,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * -- MyBatis Service 实现类
@@ -40,24 +39,12 @@ public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends S
     }
 
     @Override
-    public <S extends T> Optional<S> insert(S entity) throws ServiceException {
+    public <S extends T> S insertOrUpdate(S entity) throws ServiceException {
         try {
-            if (save(entity)) {
-                return Optional.of(entity);
+            if (saveOrUpdate(entity)) {
+                return entity;
             }
-            return Optional.empty();
-        } catch (Exception e) {
-            throw new ServiceException(ResultCode.FAILURE, e);
-        }
-    }
-
-    @Override
-    public <S extends T> Optional<S> update(S entity) throws ServiceException {
-        try {
-            if (updateById(entity)) {
-                return Optional.of(entity);
-            }
-            return Optional.empty();
+            return null;
         } catch (Exception e) {
             throw new ServiceException(ResultCode.FAILURE, e);
         }
@@ -86,9 +73,18 @@ public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends S
     }
 
     @Override
-    public Optional<T> findById(ID id) throws ServiceException {
+    public boolean deleteByIds(List<ID> ids) throws ServiceException {
         try {
-            return Optional.ofNullable(getById(id));
+            return removeByIds(ids);
+        } catch (Exception e) {
+            throw new ServiceException(ResultCode.FAILURE, e);
+        }
+    }
+
+    @Override
+    public T findById(ID id) throws ServiceException {
+        try {
+            return getById(id);
         } catch (Exception e) {
             throw new ServiceException(ResultCode.FAILURE, e);
         }

@@ -1,11 +1,10 @@
 package com.lmaye.cloud.starter.logs.aspect;
 
-import cn.hutool.json.JSONObject;
 import com.lmaye.cloud.core.utils.GsonUtils;
 import com.lmaye.cloud.core.utils.IdUtils;
 import com.lmaye.cloud.starter.logs.annotation.SysLog;
 import com.lmaye.cloud.starter.logs.entity.SysLogEntity;
-import com.lmaye.cloud.starter.logs.utils.LogUtils;
+import com.lmaye.cloud.starter.logs.utils.HttpUtils;
 import com.lmaye.cloud.starter.logs.utils.TokenUtils;
 import com.lmaye.cloud.starter.logs.utils.UserAgentUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +12,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -66,10 +66,10 @@ public class LogAspect {
         JSONObject userInfo = TokenUtils.parsingUserInfo(request.getHeader(sysLog.tokenAttr()));
         if(!Objects.isNull(userInfo)) {
             entity.setUserId(userInfo.getLong(sysLog.userIdAttr()));
-            entity.setUserName(userInfo.getStr(sysLog.userNameAttr()));
+            entity.setUserName(userInfo.getString(sysLog.userNameAttr()));
         }
-        entity.setIp(LogUtils.getIp(request));
-        entity.setBrowserType(LogUtils.getBrowserInfo(request));
+        entity.setIp(HttpUtils.getIp(request));
+        entity.setBrowserType(HttpUtils.getBrowserInfo(request));
         entity.setLogType(sysLog.logType());
         entity.setMethod(request.getMethod());
         entity.setParams(GsonUtils.toJson(args));
