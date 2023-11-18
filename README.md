@@ -35,6 +35,7 @@
 │   │   ├── lms-cloud-starter-minio					MinIO 对象存储服务
 │   │   ├── lms-cloud-starter-mybatis				MyBatis Puls MyBatis增强工具
 │   │   ├── lms-cloud-starter-oauth2-resource		OAuth2 Resource Server 权限资源服务
+│   │   ├── lms-cloud-starter-oss		            OSS文件存储服务
 │   │   ├── lms-cloud-starter-rabbitmq				RabbitMQ 消息服务
 │   │   ├── lms-cloud-starter-redis				    Redis 缓存
 │   │   ├── lms-cloud-starter-serial-no				分布式业务序列号
