@@ -146,10 +146,11 @@ chore       构建过程或辅助工具的变动
 后续每次迭代一个版本，版本号需 +1及说明新增/修复/调整了些什么功能；
 目前服务已新增test/dev分支，合并步骤顺序: 当前版本(V1.0.1) -> dev -> test -> master
 
-##### V1.1.4
+##### V1.2.23
 
-- 新增 lms-cloud-starter-serial-no[分布式业务序列号]
-- 新增 lms-cloud-plus[服务插件] TODO
+- 新增 lms-cloud-starter-mybatis 字段数据 加密/解密/脱敏(注解: @FieldEnDecrypt/@RetentionPolicy)
+- 加密算法支持: AES, DES, SM4, SM2, RSA
+- 脱敏类型支持: ALL, Name, EMAIL, MOBILE, ID_CARD, PASSWORD, BANK_CARD
 
 #### 参与贡献
 
