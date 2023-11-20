@@ -3,10 +3,9 @@ package com.lmaye.cloud.starter.web.query;
 import com.lmaye.cloud.starter.web.validator.constraints.Safe;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Range;
 
@@ -23,9 +22,8 @@ import java.io.Serializable;
  */
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "Order", description = "顺序参数")
 public class Order implements Serializable {
     private static final long serialVersionUID = 1L;

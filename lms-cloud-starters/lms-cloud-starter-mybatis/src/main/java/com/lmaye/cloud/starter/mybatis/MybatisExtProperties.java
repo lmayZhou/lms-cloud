@@ -15,7 +15,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since JDK1.8
  */
 @Data
-@ConfigurationProperties("mybatis-plus.ext")
+@ConfigurationProperties("mybatis-plus.extend")
 public class MybatisExtProperties {
     /**
      * 非对称加密算法(二选一)

@@ -2,10 +2,7 @@ package com.lmaye.cloud.starter.web.context;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -25,6 +22,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "PageResult", description = "分页实体")
 public class PageResult<T> implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -60,7 +58,7 @@ public class PageResult<T> implements Serializable {
     private List<T> records;
 
     public List<T> getRecords() {
-        if(Objects.isNull(records)) {
+        if (Objects.isNull(records)) {
             return Collections.emptyList();
         }
         return records;

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lmaye.cloud.core.constants.YesOrNo;
 import com.lmaye.cloud.core.context.ResultCode;
 import com.lmaye.cloud.core.exception.ServiceException;
+import com.lmaye.cloud.core.utils.CoreUtils;
 import com.lmaye.cloud.starter.mybatis.repository.IMyBatisRepository;
 import com.lmaye.cloud.starter.mybatis.service.IMyBatisService;
 import com.lmaye.cloud.starter.mybatis.utils.MyBatisUtils;
@@ -111,7 +112,7 @@ public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends S
                     if (!Objects.isNull(sort) && !CollectionUtils.isEmpty(sort.getOrder())) {
                         QueryWrapper<T> queryWrapper = new QueryWrapper<>();
                         sort.getOrder().forEach(o -> queryWrapper.orderBy(true,
-                                Objects.equals(YesOrNo.YES.getCode(), o.getAsc()), o.getName()));
+                                Objects.equals(YesOrNo.YES.getCode(), o.getAsc()), CoreUtils.humpToUnderline(o.getName())));
                         return super.list(queryWrapper);
                     }
                 }
@@ -132,7 +133,7 @@ public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends S
                 if (!Objects.isNull(sort) && !CollectionUtils.isEmpty(sort.getOrder())) {
                     QueryWrapper<T> queryWrapper = new QueryWrapper<>();
                     sort.getOrder().forEach(o -> queryWrapper.orderBy(true,
-                            Objects.equals(YesOrNo.YES.getCode(), o.getAsc()), o.getName()));
+                            Objects.equals(YesOrNo.YES.getCode(), o.getAsc()), CoreUtils.humpToUnderline(o.getName())));
                     page = super.page(new Page<>(query.getPageIndex(), query.getPageSize()), queryWrapper);
                 } else {
                     page = super.page(new Page<>(query.getPageIndex(), query.getPageSize()));
@@ -172,7 +173,7 @@ public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends S
         // 排序
         if (!Objects.isNull(sort) && !CollectionUtils.isEmpty(sort.getOrder())) {
             sort.getOrder().forEach(o -> queryWrapper.orderBy(true,
-                    Objects.equals(YesOrNo.YES.getCode(), o.getAsc()), o.getName()));
+                    Objects.equals(YesOrNo.YES.getCode(), o.getAsc()), CoreUtils.humpToUnderline(o.getName())));
         }
         return queryWrapper;
     }

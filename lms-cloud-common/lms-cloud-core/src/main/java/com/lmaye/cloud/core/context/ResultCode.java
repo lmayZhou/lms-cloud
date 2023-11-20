@@ -1,5 +1,8 @@
 package com.lmaye.cloud.core.context;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 /**
  * -- 响应编码
  * - 枚举
@@ -8,6 +11,8 @@ package com.lmaye.cloud.core.context;
  * @email lmay@lmaye.com
  * @since 2020-12-01 15:23:22
  */
+@Getter
+@AllArgsConstructor
 public enum ResultCode implements IResultCode {
     /**
      * 枚举对象
@@ -44,25 +49,4 @@ public enum ResultCode implements IResultCode {
      * 描述
      */
     private final String desc;
-
-    ResultCode(Integer code, String key, String desc) {
-        this.code = code;
-        this.key = key;
-        this.desc = desc;
-    }
-
-    @Override
-    public Integer getCode() {
-        return code;
-    }
-
-    @Override
-    public String getKey() {
-        return key;
-    }
-
-    @Override
-    public String getDesc() {
-        return desc;
-    }
 }

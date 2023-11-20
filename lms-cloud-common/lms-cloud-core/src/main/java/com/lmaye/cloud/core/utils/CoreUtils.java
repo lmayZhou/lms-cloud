@@ -22,10 +22,16 @@ import java.util.regex.Pattern;
  */
 public final class CoreUtils {
     private static final int INDEX_NOT_FOUND = -1;
+
     /**
      * 校验包含大写字母的正则表达式
      */
     private static final Pattern UPPERCASE_PATTERN = Pattern.compile("[A-Z]");
+
+    /**
+     * 校验包含小写字母的正则表达式
+     */
+    private static final Pattern LOWERCASE_PATTERN = Pattern.compile("_[a-z]");
 
     /**
      * 生成32位的Uuid
@@ -76,12 +82,29 @@ public final class CoreUtils {
      * @param str 字符串
      * @return String
      */
-    public static String humpNameToUnderline(String str) {
+    public static String humpToUnderline(String str) {
         Assert.notEmpty(str, "The transform string cannot be empty");
         Matcher matcher = UPPERCASE_PATTERN.matcher(str);
         StringBuffer sb = new StringBuffer();
         while (matcher.find()) {
             matcher.appendReplacement(sb, "_" + matcher.group(0).toLowerCase());
+        }
+        matcher.appendTail(sb);
+        return sb.toString();
+    }
+
+    /**
+     * 下划线命名转驼峰
+     *
+     * @param str 字符串
+     * @return String
+     */
+    public static String underlineToHump(String str) {
+        Assert.notEmpty(str, "The transform string cannot be empty");
+        Matcher matcher = LOWERCASE_PATTERN.matcher(str.toLowerCase());
+        StringBuffer sb = new StringBuffer();
+        while (matcher.find()) {
+            matcher.appendReplacement(sb, matcher.group(0).toUpperCase().replace("_", ""));
         }
         matcher.appendTail(sb);
         return sb.toString();
