@@ -1,3 +1,5 @@
+[![Maven Central](https://img.shields.io/maven-central/v/groupId/artifactId.svg)](https://search.maven.org/artifact/com.lmaye/lms-cloud)
+
 # lms-cloud
 
 #### 介绍
