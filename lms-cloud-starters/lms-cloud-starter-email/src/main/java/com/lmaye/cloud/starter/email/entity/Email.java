@@ -1,9 +1,7 @@
 package com.lmaye.cloud.starter.email.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.Accessors;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
@@ -19,6 +17,8 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
 public class Email implements Serializable {
     private static final long serialVersionUID = 1L;
 
