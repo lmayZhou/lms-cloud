@@ -4,6 +4,9 @@ import com.lmaye.cloud.core.constants.YesOrNo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Range;
 
 import java.io.Serializable;
@@ -17,6 +20,9 @@ import java.util.Objects;
  * @since 2020/12/1 14:34
  */
 @Data
+@SuperBuilder
+@Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "Negation", description = "是否否定")
 public class Negation implements Serializable {
     private static final long serialVersionUID = 1L;

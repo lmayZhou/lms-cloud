@@ -71,13 +71,13 @@ public class ParameterInterceptor implements Interceptor {
                                     final String data;
                                     if (Objects.nonNull(fieldSensitive) && Objects.equals(HandleStrategy.SAVE, fieldSensitive.strategy())) {
                                         // 脱敏
-                                        data = ParameterUtils.fieldSensitiveData(fieldSensitive, val.toString());
+                                        data = ParameterUtils.fieldSensitiveData(fieldSensitive.value(), val.toString());
                                     } else if (Objects.nonNull(fieldEnDecrypt) && Objects.equals(HandleStrategy.SAVE, fieldEnDecrypt.strategy())) {
                                         // 加密
-                                        data = ParameterUtils.fieldEncrypt(val.toString());
+                                        data = ParameterUtils.fieldEncrypt(fieldEnDecrypt.value(), val.toString());
                                     } else if (Objects.nonNull(fieldEnDecrypt) && Objects.equals(HandleStrategy.RESULT, fieldEnDecrypt.strategy())) {
                                         // 解密
-                                        data = ParameterUtils.fieldDecrypt(val.toString());
+                                        data = ParameterUtils.fieldDecrypt(fieldEnDecrypt.value(), val.toString());
                                     } else {
                                         data = val.toString();
                                     }

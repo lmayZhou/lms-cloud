@@ -2,10 +2,9 @@ package com.lmaye.cloud.starter.web.context;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -20,9 +19,8 @@ import java.io.Serializable;
  */
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "IpRegion", description = "IpRegion")
 public class IpRegion implements Serializable {
     private static final long serialVersionUID = 1L;

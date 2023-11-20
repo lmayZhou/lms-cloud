@@ -5,8 +5,8 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -21,9 +21,9 @@ import java.util.List;
  * @since 2020/12/1 14:34
  */
 @Data
+@SuperBuilder
 @Accessors(chain = true)
-@EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "InQuery", description = "IN查询参数")
 public class InQuery extends Negation implements Serializable {
     private static final long serialVersionUID = 1L;

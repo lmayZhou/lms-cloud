@@ -1,8 +1,9 @@
 package com.lmaye.cloud.starter.mybatis.utils;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.lmaye.cloud.starter.web.validator.SafeValidator;
+import com.lmaye.cloud.core.utils.CoreUtils;
 import com.lmaye.cloud.starter.web.query.*;
+import com.lmaye.cloud.starter.web.validator.SafeValidator;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -90,11 +91,12 @@ public class MyBatisUtils {
                     if (value instanceof String) {
                         value = SafeValidator.getSafeStr(value.toString());
                     }
+                    final String field = CoreUtils.humpToUnderline(it.getField());
                     if (it.isNegation()) {
-                        queryWrapper.lt(it.getField(), value);
-                        queryWrapper.gt(it.getField(), value);
+                        queryWrapper.lt(field, value);
+                        queryWrapper.gt(field, value);
                     } else {
-                        queryWrapper.eq(it.getField(), value);
+                        queryWrapper.eq(field, value);
                     }
                 }
             });
@@ -109,17 +111,18 @@ public class MyBatisUtils {
      * @param <T>          泛型
      */
     private static <T> void convertMatchQuery(QueryWrapper<T> queryWrapper, List<MatchQuery> matchQueries) {
-        if(!CollectionUtils.isEmpty(matchQueries)) {
+        if (!CollectionUtils.isEmpty(matchQueries)) {
             matchQueries.forEach(it -> {
                 Object value = it.getValue();
-                if(!Objects.isNull(value)) {
-                    if(value instanceof String) {
+                if (!Objects.isNull(value)) {
+                    if (value instanceof String) {
                         value = SafeValidator.getSafeStr(value.toString());
                     }
-                    if(it.isNegation()) {
-                        queryWrapper.notLike(it.getField(), value);
+                    final String field = CoreUtils.humpToUnderline(it.getField());
+                    if (it.isNegation()) {
+                        queryWrapper.notLike(field, value);
                     } else {
-                        queryWrapper.like(it.getField(), value);
+                        queryWrapper.like(field, value);
                     }
                 }
             });
@@ -134,29 +137,31 @@ public class MyBatisUtils {
      * @param <T>          泛型
      */
     private static <T> void convertRangeQuery(QueryWrapper<T> queryWrapper, List<RangeQuery> rangeQueries) {
-        if(!CollectionUtils.isEmpty(rangeQueries)) {
+        if (!CollectionUtils.isEmpty(rangeQueries)) {
             rangeQueries.forEach(it -> {
                 Object le = it.getLe();
-                if(!Objects.isNull(le)) {
-                    if(le instanceof String) {
+                if (!Objects.isNull(le)) {
+                    if (le instanceof String) {
                         le = SafeValidator.getSafeStr(le.toString());
                     }
-                    if(it.isNegation()) {
-                        queryWrapper.gt(it.getField(), le);
+                    final String field = CoreUtils.humpToUnderline(it.getField());
+                    if (it.isNegation()) {
+                        queryWrapper.gt(field, le);
                     } else {
-                        queryWrapper.le(it.getField(), le);
+                        queryWrapper.le(field, le);
                     }
                 }
 
                 Object ge = it.getGe();
-                if(!Objects.isNull(ge)) {
-                    if(ge instanceof String) {
+                if (!Objects.isNull(ge)) {
+                    if (ge instanceof String) {
                         ge = SafeValidator.getSafeStr(ge.toString());
                     }
-                    if(it.isNegation()) {
-                        queryWrapper.lt(it.getField(), ge);
+                    final String field = CoreUtils.humpToUnderline(it.getField());
+                    if (it.isNegation()) {
+                        queryWrapper.lt(field, ge);
                     } else {
-                        queryWrapper.ge(it.getField(), ge);
+                        queryWrapper.ge(field, ge);
                     }
                 }
             });
@@ -184,10 +189,11 @@ public class MyBatisUtils {
                             valueList.add(it2);
                         }
                     });
+                    final String field = CoreUtils.humpToUnderline(it.getField());
                     if (it.isNegation()) {
-                        queryWrapper.notIn(it.getField(), valueList);
+                        queryWrapper.notIn(field, valueList);
                     } else {
-                        queryWrapper.in(it.getField(), valueList);
+                        queryWrapper.in(field, valueList);
                     }
                 }
             });

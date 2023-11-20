@@ -35,6 +35,7 @@
 │   │   ├── lms-cloud-starter-minio					MinIO 对象存储服务
 │   │   ├── lms-cloud-starter-mybatis				MyBatis Puls MyBatis增强工具
 │   │   ├── lms-cloud-starter-oauth2-resource		OAuth2 Resource Server 权限资源服务
+│   │   ├── lms-cloud-starter-oss		            OSS文件存储服务
 │   │   ├── lms-cloud-starter-rabbitmq				RabbitMQ 消息服务
 │   │   ├── lms-cloud-starter-redis				    Redis 缓存
 │   │   ├── lms-cloud-starter-serial-no				分布式业务序列号
@@ -51,10 +52,11 @@
 
 ```xml
 <!-- 项目引用 parent 工程 -->
+<!-- https://mvnrepository.com/artifact/com.lmaye/lms-cloud -->
 <parent>
     <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud</artifactId>
-    <version>1.2.23</version>
+    <version>1.2.25</version>
     <relativePath/>
 </parent>
 ```
@@ -63,9 +65,10 @@
 
 ```groovy
 // 项目引用 Parent 工程
+// https://mvnrepository.com/artifact/com.lmaye/lms-cloud
 dependencyManagement {
     imports {
-        mavenBom 'com.lmaye:lms-cloud:1.2.23'
+        mavenBom 'com.lmaye:lms-cloud:1.2.25'
     }
 }
 ```
@@ -144,12 +147,19 @@ chore       构建过程或辅助工具的变动
 #### 版本说明
 
 后续每次迭代一个版本，版本号需 +1及说明新增/修复/调整了些什么功能；
-目前服务已新增test/dev分支，合并步骤顺序: 当前版本(V1.0.1) -> dev -> test -> master
+目前服务已新增test/dev分支，合并步骤顺序: 当前版本(V1.2.25) -> dev -> test -> master
 
-##### V1.1.4
+##### V1.2.24
 
-- 新增 lms-cloud-starter-serial-no[分布式业务序列号]
-- 新增 lms-cloud-plus[服务插件] TODO
+- 优化实体注解参数
+- 优化mybatis工具类，字段名转换
+- 新增核心工具类方法
+
+##### V1.2.23
+
+- 新增 lms-cloud-starter-mybatis 字段数据 加密/解密/脱敏(注解: @FieldEnDecrypt/@RetentionPolicy)
+- 加密算法支持: AES, DES, SM4, SM2, RSA
+- 脱敏类型支持: ALL, Name, EMAIL, MOBILE, ID_CARD, PASSWORD, BANK_CARD
 
 #### 参与贡献
 
