@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
@@ -23,6 +24,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @SuperBuilder
+@NoArgsConstructor
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
 public class BaseEntity implements Serializable {
