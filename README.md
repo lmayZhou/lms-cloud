@@ -1,4 +1,4 @@
-[![Maven Central](https://img.shields.io/maven-central/v/groupId/artifactId.svg)](https://search.maven.org/artifact/com.lmaye/lms-cloud)
+[![Maven Central](https://img.shields.io/maven-central/v/com.lmaye/lms-cloud)](https://search.maven.org/artifact/com.lmaye/lms-cloud)
 
 # lms-cloud
 
