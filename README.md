@@ -1,6 +1,6 @@
-[![Maven Central](https://img.shields.io/maven-central/v/com.lmaye/lms-cloud)](https://search.maven.org/artifact/com.lmaye/lms-cloud)
+# lms-cloud [![Maven Central](https://img.shields.io/maven-central/v/com.lmaye/lms-cloud)](https://search.maven.org/artifact/com.lmaye/lms-cloud)
 
-# lms-cloud
+[![lmay/lms-cloud](https://gitee.com/lmay/lms-cloud/widgets/widget_card.svg?colors=4183c4,ffffff,ffffff,e3e9ed,666666,9b9b9b)](https://gitee.com/lmay/lms-cloud)
 
 #### 介绍
 
