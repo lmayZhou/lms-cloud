@@ -1,9 +1,7 @@
 package com.lmaye.cloud.starter.mybatis.entity;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -25,6 +23,7 @@ import java.time.LocalDateTime;
 @Data
 @SuperBuilder
 @NoArgsConstructor
+@AllArgsConstructor
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
 public class BaseEntity implements Serializable {
@@ -39,6 +38,7 @@ public class BaseEntity implements Serializable {
     /**
      * 是否删除: 0. 否; 1. 是;
      */
+    @TableLogic
     @TableField(value = "is_deleted", fill = FieldFill.INSERT)
     private Boolean deleted;
 

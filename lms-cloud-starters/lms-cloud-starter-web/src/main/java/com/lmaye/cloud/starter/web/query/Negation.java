@@ -3,8 +3,10 @@ package com.lmaye.cloud.starter.web.query;
 import com.lmaye.cloud.core.constants.YesOrNo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.validator.constraints.Range;
@@ -21,6 +23,8 @@ import java.util.Objects;
  */
 @Data
 @SuperBuilder
+@NoArgsConstructor
+@AllArgsConstructor
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "Negation", description = "是否否定")

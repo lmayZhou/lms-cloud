@@ -1,3 +1,5 @@
+[![Maven Central](https://img.shields.io/maven-central/v/com.lmaye/lms-cloud)](https://search.maven.org/artifact/com.lmaye/lms-cloud)
+
 # lms-cloud
 
 #### 介绍
@@ -56,7 +58,7 @@
 <parent>
     <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud</artifactId>
-    <version>1.2.25</version>
+    <version>1.2.28</version>
     <relativePath/>
 </parent>
 ```
@@ -68,7 +70,7 @@
 // https://mvnrepository.com/artifact/com.lmaye/lms-cloud
 dependencyManagement {
     imports {
-        mavenBom 'com.lmaye:lms-cloud:1.2.25'
+        mavenBom 'com.lmaye:lms-cloud:1.2.28'
     }
 }
 ```
@@ -147,7 +149,11 @@ chore       构建过程或辅助工具的变动
 #### 版本说明
 
 后续每次迭代一个版本，版本号需 +1及说明新增/修复/调整了些什么功能；
-目前服务已新增test/dev分支，合并步骤顺序: 当前版本(V1.2.25) -> dev -> test -> master
+目前服务已新增test/dev分支，合并步骤顺序: 当前版本(V1.2.28) -> dev -> test -> master
+
+##### V1.2.25
+
+- 修复bug
 
 ##### V1.2.24
 

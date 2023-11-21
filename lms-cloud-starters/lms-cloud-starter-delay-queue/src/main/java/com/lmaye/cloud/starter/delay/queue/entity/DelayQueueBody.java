@@ -1,7 +1,7 @@
 package com.lmaye.cloud.starter.delay.queue.entity;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 
@@ -15,6 +15,10 @@ import java.io.Serializable;
  */
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Accessors(chain = true)
+@EqualsAndHashCode(callSuper = false)
 public class DelayQueueBody implements Serializable {
     private final static long serialVersionUID = 1L;
 
