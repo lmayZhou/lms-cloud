@@ -67,15 +67,22 @@ public class I18nMessageAdvice implements ResponseBodyAdvice<Object> {
             try {
                 HttpServletRequest servletRequest = ((ServletServerHttpRequest) request).getServletRequest();
                 WebProperties.I18n i18n = webProperties.getI18n();
-                String localeName = servletRequest.getParameter(i18n.getLocaleName());
+                String language = servletRequest.getParameter(i18n.getLocaleName());
                 Locale locale;
-                if (StringUtils.isNotBlank(localeName)) {
+                if (StringUtils.isNotBlank(language)) {
                     // 自定义请求路径参数( ?locale=en-US )
-                    String[] split = localeName.split(i18n.getLocaleDelimiter());
+                    String[] split = language.split(i18n.getLocaleDelimiter());
                     locale = split.length == 2 ? new Locale(split[0], split[1]) : Locale.SIMPLIFIED_CHINESE;
                 } else {
-                    // 请求头参数( Accept-Language : en-US )
-                    locale = LocaleContextHolder.getLocale();
+                    // 自定义请求头参数( locale=en-US )
+                    language = servletRequest.getHeader(i18n.getLocaleName());
+                    if (StringUtils.isNotBlank(language)) {
+                        String[] split = language.split(i18n.getLocaleDelimiter());
+                        locale = split.length == 2 ? new Locale(split[0], split[1]) : Locale.SIMPLIFIED_CHINESE;
+                    } else {
+                        // 请求头参数( Accept-Language : en-US )
+                        locale = LocaleContextHolder.getLocale();
+                    }
                 }
                 rs.setMsg(messageSource.getMessage(rs.getMsg(), null, locale));
             } catch (Exception e) {
