@@ -249,9 +249,9 @@ public class ElasticSearchServiceImpl<R extends IElasticSearchRepository<T, ID>,
                 });
             }
             // 分页(ES默认10条)
-            Long pageIndex = query.getPageIndex();
-            Long pageSize = query.getPageSize();
-            searchQuery.setPageable(PageRequest.of(pageIndex.intValue() - 1, pageSize.intValue()));
+            Integer pageIndex = query.getPageIndex();
+            Integer pageSize = query.getPageSize();
+            searchQuery.setPageable(PageRequest.of(pageIndex - 1, pageSize));
             SearchHits<T> searchHits;
             Document doc = clazz.getAnnotation(Document.class);
             log.info(">>> searchQuery <<< {}", searchQuery.getQuery());
@@ -260,10 +260,10 @@ public class ElasticSearchServiceImpl<R extends IElasticSearchRepository<T, ID>,
             } else {
                 searchHits = elasticsearchOperations.search(searchQuery, clazz);
             }
-            long total = searchHits.getTotalHits();
-            long pages = (long) Math.ceil((float) total / pageSize);
+            int total = (int) searchHits.getTotalHits();
+            int pages = (int) Math.ceil((float) total / pageSize);
             return new PageResult<T>().setPageIndex(pageIndex).setPageSize(pageSize)
-                    .setPages(Objects.equals(0L, pages) ? 1 : pages)
+                    .setPages(Objects.equals(0, pages) ? 1 : pages)
                     .setTotal(total).setRecords(searchHits.stream().map(SearchHit::getContent).collect(Collectors.toList()));
         } catch (Exception e) {
             throw new ServiceException(ResultCode.FAILURE, e);

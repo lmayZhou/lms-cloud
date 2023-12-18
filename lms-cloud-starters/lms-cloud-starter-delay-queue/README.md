@@ -39,7 +39,7 @@ Spring Cloud Alibaba    2.2.2.RELEASE
 1. Gradle 方式
 
 ```groovy
-implementation 'com.lmaye:lms-cloud-starter-delay-queue:1.2.28'
+implementation 'com.lmaye:lms-cloud-starter-delay-queue:1.2.29'
 ```
 
 2. Maven 方式
@@ -48,7 +48,7 @@ implementation 'com.lmaye:lms-cloud-starter-delay-queue:1.2.28'
 <dependency>
     <groupId>com.lmaye</groupId>
     <artifactId>lms-cloud-starter-delay-queue</artifactId>
-    <version>1.2.28</version>
+    <version>1.2.29</version>
 </dependency>
 ```
 
@@ -256,4 +256,4 @@ Maven: mvn clean deploy
 #### 版本说明
 
 后续每次迭代一个版本，版本号需 +1及说明新增/修复/调整了些什么功能；
-目前服务已新增test/dev分支，合并步骤顺序: 当前版本(V1.2.28) -> dev -> test -> master
+目前服务已新增test/dev分支，合并步骤顺序: 当前版本(V1.2.29) -> dev -> test -> master

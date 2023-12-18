@@ -203,10 +203,10 @@ public final class ElasticSearchUtil {
         }
         searchSourceBuilder.query(ElasticSearchUtil.convert(query.getQuery()));
         // 分页
-        Long pageIndex = query.getPageIndex() - 1;
-        Long pageSize = query.getPageSize();
-        searchSourceBuilder.from(pageIndex.intValue() * pageSize.intValue());
-        searchSourceBuilder.size(pageSize.intValue());
+        Integer pageIndex = query.getPageIndex() - 1;
+        Integer pageSize = query.getPageSize();
+        searchSourceBuilder.from(pageIndex * pageSize);
+        searchSourceBuilder.size(pageSize);
         Document doc = clazz.getAnnotation(Document.class);
         if (!Objects.isNull(doc) && StringUtils.isNotBlank(doc.indexName())) {
             // 索引名称
@@ -216,8 +216,8 @@ public final class ElasticSearchUtil {
         SearchResponse searchRs = client.search(searchRequest, RequestOptions.DEFAULT);
         SearchHits searchHits = searchRs.getHits();
         SearchHit[] hits = searchHits.getHits();
-        long total = searchHits.getTotalHits().value;
-        long pages = (long) Math.ceil((float) total / pageSize);
+        int total = (int) searchHits.getTotalHits().value;
+        int pages = (int) Math.ceil((float) total / pageSize);
         return new PageResult<T>().setPageIndex(pageIndex).setPageSize(pageSize)
                 .setPages(Objects.equals(0L, pages) ? 1 : pages)
                 .setTotal(total).setRecords(Arrays.stream(hits).map(it ->
@@ -250,14 +250,14 @@ public final class ElasticSearchUtil {
             });
         }
         searchSourceBuilder.query(ElasticSearchUtil.convert(query.getQuery()));
-        Long pageIndex = query.getPageIndex();
-        Long pageSize = query.getPageSize();
+        Integer pageIndex = query.getPageIndex();
+        Integer pageSize = query.getPageSize();
         // 深度查询ScrollId
         String scrollId = query.getScrollId();
         if (StringUtils.isBlank(scrollId)) {
             // 分页信息(第一次查询分页处理)
             searchSourceBuilder.from(0);
-            searchSourceBuilder.size(pageSize.intValue());
+            searchSourceBuilder.size(pageSize);
             Document doc = clazz.getAnnotation(Document.class);
             if (!Objects.isNull(doc) && StringUtils.isNotBlank(doc.indexName())) {
                 // 索引名称
@@ -269,13 +269,13 @@ public final class ElasticSearchUtil {
             SearchHits searchHits = searchRs.getHits();
             SearchHit[] hits = searchHits.getHits();
             if (ArrayUtils.isEmpty(hits)) {
-                return new PageResult<T>().setPageIndex(pageIndex).setPageSize(pageSize).setPages(1L).setTotal(0L)
+                return new PageResult<T>().setPageIndex(pageIndex).setPageSize(pageSize).setPages(1).setTotal(0)
                         .setRecords(new ArrayList<>());
             }
-            long total = searchHits.getTotalHits().value;
-            long pages = (long) Math.ceil((float) total / pageSize);
+            int total = (int) searchHits.getTotalHits().value;
+            int pages = (int) Math.ceil((float) total / pageSize);
             return new PageResult<T>().setPageIndex(pageIndex).setPageSize(pageSize)
-                    .setPages(Objects.equals(0L, pages) ? 1 : pages)
+                    .setPages(Objects.equals(0, pages) ? 1 : pages)
                     .setTotal(total).setRecords(Arrays.stream(hits).map(it -> {
                         Map<String, Object> map = it.getSourceAsMap();
                         map.put("scrollId", searchRs.getScrollId());
@@ -289,11 +289,11 @@ public final class ElasticSearchUtil {
         SearchHits searchHits = searchRs.getHits();
         SearchHit[] hits = searchHits.getHits();
         if (ArrayUtils.isEmpty(hits)) {
-            return new PageResult<T>().setPageIndex(pageIndex).setPageSize(pageSize).setPages(1L).setTotal(0L)
+            return new PageResult<T>().setPageIndex(pageIndex).setPageSize(pageSize).setPages(1).setTotal(0)
                     .setRecords(new ArrayList<>());
         }
-        long total = searchHits.getTotalHits().value;
-        long pages = (long) Math.ceil((float) total / pageSize);
+        int total = (int) searchHits.getTotalHits().value;
+        int pages = (int) Math.ceil((float) total / pageSize);
         return new PageResult<T>().setPageIndex(pageIndex).setPageSize(pageSize)
                 .setPages(Objects.equals(0L, pages) ? 1 : pages)
                 .setTotal(total).setRecords(Arrays.stream(hits).map(it -> {

@@ -39,14 +39,14 @@ public class PageQuery implements Serializable {
      */
     @Min(1)
     @ApiModelProperty(value = "当前页码(默认: 1)", example = "1")
-    private Long pageIndex = 1L;
+    private Integer pageIndex = 1;
 
     /**
      * 每页显示页数(默认: 10)
      */
     @Range(min = 1, max = 10000)
     @ApiModelProperty(value = "每页显示页数(默认: 10)", example = "10")
-    private Long pageSize = 10L;
+    private Integer pageSize = 10;
 
     /**
      * 排序

@@ -142,8 +142,8 @@ public class MyBatisServiceImpl<M extends IMyBatisRepository<T>, T, ID extends S
                 QueryWrapper<T> queryWrapper = getQueryWrapper(query.getQuery(), query.getSort());
                 page = super.page(new Page<>(query.getPageIndex(), query.getPageSize()), queryWrapper);
             }
-            return new PageResult<T>().setPageIndex(page.getCurrent()).setPageSize(page.getSize())
-                    .setPages(page.getPages()).setTotal(page.getTotal()).setRecords(page.getRecords());
+            return new PageResult<T>().setPageIndex((int) page.getCurrent()).setPageSize((int) page.getSize())
+                    .setPages((int) page.getPages()).setTotal((int) page.getTotal()).setRecords(page.getRecords());
         } catch (Exception e) {
             throw new ServiceException(ResultCode.FAILURE, e);
         }

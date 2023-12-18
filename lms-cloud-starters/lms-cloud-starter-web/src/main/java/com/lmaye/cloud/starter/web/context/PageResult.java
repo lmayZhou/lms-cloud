@@ -31,25 +31,25 @@ public class PageResult<T> implements Serializable {
      * 当前页码
      */
     @ApiModelProperty("当前页码")
-    private Long pageIndex;
+    private Integer pageIndex;
 
     /**
      * 每页显示页数
      */
     @ApiModelProperty("每页显示页数")
-    private Long pageSize;
+    private Integer pageSize;
 
     /**
      * 总条数
      */
     @ApiModelProperty("总条数")
-    private Long total;
+    private Integer total;
 
     /**
      * 总页数
      */
     @ApiModelProperty("总页数")
-    private Long pages;
+    private Integer pages;
 
     /**
      * 数据列表
